@@ -11,7 +11,7 @@ namespace manahil.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int DesignationId { get; set; }
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }

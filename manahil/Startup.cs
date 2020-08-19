@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using manahil.Models;
+using Newtonsoft.Json.Serialization;
+
 
 namespace manahil
 {
@@ -42,7 +44,12 @@ namespace manahil
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            
+
+            // keeps the casing to that of the model when serializing to json (default is converting to camelCase)
+            services.AddMvc()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

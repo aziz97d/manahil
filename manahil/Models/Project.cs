@@ -12,27 +12,29 @@ namespace manahil.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ProjectId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         [ForeignKey("DonorId")]
         public int DonorId { get; set; }
+        public virtual Donor Donor { get; set; }
         [MaxLength(200)]
         public string DonorSerial { get; set; }
         [MaxLength(100)]
         public DateTime GetDate { get; set; }
-        [ForeignKey("FieldWorkerId")]
-        public string FieldWorkerId { get; set; }
+        [ForeignKey("ContractorId")]
+        public string ContractorId { get; set; }
         [MaxLength(100)]
         public DateTime DistributionDate { get; set; }
         [ForeignKey("EmployeeId")]
         public int EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
         public bool PaymentStatus { get; set; }
 
 
-        public virtual Donor Donor { get; set; }
-        public virtual FieldWorker FieldWorker { get; set; }
-        public virtual Employee Employee { get; set; }
+        
+        
+        
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace manahil.Models
 {
-    public class FieldWorker
+    public class Contractor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ContractorId { get; set; }
         [Required]
         [MaxLength(500)]
         public string Name { get; set; }

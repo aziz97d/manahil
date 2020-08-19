@@ -11,15 +11,18 @@ namespace manahil.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int CityId { get; set; }
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
-        [ForeignKey("CountryId")]
+
+        
         [Display(Name = "Country")]
         public int CountryId { get; set; }
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
 
         public ICollection<Thana> Thanas { get; set; }
-        public virtual Country Country { get; set; }
+       
     }
 }

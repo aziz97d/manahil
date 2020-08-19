@@ -19,9 +19,11 @@ namespace manahil.Models
         public DbSet<Designation> Designations { get; set; }
         public DbSet<Donor> Donors { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<FieldWorker> FieldWorkers { get; set; }
-        //public DbSet<Payment> Payments { get; set; }
+        public DbSet<Contractor> FieldWorkers { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Thana> Thanas { get; set; }
+
+        public DbSet<Cat_Department> Cat_Department { get; set; }
     }
 }

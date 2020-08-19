@@ -1,4 +1,4 @@
-﻿@model IEnumerable<manahil.Models.Country>
+﻿@model IEnumerable<manahil.Models.City>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -26,9 +29,12 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.Country.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CityId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CityId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CityId">Delete</a>
             </td>
         </tr>
 }
