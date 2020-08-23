@@ -130,8 +130,8 @@
                 contentType: 'application/json;',
                 dataType: 'json',
                 success: function (result) {
-                if (result.Success == "1") {
-                    //customFile('3', result.ex);
+                    if (result.Success == "1") {
+                        toastr.success(result.ex);
                     window.setTimeout(function () {
                         // Move to a new location or you can do something else
                         window.location.href = '@Url.Action("Index", "Department")';

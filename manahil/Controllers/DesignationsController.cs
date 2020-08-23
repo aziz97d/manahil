@@ -9,46 +9,58 @@ using manahil.Models;
 
 namespace manahil.Controllers
 {
-    public class CitiesController : Controller
+    public class DesignationsController : Controller
     {
         private readonly DatabaseContext db;
 
-        public CitiesController(DatabaseContext context)
+        public DesignationsController(DatabaseContext context)
         {
             db = context;
         }
 
-        // GET: Cities
+        // GET: Designations
         public async Task<IActionResult> Index()
         {
-             
-            return View(await db.Cities.Include(c => c.Country).ToListAsync());
+            return View(await db.Designations.ToListAsync());
         }
 
-        // GET: Cities/Details/5
-     
+        // GET: Designations/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // GET: Cities/Create
+            var designation = await db.Designations
+                .FirstOrDefaultAsync(m => m.DesignationId == id);
+            if (designation == null)
+            {
+                return NotFound();
+            }
+
+            return View(designation);
+        }
+
+        // GET: Designations/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name");
             ViewBag.Title = "Create";
             return View();
         }
 
-        // POST: Cities/Create
+        // POST: Designations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("CityId,Name,CountryId")]*/ City city)
+        public async Task<IActionResult> Create(/*[Bind("DesignationId,Name")]*/ Designation designation)
         {
-
             if (ModelState.IsValid)
             {
-                if(city.CityId>0)
+                if (designation.DesignationId > 0)
                 {
-                    db.Update(city);
+                    db.Update(designation);
                     await db.SaveChangesAsync();
                     TempData["Message"] = "Data Update Successfully";
                     TempData["Status"] = "2";
@@ -57,17 +69,15 @@ namespace manahil.Controllers
                 {
                     try
                     {
-                        db.Add(city);
+                        db.Update(designation);
                         await db.SaveChangesAsync();
 
                         TempData["Message"] = "Data Added Successfully";
                         TempData["Status"] = "1";
-                        //ViewBag.Message = "Data Added Successfully";
-                        //ViewBag.Status = "1";
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!CityExists(city.CityId))
+                        if (!DesignationExists(designation.DesignationId))
                         {
                             return NotFound();
                         }
@@ -76,16 +86,15 @@ namespace manahil.Controllers
                             throw;
                         }
                     }
-                   
+
                 }
-                
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View(city);
+            return View(designation);
         }
 
-        // GET: Cities/Edit/5
+        // GET: Designations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,23 +102,22 @@ namespace manahil.Controllers
                 return NotFound();
             }
             ViewBag.Title = "Edit";
-            var city = await db.Cities.FindAsync(id);
-            if (city == null)
+            var designation = await db.Designations.FindAsync(id);
+            if (designation == null)
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View("Create",city);
+            return View("Create",designation);
         }
 
-        // POST: Cities/Edit/5
+        // POST: Designations/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("CityId,Name,CountryId")] City city)
+        //public async Task<IActionResult> Edit(int id, [Bind("DesignationId,Name")] Designation designation)
         //{
-        //    if (id != city.CityId)
+        //    if (id != designation.DesignationId)
         //    {
         //        return NotFound();
         //    }
@@ -118,12 +126,12 @@ namespace manahil.Controllers
         //    {
         //        try
         //        {
-        //            db.Update(city);
+        //            db.Update(designation);
         //            await db.SaveChangesAsync();
         //        }
         //        catch (DbUpdateConcurrencyException)
         //        {
-        //            if (!CityExists(city.CityId))
+        //            if (!DesignationExists(designation.DesignationId))
         //            {
         //                return NotFound();
         //            }
@@ -134,39 +142,36 @@ namespace manahil.Controllers
         //        }
         //        return RedirectToAction(nameof(Index));
         //    }
-        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-        //    return View(city);
+        //    return View(designation);
         //}
 
-        // GET: Cities/Delete/5
+        // GET: Designations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            
-            var city = await db.Cities
-                .Include(c => c.Country)
-                .FirstOrDefaultAsync(m => m.CityId == id);
-            if (city == null)
+
+            var designation = await db.Designations
+                .FirstOrDefaultAsync(m => m.DesignationId == id);
+            if (designation == null)
             {
                 return NotFound();
             }
             ViewBag.Title = "Delete";
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View("Create",city);
+            return View("Create", designation);
         }
 
-        // POST: Cities/Delete/5
+        // POST: Designations/Delete/5
         [HttpPost, ActionName("Delete")]
-      //  [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                var city = await db.Cities.FindAsync(id);
-                db.Cities.Remove(city);
+                var designation = await db.Designations.FindAsync(id);
+                db.Designations.Remove(designation);
                 db.SaveChanges();
 
                 TempData["Message"] = "Data Delete Successfully";
@@ -183,9 +188,9 @@ namespace manahil.Controllers
             }
         }
 
-        private bool CityExists(int id)
+        private bool DesignationExists(int id)
         {
-            return db.Cities.Any(e => e.CityId == id);
+            return db.Designations.Any(e => e.DesignationId == id);
         }
     }
 }

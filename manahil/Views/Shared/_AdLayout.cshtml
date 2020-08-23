@@ -9,7 +9,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>AdminLTE 3 | Dashboard 3</title>
-    <link href="~/js/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -29,7 +31,7 @@ to get the desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" >
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -63,10 +65,10 @@ to get the desired effect
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <a class="brand-link" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/images.png" alt="AMWFB Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Al Manahil</span>
             </a>
 
             <!-- Sidebar -->
@@ -74,10 +76,10 @@ to get the desired effect
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="" class="img-circle elevation-2" alt="User Image">
+                        <img src="https://f0.pngfuel.com/png/980/304/man-profile-illustration-computer-icons-user-profile-avatar-png-clip-art-thumbnail.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">Name</a>
                     </div>
                 </div>
 
@@ -108,22 +110,41 @@ to get the desired effect
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Layout Options
+                                    Common
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav.html" class="nav-link">
+                                    <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Top Navigation</p>
+                                        <p>Country</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                    <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Top Navigation + Sidebar</p>
+                                        <p>City</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Thanas" asp-action="Index">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Thana</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Designations" asp-action="Index">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Designation</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Department" asp-action="Index">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Cat Department</p>
                                     </a>
                                 </li>
                             </ul>
@@ -325,7 +346,7 @@ to get the desired effect
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard v3</h1>
+                            <h1 class="m-0 text-dark">Dashboard</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -360,10 +381,10 @@ to get the desired effect
         <!-- /.control-sidebar -->
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
+            <strong>Copyright &copy; 2020 <a href="http:">Abdul Aziz</a>.</strong>
+
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.0.4
+                <b>Version</b> 1.0.0
             </div>
         </footer>
     </div>
@@ -375,7 +396,32 @@ to get the desired effect
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="~/js/adminlte.js"></script>
-    <script src="~/js/toastr.js/toastr.min.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+    <script>
+
+        //Toaster Code Start
+
+
+            var status = @Html.Raw(Json.Serialize(TempData["Status"]));
+            var message = @Html.Raw(Json.Serialize(TempData["Message"]));
+            if (status != null) {
+                if (status == "1") {
+                    toastr.success(message);
+                }
+                else if (status == "2") {
+                    toastr.info(message);
+                }
+                else if (status == "3") {
+                    toastr.error(message);
+                }
+                
+            }
+        //Toaster Code End
+
+        
+    </script>
     @RenderSection("Scripts", required: false)
 
 </body>

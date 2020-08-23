@@ -1,11 +1,10 @@
-﻿@model IEnumerable<manahil.Models.City>
+﻿@model IEnumerable<manahil.Models.Thana>
 
 @{
-    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>Country List</h1>
+<h1>Thana List</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
@@ -18,7 +17,7 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Country)
+                    @Html.DisplayNameFor(model => model.City)
                 </th>
                 <th></th>
             </tr>
@@ -31,14 +30,14 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Country.Name)
+                        @Html.DisplayFor(modelItem => item.City.Name)
                     </td>
                     <td class="text-nowrap">
                         <span data-toggle="tooltip" title="Edit!">
-                            @Html.ActionLink(" ", "Edit", new { id = item.CityId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                            @Html.ActionLink(" ", "Edit", new { id = item.ThanaId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
                         </span>
                         <span data-toggle="tooltip" title="Delete!">
-                            @Html.ActionLink(" ", "Delete", new { Id = item.CityId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                            @Html.ActionLink(" ", "Delete", new { Id = item.ThanaId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
                         </span>
                     </td>
                 </tr>

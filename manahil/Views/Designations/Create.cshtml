@@ -1,4 +1,4 @@
-﻿@model manahil.Models.City
+﻿@model manahil.Models.Designation
 
 @{
     Layout = "~/Views/Shared/_AdLayout.cshtml";
@@ -6,22 +6,19 @@
 
 <h1>@ViewBag.Title</h1>
 
-<h4>City</h4>
+<h4>Designation</h4>
 <hr />
-
-@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{*@
-    <div class="row">
-        <div class="col-md-4">
-             <form asp-action="Create">
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
 
             @if (Model != null)
             {
-                <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+                <input type="hidden" asp-for="DesignationId" value="@Model.DesignationId" />
             }
             else
             {
-                <input type="hidden" asp-for="CityId" value="0" />
+                <input type="hidden" asp-for="DesignationId" value="0" />
             }
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,13 +26,6 @@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId">
-                    <option value="">-Select Country-</option>
-                </select>
-                <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @if (ViewBag.Title == "Create")
@@ -52,38 +42,32 @@
                 }
                 else if (ViewBag.Title == "Delete")
                 {
-                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="City_delete()">Delete</button>
+                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="Designation_delete()">Delete</button>
                 }
                 @*<input type="submit" value="Create" class="btn btn-primary" />*@
             </div>
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
             </div>
-             </form>
-        </div>
+        </form>
     </div>
-
-    @*<div class="form-group col-md-4">
-        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
-    </div>*@
-
-@*}*@
+</div>
 
 
-@section Scripts{
+@section Scripts {
     <script>
 
     //$("#DeptId").select2();
 
-        function City_delete() {
+        function Designation_delete() {
 
-        var ctId = $("#CityId").val();
+        var desId = $("#DesignationId").val();
             //alert(SalesId);
             $.ajax({
 
-                url: '@Url.Action("Delete", "Cities")',
+                url: '@Url.Action("Delete", "Designations")',
                 //url: '@Url.Action("Delete")',
-                data: JSON.stringify({ id: ctId }), //use id here
+                data: JSON.stringify({ id: desId }), //use id here
                 //data: JSON.stringify(salesmain),
                 type: 'POST',
                 contentType: 'application/json;',
@@ -93,7 +77,7 @@
                         //toastr.success(result.ex);
                     window.setTimeout(function () {
                         // Move to a new location or you can do something else
-                        window.location.href = '@Url.Action("Index", "Cities")';
+                        window.location.href = '@Url.Action("Index", "Designations")';
                     }, 0);
                 }
                 else {
@@ -103,6 +87,5 @@
             });
     }
     </script>
-
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

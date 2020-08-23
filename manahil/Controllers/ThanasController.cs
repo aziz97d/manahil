@@ -9,11 +9,11 @@ using manahil.Models;
 
 namespace manahil.Controllers
 {
-    public class CitiesController : Controller
+    public class ThanasController : Controller
     {
         private readonly DatabaseContext db;
 
-        public CitiesController(DatabaseContext context)
+        public ThanasController(DatabaseContext context)
         {
             db = context;
         }
@@ -22,7 +22,7 @@ namespace manahil.Controllers
         public async Task<IActionResult> Index()
         {
              
-            return View(await db.Cities.Include(c => c.Country).ToListAsync());
+            return View(await db.Thanas.Include(c => c.City).ToListAsync());
         }
 
         // GET: Cities/Details/5
@@ -31,7 +31,7 @@ namespace manahil.Controllers
         // GET: Cities/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name");
+            ViewData["CityId"] = new SelectList(db.Cities, "CityId", "Name");
             ViewBag.Title = "Create";
             return View();
         }
@@ -41,14 +41,14 @@ namespace manahil.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("CityId,Name,CountryId")]*/ City city)
+        public async Task<IActionResult> Create(/*[Bind("thanaId,Name,CountryId")]*/ Thana thana)
         {
 
             if (ModelState.IsValid)
             {
-                if(city.CityId>0)
+                if(thana.ThanaId>0)
                 {
-                    db.Update(city);
+                    db.Update(thana);
                     await db.SaveChangesAsync();
                     TempData["Message"] = "Data Update Successfully";
                     TempData["Status"] = "2";
@@ -57,7 +57,7 @@ namespace manahil.Controllers
                 {
                     try
                     {
-                        db.Add(city);
+                        db.Add(thana);
                         await db.SaveChangesAsync();
 
                         TempData["Message"] = "Data Added Successfully";
@@ -67,7 +67,7 @@ namespace manahil.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!CityExists(city.CityId))
+                        if (!thanaExists(thana.ThanaId))
                         {
                             return NotFound();
                         }
@@ -81,8 +81,8 @@ namespace manahil.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View(city);
+            ViewData["CityId"] = new SelectList(db.Cities, "CityId", "Name", thana.CityId);
+            return View(thana);
         }
 
         // GET: Cities/Edit/5
@@ -93,13 +93,13 @@ namespace manahil.Controllers
                 return NotFound();
             }
             ViewBag.Title = "Edit";
-            var city = await db.Cities.FindAsync(id);
-            if (city == null)
+            var thana = await db.Thanas.FindAsync(id);
+            if (thana == null)
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View("Create",city);
+            ViewData["CityId"] = new SelectList(db.Cities, "CityId", "Name", thana.CityId);
+            return View("Create",thana);
         }
 
         // POST: Cities/Edit/5
@@ -107,9 +107,9 @@ namespace manahil.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("CityId,Name,CountryId")] City city)
+        //public async Task<IActionResult> Edit(int id, [Bind("thanaId,Name,CountryId")] thana thana)
         //{
-        //    if (id != city.CityId)
+        //    if (id != thana.thanaId)
         //    {
         //        return NotFound();
         //    }
@@ -118,12 +118,12 @@ namespace manahil.Controllers
         //    {
         //        try
         //        {
-        //            db.Update(city);
+        //            db.Update(thana);
         //            await db.SaveChangesAsync();
         //        }
         //        catch (DbUpdateConcurrencyException)
         //        {
-        //            if (!CityExists(city.CityId))
+        //            if (!thanaExists(thana.thanaId))
         //            {
         //                return NotFound();
         //            }
@@ -134,8 +134,8 @@ namespace manahil.Controllers
         //        }
         //        return RedirectToAction(nameof(Index));
         //    }
-        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-        //    return View(city);
+        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", thana.CountryId);
+        //    return View(thana);
         //}
 
         // GET: Cities/Delete/5
@@ -146,16 +146,16 @@ namespace manahil.Controllers
                 return NotFound();
             }
             
-            var city = await db.Cities
-                .Include(c => c.Country)
-                .FirstOrDefaultAsync(m => m.CityId == id);
-            if (city == null)
+            var thana = await db.Thanas
+                .Include(c => c.City)
+                .FirstOrDefaultAsync(m => m.ThanaId == id);
+            if (thana == null)
             {
                 return NotFound();
             }
             ViewBag.Title = "Delete";
-            ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-            return View("Create",city);
+            ViewData["CityId"] = new SelectList(db.Cities, "CityId", "Name", thana.CityId);
+            return View("Create",thana);
         }
 
         // POST: Cities/Delete/5
@@ -165,8 +165,8 @@ namespace manahil.Controllers
         {
             try
             {
-                var city = await db.Cities.FindAsync(id);
-                db.Cities.Remove(city);
+                var thana = await db.Thanas.FindAsync(id);
+                db.Thanas.Remove(thana);
                 db.SaveChanges();
 
                 TempData["Message"] = "Data Delete Successfully";
@@ -183,9 +183,9 @@ namespace manahil.Controllers
             }
         }
 
-        private bool CityExists(int id)
+        private bool thanaExists(int id)
         {
-            return db.Cities.Any(e => e.CityId == id);
+            return db.Thanas.Any(e => e.CityId == id);
         }
     }
 }

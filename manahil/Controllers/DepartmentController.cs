@@ -25,30 +25,10 @@ namespace manahil.Controllers
         // GET: Department
         public async Task<IActionResult> Index()
         {
-            TempData["Message"] = "Data Load Successfully";
-            TempData["Status"] = "1";
-            
 
             return View(await db.Cat_Department.ToListAsync());
         }
 
-        // GET: Department/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var department = await db.Cat_Department
-                .FirstOrDefaultAsync(m => m.DeptId == id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            return View(department);
-        }
 
         // GET: Department/Create
         public IActionResult Create()
@@ -144,7 +124,7 @@ namespace manahil.Controllers
                 db.SaveChanges();
 
                 TempData["Message"] = "Data Delete Successfully";
-                TempData["Status"] = "3";
+                //TempData["Status"] = "3";
                 
 
                 //TempData["Message"] = "Data Delete Successfully";

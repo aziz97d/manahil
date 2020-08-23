@@ -1,4 +1,4 @@
-﻿@model manahil.Models.City
+﻿@model manahil.Models.Country
 
 @{
     Layout = "~/Views/Shared/_AdLayout.cshtml";
@@ -6,7 +6,7 @@
 
 <h1>@ViewBag.Title</h1>
 
-<h4>City</h4>
+<h4>Country</h4>
 <hr />
 
 @*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -17,11 +17,11 @@
 
             @if (Model != null)
             {
-                <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+                <input type="hidden" asp-for="CountryId" value="@Model.CountryId" />
             }
             else
             {
-                <input type="hidden" asp-for="CityId" value="0" />
+                <input type="hidden" asp-for="CountryId" value="0" />
             }
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,13 +30,7 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId">
-                    <option value="">-Select Country-</option>
-                </select>
-                <span asp-validation-for="CountryId" class="text-danger"></span>
-            </div>
+          
             <div class="form-group">
                 @if (ViewBag.Title == "Create")
                 {
@@ -52,7 +46,7 @@
                 }
                 else if (ViewBag.Title == "Delete")
                 {
-                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="City_delete()">Delete</button>
+                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="Country_delete()">Delete</button>
                 }
                 @*<input type="submit" value="Create" class="btn btn-primary" />*@
             </div>
@@ -75,15 +69,15 @@
 
     //$("#DeptId").select2();
 
-        function City_delete() {
+        function Country_delete() {
 
-        var ctId = $("#CityId").val();
+        var ctnId = $("#CountryId").val();
             //alert(SalesId);
             $.ajax({
 
-                url: '@Url.Action("Delete", "Cities")',
+                url: '@Url.Action("Delete", "Countries")',
                 //url: '@Url.Action("Delete")',
-                data: JSON.stringify({ id: ctId }), //use id here
+                data: JSON.stringify({ id: ctnId }), //use id here
                 //data: JSON.stringify(salesmain),
                 type: 'POST',
                 contentType: 'application/json;',
@@ -93,7 +87,7 @@
                         //toastr.success(result.ex);
                     window.setTimeout(function () {
                         // Move to a new location or you can do something else
-                        window.location.href = '@Url.Action("Index", "Cities")';
+                        window.location.href = '@Url.Action("Index", "Countries")';
                     }, 0);
                 }
                 else {

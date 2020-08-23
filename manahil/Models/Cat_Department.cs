@@ -19,6 +19,7 @@ namespace manahil.Models
 
         [Display(Name = "Department Code")]
         //[StringLength()]
+        [Required]
         public string DeptCode { get; set; }
 
         [Display(Name = "Department Name")]

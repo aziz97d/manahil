@@ -49,6 +49,8 @@ namespace manahil
             services.AddMvc()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+            IMvcBuilder builder = services.AddRazorPages();
+            builder.AddRazorRuntimeCompilation();
 
         }
 

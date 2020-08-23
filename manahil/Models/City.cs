@@ -12,11 +12,11 @@ namespace manahil.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CityId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please Provide a Name")]
         [MaxLength(200)]
         public string Name { get; set; }
 
-        
+        [Required(ErrorMessage ="Please Select a Country")]
         [Display(Name = "Country")]
         public int CountryId { get; set; }
         [ForeignKey("CountryId")]

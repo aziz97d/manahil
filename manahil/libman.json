@@ -3,8 +3,16 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
+      "library": "datatable@2.0.1",
+      "destination": "wwwroot/lib/datatable/"
+    },
+    {
       "library": "toastr.js@2.1.4",
-      "destination": "wwwroot/js/toastr.js/"
+      "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/lib/datatables/"
     }
   ]
 }

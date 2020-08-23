@@ -1,4 +1,4 @@
-﻿@model IEnumerable<manahil.Models.City>
+﻿@model IEnumerable<manahil.Models.Country>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,9 +17,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Country)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -30,15 +27,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country.Name)
-                    </td>
                     <td class="text-nowrap">
                         <span data-toggle="tooltip" title="Edit!">
-                            @Html.ActionLink(" ", "Edit", new { id = item.CityId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                            @Html.ActionLink(" ", "Edit", new { id = item.CountryId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
                         </span>
                         <span data-toggle="tooltip" title="Delete!">
-                            @Html.ActionLink(" ", "Delete", new { Id = item.CityId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                            @Html.ActionLink(" ", "Delete", new { Id = item.CountryId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
                         </span>
                     </td>
                 </tr>
