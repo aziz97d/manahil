@@ -1,0 +1,101 @@
+﻿@model manahil.Models.Category
+
+@{
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h4>Category</h4>
+<hr />
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+    <div class="row">
+        <div class="col-md-4">
+             <form asp-action="Create">
+
+            @if (Model != null)
+            {
+                <input type="hidden" asp-for="CategoryId" value="@Model.CategoryId" />
+            }
+            else
+            {
+                <input type="hidden" asp-for="CategoryId" value="0" />
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                @if (ViewBag.Title == "Create")
+                {
+                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                    @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                }
+                else if (ViewBag.Title == "Edit")
+                {
+                    <input type="submit" value="Update" class="btn btn-warning btn-block" />
+
+                    @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                }
+                else if (ViewBag.Title == "Delete")
+                {
+                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="Category_delete()">Delete</button>
+                }
+                @*<input type="submit" value="Create" class="btn btn-primary" />*@
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+            </div>
+             </form>
+        </div>
+    </div>
+
+    @*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@section Scripts{
+    <script>
+
+
+        function Category_delete() {
+
+        var ctgryId = $("#CategoryId").val();
+            //alert(SalesId);
+            $.ajax({
+
+                url: '@Url.Action("Delete", "Categories")',
+                //url: '@Url.Action("Delete")',
+                data: JSON.stringify({ id: ctgryId }), //use id here
+                //data: JSON.stringify(salesmain),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("Index", "Categories")';
+                    }, 0);
+                }
+                else {
+                    toastr.error(result.ex);
+                }
+            }
+            });
+    }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

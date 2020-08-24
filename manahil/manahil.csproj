@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-manahil-814B827B-2744-47AD-944C-4429A90778DE</UserSecretsId>
+    <ApplicationIcon></ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,14 @@
     <Compile Remove="Migrations\20200818193621_FirstMigration.Designer.cs" />
     <Compile Remove="Migrations\20200818194027_FirstMigration.cs" />
     <Compile Remove="Migrations\20200818194027_FirstMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>

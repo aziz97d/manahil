@@ -1,0 +1,128 @@
+﻿@model manahil.Models.Donor
+
+@{
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h4>Donor</h4>
+<hr />
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+    <div class="row">
+        <div class="col-md-4">
+             <form asp-action="Create">
+
+            @if (Model != null)
+            {
+                <input type="hidden" asp-for="DonorId" value="@Model.DonorId" />
+            }
+            else
+            {
+                <input type="hidden" asp-for="DonorId" value="0" />
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OwnerName" class="control-label"></label>
+                <input asp-for="OwnerName" class="form-control" />
+                <span asp-validation-for="OwnerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contact" class="control-label"></label>
+                <input asp-for="Contact" class="form-control" />
+                <span asp-validation-for="Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId">
+                    <option value="">-Select Country-</option>
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (ViewBag.Title == "Create")
+                {
+                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                    @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                }
+                else if (ViewBag.Title == "Edit")
+                {
+                    <input type="submit" value="Update" class="btn btn-warning btn-block" />
+
+                    @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                }
+                else if (ViewBag.Title == "Delete")
+                {
+                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="Donor_delete()">Delete</button>
+                }
+                @*<input type="submit" value="Create" class="btn btn-primary" />*@
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+            </div>
+             </form>
+        </div>
+    </div>
+
+    @*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@section Scripts{
+    <script>
+
+    //$("#DeptId").select2();
+
+        function Donor_delete() {
+
+        var donrId = $("#DonorId").val();
+            //alert(SalesId);
+            $.ajax({
+
+                url: '@Url.Action("Delete", "Donors")',
+                //url: '@Url.Action("Delete")',
+                data: JSON.stringify({ id: donrId }), //use id here
+                //data: JSON.stringify(salesmain),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("Index", "Donors")';
+                    }, 0);
+                }
+                else {
+                    toastr.error(result.ex);
+                }
+            }
+            });
+    }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using manahil.Models;
 
 namespace manahil.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200824161036_categoryadd")]
+    partial class categoryadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +85,7 @@ namespace manahil.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("manahil.Models.City", b =>
@@ -269,36 +271,6 @@ namespace manahil.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("manahil.Models.ManageDrive", b =>
-                {
-                    b.Property<int>("ManageDriveId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DonorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DriveLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.HasKey("ManageDriveId");
-
-                    b.HasIndex("DonorId");
-
-                    b.ToTable("ManageDrives");
-                });
-
             modelBuilder.Entity("manahil.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -446,15 +418,6 @@ namespace manahil.Migrations
                     b.HasOne("manahil.Models.Thana", "Thana")
                         .WithMany()
                         .HasForeignKey("ThanaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("manahil.Models.ManageDrive", b =>
-                {
-                    b.HasOne("manahil.Models.Donor", "Donor")
-                        .WithMany("ManageDrives")
-                        .HasForeignKey("DonorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

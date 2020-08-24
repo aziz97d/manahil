@@ -29,6 +29,7 @@ namespace manahil.Models
 
         public virtual Country Country { get; set; }
 
+        public ICollection<ManageDrive> ManageDrives { get; set; }
         public ICollection<Project> Projects { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }

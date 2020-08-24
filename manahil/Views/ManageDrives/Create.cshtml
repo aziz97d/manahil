@@ -1,0 +1,119 @@
+﻿@model manahil.Models.ManageDrive
+
+@{
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h4>Manage Drive</h4>
+<hr />
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="ManageDriveId" value="@Model.ManageDriveId" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="ManageDriveId" value="0" />
+                }
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="DonorId" class="control-label"></label>
+                    <select asp-for="DonorId" class="form-control" asp-items="ViewBag.DonorId">
+                        <option value="">-Select Organization-</option>
+                    </select>
+                    <span asp-validation-for="DonorId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DriveLink" class="control-label"></label>
+                    <input asp-for="DriveLink" class="form-control" />
+                    <span asp-validation-for="DriveLink" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @if (ViewBag.Title == "Create")
+                    {
+                        <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                        @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                    }
+                    else if (ViewBag.Title == "Edit")
+                    {
+                        <input type="submit" value="Update" class="btn btn-warning btn-block" />
+
+                        @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                    }
+                    else if (ViewBag.Title == "Delete")
+                    {
+                        <button class="btn btn-danger btn-md btn-block" type="button" onclick="ManageDrive_delete()">Delete</button>
+                    }
+                    @*<input type="submit" value="Create" class="btn btn-primary" />*@
+                </div>
+                <div class="form-group">
+                    <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@section Scripts{
+    <script>
+
+    //$("#DeptId").select2();
+
+        function ManageDrive_delete() {
+
+        var mngDrvId = $("#ManageDriveId").val();
+            //alert(SalesId);
+            $.ajax({
+
+                url: '@Url.Action("Delete", "ManageDrives")',
+                //url: '@Url.Action("Delete")',
+                data: JSON.stringify({ id: mngDrvId }), //use id here
+                //data: JSON.stringify(salesmain),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("Index", "ManageDrives")';
+                    }, 0);
+                }
+                else {
+                    toastr.error(result.ex);
+                }
+            }
+            });
+    }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
