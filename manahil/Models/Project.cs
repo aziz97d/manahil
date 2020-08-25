@@ -13,6 +13,8 @@ namespace manahil.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
+        [Display(Name="Serial")]
+        public int ManahilSerial { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -23,6 +25,7 @@ namespace manahil.Models
         public virtual Donor Donor { get; set; }
 
         [MaxLength(200)]
+        [Display(Name="Org Serial")]
         public string DonorSerial { get; set; }
 
         [MaxLength(100)]

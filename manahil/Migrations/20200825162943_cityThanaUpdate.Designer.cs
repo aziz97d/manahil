@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using manahil.Models;
 
 namespace manahil.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200825162943_cityThanaUpdate")]
+    partial class cityThanaUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,7 +149,7 @@ namespace manahil.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Contractors");
+                    b.ToTable("FieldWorkers");
                 });
 
             modelBuilder.Entity("manahil.Models.Country", b =>
@@ -365,9 +367,6 @@ namespace manahil.Migrations
                     b.Property<DateTime>("GetDate")
                         .HasColumnType("datetime2")
                         .HasMaxLength(100);
-
-                    b.Property<int>("ManahilSerial")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

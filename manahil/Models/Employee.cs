@@ -28,12 +28,12 @@ namespace manahil.Models
         [ForeignKey("DesignationId")]
         public int DesignationId { get; set; }
         [ForeignKey("ThanaId")]
-        public int ThanaId { get; set; }
+        public int CityId { get; set; }
         public bool Status { get; set; }
 
 
         public virtual Designation Designation { get; set; }
-        public virtual Thana Thana { get; set; }
+        public virtual City City { get; set; }
 
         public ICollection<Project> Projects { get; set; }
     }

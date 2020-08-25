@@ -1,0 +1,180 @@
+﻿@model IEnumerable<manahil.Models.Contractor>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>Contractor List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrintEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrintEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.Name)
+                    </td>
+                    <td class="text-nowrap">
+                        <span data-toggle="tooltip" title="Edit!">
+                            @Html.ActionLink(" ", "Edit", new { id = item.ContractorId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                        </span>
+                        <span data-toggle="tooltip" title="Delete!">
+                            @Html.ActionLink(" ", "Delete", new { Id = item.ContractorId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tbllist').DataTable({
+                dom: '<"dom_wrapper fh-fixedHeader"flB>tip',
+                //"sDom": "<'row'<'col-sm-12'<'form-group'<f>>>>tr<'row'<'col-sm-12'<'pull-left'i><'pull-right'p><'clearfix'>>>",
+                //buttons: [
+                //    'copy', 'csv', 'excel', 'pdf'
+                //],
+                buttons: {
+                    dom: {
+                        button: {
+                            className: 'btn rounded-0'
+                        }
+                    },
+                    buttons: [
+                        //'copy', 'csv', 'excel', 'pdf'
+                        //$(this).addClass("btn-group dt-buttons justify-content-center mb-3")
+                        {
+                            extend: 'colvis',
+                            "columns": ':not(:last-child)',
+                            text: '<i class="mdi mdi-view-column"></i>',
+                            className: 'btn-info',
+                            titleAttr: 'Show / hide columns',
+                            //collectionLayout: 'fixed two-column'
+
+                        },
+                        {
+                            extend: 'copy',
+                            text: '<i class="mdi mdi-content-copy"></i>',
+                            className: 'btn-primary',
+                            titleAttr: 'Copy to Clipboard'
+                        },
+                        {
+                            extend: 'csv',
+                            text: '<i class="mdi mdi-note-outline"></i>',
+                            className: 'btn-secondary',
+                            titleAttr: 'Export to csv'
+
+                        },
+                        {
+                            extend: 'excel',
+                            text: '<i class="mdi mdi-file-excel"></i>',
+                            className: 'btn-success',
+                            titleAttr: 'Export to excel'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            text: '<i class="mdi mdi-file-pdf"></i>',
+                            className: 'btn-danger',
+                            titleAttr: 'Export to PDF',
+                            //exportOptions: {
+                            //    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                            //}
+
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="mdi mdi-printer"></i>',
+                            className: 'btn-info',
+                            titleAttr: 'Print Table'
+                        }
+
+                    ]
+                },
+                //"columnDefs": [
+                // Hide second, third and fourth columns
+                //{ "visible": false, "targets": [3, 4, 7, 9, 10] }
+                //],
+                "searching": true,
+                "paging": false,
+                "ordering": true,
+                "info": true,
+                "iDisplayLength": 15,
+                "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+                "scrollX": true,
+                "scrollY": "60vh",
+                "scrollCollapse": true,
+                language: {
+                    sLengthMenu: "_MENU_"
+                }
+                //fixedColumns: {
+                //    leftColumns: 1,
+                //    rightColumns: 1
+                //}
+
+                //"sScrollXInner": "100%",
+                //dom: 'Blfrtip',
+                ////,"fixedHeader": true
+            });
+        });
+
+                        //$(".search_input").addClass('form-control input-lg col-xs-12');
+
+    </script>
+}

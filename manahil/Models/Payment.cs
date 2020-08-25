@@ -23,7 +23,7 @@ namespace manahil.Models
         [MaxLength(100)]
         public DateTime PaymentDate { get; set; }
         [Required]
-        [ForeignKey("FieldWorkerId")]
+        [ForeignKey("ContractorId")]
         public int ContractorId { get; set; }
         public virtual Contractor Contractor { get; set; }
         [Required]

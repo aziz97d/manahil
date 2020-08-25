@@ -1,0 +1,144 @@
+﻿@model manahil.Models.Employee
+
+@{
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h4>Employee</h4>
+<hr />
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="EmployeeId" value="@Model.EmployeeId" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="EmployeeId" value="0" />
+                }
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Contact" class="control-label"></label>
+                    <input asp-for="Contact" class="form-control" />
+                    <span asp-validation-for="Contact" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CityId" class="control-label"></label>
+                    <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId">
+                        <option value="">-Select City-</option>
+                    </select>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DesignationId" class="control-label"></label>
+                    <select asp-for="DesignationId" class="form-control" asp-items="ViewBag.DesignationId">
+                        <option value="">-Select Designation-</option>
+                    </select>
+                    <span asp-validation-for="DesignationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="">-Select Status-</option>
+                        <option value="true"> Active </option>
+                        <option value="false"> Deactive </option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @if (ViewBag.Title == "Create")
+                    {
+                        <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                        @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                    }
+                    else if (ViewBag.Title == "Edit")
+                    {
+                        <input type="submit" value="Update" class="btn btn-warning btn-block" />
+
+                        @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                    }
+                    else if (ViewBag.Title == "Delete")
+                    {
+                        <button class="btn btn-danger btn-md btn-block" type="button" onclick="Employee_delete()">Delete</button>
+                    }
+                    @*<input type="submit" value="Create" class="btn btn-primary" />*@
+                </div>
+                <div class="form-group">
+                    <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@section Scripts{
+    <script>
+
+    //$("#DeptId").select2();
+
+        function Employee_delete() {
+
+        var emplyId = $("#EmployeeId").val();
+            //alert(SalesId);
+            $.ajax({
+
+                url: '@Url.Action("Delete", "Employees")',
+                //url: '@Url.Action("Delete")',
+                data: JSON.stringify({ id: emplyId }), //use id here
+                //data: JSON.stringify(salesmain),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("Index", "Employees")';
+                    }, 0);
+                }
+                else {
+                    toastr.error(result.ex);
+                }
+            }
+            });
+    }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

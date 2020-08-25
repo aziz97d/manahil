@@ -23,6 +23,7 @@ namespace manahil.Models
         public virtual Country Country { get; set; }
 
         public ICollection<Thana> Thanas { get; set; }
-       
+        public ICollection<Contractor> Contractors { get; set; }
+
     }
 }
