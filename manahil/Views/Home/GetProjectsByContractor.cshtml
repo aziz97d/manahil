@@ -1,0 +1,132 @@
+﻿@model IEnumerable<manahil.ViewModels.ContractorProjectViewModel>
+@{
+    ViewData["Title"] = "OnGoing Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>OnGoing Projects</h3>
+
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="ui celled table nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Manahil Sl</th>
+                <th>Name</th>
+                <th>Donor</th>
+                <th>Donor Sl</th>
+                <th>Category</th>
+                <th>Distribute Date</th>
+                <th>Days</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>Manahil Sl</th>
+                <th>Name</th>
+                <th>Donor</th>
+                <th>Donor Serial</th>
+                <th>Category</th>
+                <th>Distribute Date</th>
+                <th>Pass Days</th>
+                <th>Notes</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.Category == "General Tubewell" && item.PassDays > 10)
+                {
+                    <tr class="bg-warning">
+                        <td>@item.ManahilSerial</td>
+                        <td>@item.Name</td>
+                        <td>@item.Donor</td>
+                        <td>@item.DonorSerial</td>
+                        <td>@item.Category</td>
+                        <td>@item.DistributionDate</td>
+                        <td>@item.PassDays</td>
+                        <td>@item.Notes</td>
+                    </tr>
+                }
+                else if (item.Category == "Ablution" && item.PassDays > 30)
+                {
+                    <tr class="bg-danger">
+                        <td>@item.ManahilSerial</td>
+                        <td>@item.Name</td>
+                        <td>@item.Donor</td>
+                        <td>@item.DonorSerial</td>
+                        <td>@item.Category</td>
+                        <td>@item.DistributionDate</td>
+                        <td>@item.PassDays</td>
+                        <td>@item.Notes</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@item.ManahilSerial</td>
+                        <td>@item.Name</td>
+                        <td>@item.Donor</td>
+                        <td>@item.DonorSerial</td>
+                        <td>@item.Category</td>
+                        <td>@item.DistributionDate</td>
+                        <td>@item.PassDays</td>
+                        <td>@item.Notes</td>
+                    </tr>
+                }
+
+            }
+
+        </tbody>
+    </table>
+
+</form>
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            //$('#tbllist').DataTable({
+
+
+            //    //dom: '<"dom_wrapper fh-fixedHeader"flB>tip',
+                
+            //    //"searching": true,
+            //    //"paging": false,
+            //    //"ordering": true,
+            //    //"info": true,
+            //    //"iDisplayLength": 15,
+            //    //"lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+            //    //"scrollX": true,
+            //    //"scrollY": "60vh",
+            //    //"scrollCollapse": true,
+            //    //language: {
+            //    //    sLengthMenu: "_MENU_"
+            //    //}
+               
+            //});
+            var table = $('#tbllist').DataTable();
+
+            $("#tbllist tfoot th").each(function (i) {
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(this).empty())
+                    .on('change', function () {
+                        table.column(i)
+                            .search($(this).val())
+                            .draw();
+                    });
+
+                table.column(i).data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+
+
+        });
+
+                            //$(".search_input").addClass('form-control input-lg col-xs-12');
+
+    </script>
+}

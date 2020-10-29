@@ -27,8 +27,8 @@ namespace manahil.Models
         [MaxLength(200)]
         public string Password { get; set; }
 
-
-        public string DriveLink { get; set; }
+        [Url]
+        public string DriveLink { get; set; } = "http://";
 
     }
 }

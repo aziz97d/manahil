@@ -1,0 +1,51 @@
+﻿@model manahil.ViewModels.RegisterViewModels
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4 border rounded border-success">
+        <form asp-action="Register" class="p-2">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3 class="text-center text-success d-block">Register</h3>
+            <div class="form-group">
+                <label asp-for="UserCategory" class="control-label"></label>
+                <select asp-for="UserCategory" required class="form-control">
+                    <option value="">-Select User Category-</option>
+                    <option value="Contractor">Contractor</option>
+                    <option value="Donor">Donor</option>
+                    <option value="Employee">Employee</option>
+                </select>
+                <span asp-validation-for="UserCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" required class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" required class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" required class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" required class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Register" class="btn btn-outline-success btn-md btn-block" />
+
+            </div>
+        </form>
+    </div>
+</div>

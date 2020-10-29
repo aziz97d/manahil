@@ -1,0 +1,177 @@
+﻿@model manahil.ViewModels.DepositAndTransferViewModel
+<div class="col-md-12">
+    <!-- general form elements disabled -->
+    <div class="card card-warning border border-warning">
+        <div class="card-header">
+            
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="DepositAccountId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="Donor" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="Donor" class="form-control" required />
+                            </div>
+                            <span asp-validation-for="Donor" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="DepositCode" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="DepositCode" class="form-control" />
+                            </div>
+                            <span asp-validation-for="DepositCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="DepositDate" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="DepositDate" class="form-control" required />
+                            </div>
+                            <span asp-validation-for="DepositDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="DepositType" class="input-group-text"></label>
+                                </div>
+                                <select asp-for="DepositType" class="form-control" required>
+                                    <option value="">-Select Deposit Type-</option>
+                                    <option value="Bank">Bank</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="DepositType" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="DepositAmount" class="input-group-text"></label>
+                                </div>
+                                @if (Model.TransferAccounts.Count > 0)
+                                {
+                                    <input asp-for="DepositAmount" readonly class="form-control" />
+                                }
+                                else
+                                {
+                                    <input asp-for="DepositAmount" class="form-control" />
+                                }
+
+                            </div>
+                            <span asp-validation-for="DepositAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="Balance" class="input-group-text"></label>
+                                </div>
+                                
+                                <input asp-for="Balance" readonly class="form-control" />
+                            </div>
+                            <span asp-validation-for="Balance" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="submit" value="Update" class="btn btn-outline-warning btn-md btn-block" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a onclick="showInPopup('@Url.Action("CreateOrEdit","DepositAccounts",null,Context.Request.Scheme)','New Transfer',@Model.DepositAccountId)" class="btn btn-success text-white btn-block"><i class="fas fa-random"></i> New Transfer</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        <hr />
+        <h3 class="text-center text-success">Transfer History</h3>
+        <form class="card p-2 table-responsive">
+            <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
+                <thead class="text-nowrap">
+                    <tr>
+                        <th>Contractor Name</th>
+                        <th>Transfer Amount</th>
+                        <th>Transfer Date</th>
+                        <th>Perpose</th>
+                        <th>FC-1/FD-7</th>
+                        <th>Approval Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TransferAccounts)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContractorName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransferAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransferDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AgainstProject)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FC1orFD7)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                        </td>
+                        <td class="text-nowrap">
+                            <span data-toggle="tooltip" title="Edit!">
+                                <a onclick="showInPopup('@Url.Action("CreateOrEdit","DepositAccounts",new { id=item.TransferAccountId},Context.Request.Scheme)','Update Transfer',@Model.DepositAccountId)" class="far fa-edit btn btn-warning btn-xs"></a>
+                                @*<a asp-action="Edit" asp-controller="TransferAccounts" asp-route-id="@item.TransferAccountId" class="far fa-edit btn btn-warning btn-xs"></a>*@
+                            </span>
+                            <span data-toggle="tooltip" title="Delete!">
+                                <a onclick="jQueryAjaxDelete('@Url.Action("DeleteTransfer","DepositAccounts",new { transferAccountId=item.TransferAccountId,depositAccountId=item.DepositAccountId},Context.Request.Scheme)')" class="far fa-trash-alt btn btn-danger btn-xs"></a>
+                            </span>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </form>
+        <!-- /.card-body -->
+    </div>
+</div>

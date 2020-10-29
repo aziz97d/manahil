@@ -1,13 +1,10 @@
 ﻿@model manahil.Models.Category
 
 @{
+    ViewData["TitleHeader"] = "Create Categroy";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
-
-<h4>Category</h4>
-<hr />
 
 @*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {*@
@@ -34,7 +31,7 @@
             <div class="form-group">
                 @if (ViewBag.Title == "Create")
                 {
-                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+                    <input type="submit" value="Create" class="btn btn-outline-success btn-md btn-block" />
 
                     @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
                 }

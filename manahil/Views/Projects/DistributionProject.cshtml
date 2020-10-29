@@ -1,0 +1,145 @@
+﻿@model IEnumerable<manahil.Models.Project>
+@{
+    ViewData["TitleHeader"] = "Projects Distribution";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+
+    <table>
+        <tr>
+            <td>
+
+                <select id="contractorD" class="form-control" asp-items="ViewBag.ContractorId">
+                    <option value="">-Select Contractor-</option>
+                </select>
+                <span class="text-danger"></span>
+            </td>
+            <td></td>
+            <td>
+                <input type="date" id="dateD" class="form-control" name="DistributionDate" value="" />
+            </td>
+            <td></td>
+            <td><button id="button" class="btn btn-success">Distribute</button></td>
+        </tr>
+    </table>
+
+@*<button id="button" class="btn btn-success">Distribute</button>*@
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="display" cellspacing="0" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th class="d-none"></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManahilSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonorSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GetDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="d-none">
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManahilSerial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donor.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonorSerial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GetDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+@section Scripts{
+    
+    <script>
+
+        $(document).ready(function () {
+
+            var table = $('#tbllist').DataTable();
+
+            $('#tbllist tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#button').click(function () {
+                var data = table.rows('.selected').data();
+                var projectIdlist = [];
+                console.log(data);
+
+                for (var i = 0; i < data.length; i++) {
+                    projectIdlist.push(data[i][0]);
+                }
+                for (var i = 0; i < projectIdlist.length; i++) {
+                    console.log(projectIdlist[i]);
+                }
+                var contrctrid = $("#contractorD").val();
+                var dateD = $("#dateD").val();
+                if (contrctrid == "" || dateD == "") {
+                    alert("Plese Date and Must Required");
+                }
+                else {
+                    $.ajax({
+
+                        url: '@Url.Action("DistributionProject", "Projects")',
+                        
+                        //data: JSON.stringify({ id: projectIdlist, contractorId: contrctrid, distributionDate: dateD }), //use id here
+                        data: { projectId: projectIdlist, contractorId: contrctrid, getDate: dateD }, //use id here
+                        //data: JSON.stringify(salesmain),
+                        type: 'POST',
+                        //contentType: 'application/json;',
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.Success == "1") {
+                                //toastr.success(result.ex);
+                            window.setTimeout(function () {
+                                // Move to a new location or you can do something else
+                                window.location.href = '@Url.Action("Index", "Projects")';
+                            }, 0);
+                        }
+                        else {
+                            toastr.error(result.ex);
+                        }
+                    }
+                    });
+                }
+            });
+
+
+
+        });
+    </script>
+
+}

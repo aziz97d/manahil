@@ -1,0 +1,225 @@
+﻿@model manahil.Models.Project
+
+@{
+    ViewData["TitleHeader"] = "Manage Project";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+
+<div class="col-md-12">
+    <!-- general form elements disabled -->
+    <div class="card card-warning">
+        <div class="card-header">
+            <h3 class="card-title">General Elements</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form asp-action="Create">
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="ProjectId" value="0" />
+                }
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" id="namePorjectD" class="form-control" required />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="ManahilSerial" class="control-label"></label>
+                            <input asp-for="ManahilSerial" id="manahilSerialD" class="form-control manahilSerialD" />
+                            <span asp-validation-for="ManahilSerial" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="DonorSerial" class="control-label"></label>
+                            <input asp-for="DonorSerial" id="orgSerialD" class="form-control" required />
+                            <span asp-validation-for="DonorSerial" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="DonorId" class="control-label"></label>
+                        <select asp-for="DonorId" id="donorD" class="form-control" asp-items="ViewBag.DonorId" required>
+                            <option value="">-Select Country-</option>
+                        </select>
+                        <span asp-validation-for="DonorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" id="categoryD" class="form-control" asp-items="ViewBag.CategoryId" required>
+                                <option value="">-Select Category-</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="GetDate" class="control-label"></label>
+                            <input asp-for="GetDate" id="getDateD" class="form-control" />
+                            <span asp-validation-for="GetDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="ContractorId" class="control-label"></label>
+                            <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId" required>
+                                <option value="">-Select Contractor-</option>
+                            </select>
+                            <span asp-validation-for="ContractorId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="DistributionDate" class="control-label"></label>
+                            <input asp-for="DistributionDate" class="form-control" />
+                            <span asp-validation-for="DistributionDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="EmployeeId" class="control-label"></label>
+                            <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId" required>
+                                <option value="">-Select Employee-</option>
+                            </select>
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="PaymentStatus" class="control-label"></label>
+                            <input asp-for="PaymentStatus" class="form-control" />
+                            <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="TamidNumber" class="control-label"></label>
+                            <input asp-for="TamidNumber" class="form-control" />
+                            <span asp-validation-for="TamidNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                @*text Area*@
+                <!--<div class="row">
+    <div class="col-sm-6">-->
+                <!-- textarea -->
+                <!--<div class="form-group">
+                <label>Textarea</label>
+                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+            </div>
+        </div>
+
+    </div>-->
+                @*text Area*@
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @if (ViewBag.Title == "Create")
+                            {
+                                <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                                @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                            }
+                            else if (ViewBag.Title == "Edit")
+                            {
+                                <input type="submit" value="Update" class="btn btn-warning btn-block" />
+
+                                @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                            }
+                            else if (ViewBag.Title == "Delete")
+                            {
+                                <button class="btn btn-danger btn-md btn-block" type="button" onclick="Project_delete()">Delete</button>
+                            }
+                            @*<input type="submit" value="Create" class="btn btn-primary" />*@
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{*@
+ 
+
+    @*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@*@section Scripts{
+    <script>
+
+    //$("#DeptId").select2();
+
+        function Project_delete() {
+
+        var prjctId = $("#ProjectId").val();
+            //alert(SalesId);
+            $.ajax({
+
+                url: '@Url.Action("Delete", "Projects")',
+                //url: '@Url.Action("Delete")',
+                data: JSON.stringify({ id: prjctId }), //use id here
+                //data: JSON.stringify(salesmain),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("Index", "Projects")';
+                    }, 0);
+                }
+                else {
+                    toastr.error(result.ex);
+                }
+            }
+            });
+    }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

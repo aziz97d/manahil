@@ -1,23 +1,24 @@
 ﻿@model manahil.Models.Donor
 
 @{
+    ViewData["TitleHeader"] = "Create Donor";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
-
-<h4>Donor</h4>
-<hr />
 
 @*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {*@
-    <div class="row">
-        <div class="col-md-4">
+    <div class="card card-warning border border-warning">
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
              <form asp-action="Create">
 
             @if (Model != null)
             {
                 <input type="hidden" asp-for="DonorId" value="@Model.DonorId" />
+                ViewData["TitleHeader"] = "Edit Donor";
             }
             else
             {
@@ -25,59 +26,84 @@
             }
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="OwnerName" class="control-label"></label>
+                        <input asp-for="OwnerName" class="form-control" />
+                        <span asp-validation-for="OwnerName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OwnerName" class="control-label"></label>
-                <input asp-for="OwnerName" class="form-control" />
-                <span asp-validation-for="OwnerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contact" class="control-label"></label>
-                <input asp-for="Contact" class="form-control" />
-                <span asp-validation-for="Contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId">
-                    <option value="">-Select Country-</option>
-                </select>
-                <span asp-validation-for="CountryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @if (ViewBag.Title == "Create")
-                {
-                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Contact" class="control-label"></label>
+                        <input asp-for="Contact" class="form-control" />
+                        <span asp-validation-for="Contact" class="text-danger"></span>
+                    </div>
+                </div>
 
-                    @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
-                }
-                else if (ViewBag.Title == "Edit")
-                {
-                    <input type="submit" value="Update" class="btn btn-warning btn-block" />
-
-                    @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
-                }
-                else if (ViewBag.Title == "Delete")
-                {
-                    <button class="btn btn-danger btn-md btn-block" type="button" onclick="Donor_delete()">Delete</button>
-                }
-                @*<input type="submit" value="Create" class="btn btn-primary" />*@
             </div>
-            <div class="form-group">
-                <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <input asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CountryId" class="control-label"></label>
+                        <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId">
+                            <option value="">-Select Country-</option>
+                        </select>
+                        <span asp-validation-for="CountryId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (ViewBag.Title == "Create")
+                        {
+                            <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+
+                            @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
+                        }
+                        else if (ViewBag.Title == "Edit")
+                        {
+                            <input type="submit" value="Update" class="btn btn-outline-warning btn-block" />
+
+                            @*<button class="btn btn-warning btn-lg btn-block" type="button" onclick="Products_save()">Update</button>*@
+                        }
+                        else if (ViewBag.Title == "Delete")
+                        {
+                            <button class="btn btn-danger btn-md btn-block" type="button" onclick="Donor_delete()">Delete</button>
+                        }
+                        @*<input type="submit" value="Create" class="btn btn-primary" />*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                    </div>
+                </div>
             </div>
              </form>
         </div>

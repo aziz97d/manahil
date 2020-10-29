@@ -1,0 +1,72 @@
+﻿@model IEnumerable<manahil.Models.TransferAccount>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransferDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransferAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContractorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgainstProject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FC1orFD7)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovalStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepositAccount.DepositCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransferDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransferAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgainstProject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FC1orFD7)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApprovalStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TransferAccountId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TransferAccountId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TransferAccountId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

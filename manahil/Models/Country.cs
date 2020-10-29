@@ -16,7 +16,7 @@ namespace manahil.Models
         [MaxLength(200)]
         public string Name { get; set; }
 
-        public ICollection<City> Cities { get; set; }
-        public ICollection<Donor> Donors { get; set; }
+        //public ICollection<City> Cities { get; set; }
+        //public ICollection<Donor> Donors { get; set; }
     }
 }

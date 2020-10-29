@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CategoriesController : Controller
     {
         private readonly DatabaseContext db;
@@ -18,17 +20,16 @@ namespace manahil.Controllers
             db = context;
         }
 
-        // GET: Cities
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
              
             return View(await db.Categories.ToListAsync());
         }
 
-        // GET: Cities/Details/5
+
      
 
-        // GET: Cities/Create
         public IActionResult Create()
         {
            
@@ -36,18 +37,16 @@ namespace manahil.Controllers
             return View();
         }
 
-        // POST: Cities/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("categoryId,Name,CountryId")]*/ Category category)
+        public async Task<IActionResult> Create( Category category)
         {
 
             if (ModelState.IsValid)
             {
                 if(category.CategoryId>0)
                 {
+
                     db.Update(category);
                     await db.SaveChangesAsync();
                     TempData["Message"] = "Data Update Successfully";
@@ -85,7 +84,7 @@ namespace manahil.Controllers
             return View(category);
         }
 
-        // GET: Cities/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,43 +101,9 @@ namespace manahil.Controllers
             return View("Create",category);
         }
 
-        // POST: Cities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("categoryId,Name,CountryId")] category category)
-        //{
-        //    if (id != category.categoryId)
-        //    {
-        //        return NotFound();
-        //    }
+       
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            db.Update(category);
-        //            await db.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!categoryExists(category.categoryId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", category.CountryId);
-        //    return View(category);
-        //}
 
-        // GET: Cities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,7 +120,7 @@ namespace manahil.Controllers
             return View("Create",category);
         }
 
-        // POST: Cities/Delete/5
+
         [HttpPost, ActionName("Delete")]
       //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

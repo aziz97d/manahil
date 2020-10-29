@@ -6,29 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private readonly DatabaseContext db;
 
         public CitiesController(DatabaseContext context)
         {
+            ViewBag.Heading = "City";
             db = context;
         }
 
-        // GET: Cities
+       
         public async Task<IActionResult> Index()
         {
-             
+            ViewBag.Heading = "City";
             return View(await db.Cities.Include(c => c.Country).ToListAsync());
         }
 
-        // GET: Cities/Details/5
      
 
-        // GET: Cities/Create
+
         public IActionResult Create()
         {
             ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name");
@@ -36,12 +38,10 @@ namespace manahil.Controllers
             return View();
         }
 
-        // POST: Cities/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("CityId,Name,CountryId")]*/ City city)
+        public async Task<IActionResult> Create( City city)
         {
 
             if (ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace manahil.Controllers
             return View(city);
         }
 
-        // GET: Cities/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,43 +102,7 @@ namespace manahil.Controllers
             return View("Create",city);
         }
 
-        // POST: Cities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("CityId,Name,CountryId")] City city)
-        //{
-        //    if (id != city.CityId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            db.Update(city);
-        //            await db.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!CityExists(city.CityId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-        //    return View(city);
-        //}
-
-        // GET: Cities/Delete/5
+       
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -158,7 +122,7 @@ namespace manahil.Controllers
             return View("Create",city);
         }
 
-        // POST: Cities/Delete/5
+  
         [HttpPost, ActionName("Delete")]
       //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

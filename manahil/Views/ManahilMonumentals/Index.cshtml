@@ -1,0 +1,75 @@
+﻿@model IEnumerable<manahil.Models.ManahilMonumental>
+
+@{
+    ViewData["TitleHeader"] = "Monumental";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+<p>
+    <a asp-action="CreateOrEdit" class="btn btn-outline-success">Add Monumental</a>
+</p>
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonumentalNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Destination)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonumentalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td class="text-nowrap">
+                        <span data-toggle="tooltip" title="Edit!">
+                            <a asp-action="CreateOrEdit" asp-route-id="@item.ManahilMonumentalId" class="fas fa-edit btn btn-warning btn-xs"></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Delete!">
+                            <a asp-action="Delete" asp-route-id="@item.ManahilMonumentalId" class="fas fa-trash-alt btn btn-danger btn-xs"></a>
+                        </span>
+                    
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts{
+
+
+    <script>
+    $(document).ready(function () {
+        $('#tbllist').DataTable({});
+    });
+    </script>
+}

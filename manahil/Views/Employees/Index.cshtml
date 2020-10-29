@@ -1,87 +1,85 @@
 ﻿@model IEnumerable<manahil.Models.Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Employees";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>Employees</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
 <form class="card p-2 table-responsive">
-    <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
-        <thead class="text-nowrap">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Designation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contact)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Designation.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td class="text-nowrap">
-                    <span data-toggle="tooltip" title="Edit!">
-                        @Html.ActionLink(" ", "Edit", new { id = item.CityId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
-                    </span>
-                    <span data-toggle="tooltip" title="Delete!">
-                        @Html.ActionLink(" ", "Delete", new { Id = item.CityId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
-                    </span>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+    
+    <div class="row">
+        @foreach (var itemm in Model)
+        {
 
+            <div class="col-md-3">
+                <!-- Widget: user widget style 1 -->
+                <div class="card card-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-info">
+                        <h3 class="widget-user-username">@itemm.Name</h3>
+                        @if (itemm.Designation != null)
+                        {
+
+                        <h5 class="widget-user-desc"> @itemm.Designation.Name</h5>
+                        }
+                    </div>
+                    <div class="widget-user-image">
+                        @if (itemm.Image == null)
+                        {
+                            <img class="img-circle elevation-2" src="https://f0.pngfuel.com/png/980/304/man-profile-illustration-computer-icons-user-profile-avatar-png-clip-art-thumbnail.png" alt="User Avatar">
+                        }
+                        else
+                        {
+                            <img class="img-circle elevation-2" src="~/images/@itemm.Image" alt="User Avatar">
+                        }
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-6 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">@itemm.Projects.Count(e => e.EmployeeId == itemm.EmployeeId).ToString()</h5>
+                                    <span class="description-text">Total</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-6">
+                                <div class="description-block">
+                                    <h5 class="description-header">@itemm.Projects.Count(e => e.CompletedDate == DateTime.Today)</h5>
+                                    <span class="description-text">Today</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <!-- /.col -->
+                        </div>
+                        <div>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Edit", "Edit", new { id = itemm.EmployeeId }, new { @class = "btn btn-outline-warning nav-link" })
+                                    @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Details", "Details", new { Id = itemm.EmployeeId }, new { @class = "btn btn-outline-success nav-link" })
+
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Delete", "Delete", new { Id = itemm.EmployeeId }, new { @class = "btn btn-outline-danger nav-link" })
+                                    @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div> <!-- /.col -->
+
+                }
+            
+    </div>
 </form>
 
 @section Scripts{

@@ -1,0 +1,172 @@
+﻿@model manahil.ViewModels.EmployeeEditViewModels
+
+@{
+    ViewData["TitleHeader"] = "Edit Employee";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+
+@*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {*@
+<div class="card card-warning border border-warning">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input hidden id="EmployeeId" asp-for="Id" />
+            <input hidden asp-for="ExistingPhotoPath" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" readonly class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Contact" class="control-label"></label>
+                        <input asp-for="Contact" class="form-control" />
+                        <span asp-validation-for="Contact" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CityId" class="control-label"></label>
+                        <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId">
+                            <option value="">-Select City-</option>
+                        </select>
+                        <span asp-validation-for="CityId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="">-Select Status-</option>
+                            <option value="true">Active</option>
+                            <option value="false">Deactive</option>
+                        </select>
+                        <span asp-validation-for="CityId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Image" class="form-control custom-file-input" />
+                            <label class="custom-file-label">Click Here to change Photo</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row col-sm-4 offset-4">
+                        <img src="~/images/@Model.ExistingPhotoPath" class="img-thumbnail" asp-append-version="true" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (ViewBag.Title == "Delete")
+                        {
+                            <button class="btn btn-danger btn-md btn-block" type="button" onclick="Employee_delete()">Delete</button>
+                        }
+                        else
+                        {
+                            <input type="submit" value="Update" class="btn btn-outline-warning btn-block" />
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+@*<div class="form-group col-md-4">
+        <a asp-action="Index" class="btn btn-danger btn-md btn-block">Back</a>
+    </div>*@
+
+@*}*@
+
+
+@section Scripts{
+    <script>
+
+
+
+        $(document).ready(function () {
+            $('.custom-file-input').on('change', function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        })
+
+        function Employee_delete() {
+
+            var emplId = $("#EmployeeId").val();
+           
+                
+                $.ajax({
+
+                    url: '@Url.Action("Delete", "Employees")',
+                    //url: '@Url.Action("Delete")',
+
+                    data: { id: emplId },
+
+                    type: 'POST',
+                    //contentType: 'application/json;',
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.Success == "1") {
+                            //toastr.success(result.ex);
+                            window.setTimeout(function () {
+                                // Move to a new location or you can do something else
+                                window.location.href = '@Url.Action("Index", "Contractors")';
+                            }, 0);
+                        }
+                        else {
+                            toastr.error(result.ex);
+                        }
+                    }
+                });
+
+
+    }
+
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

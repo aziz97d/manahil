@@ -22,8 +22,8 @@ namespace manahil.Models
         [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
 
-        public ICollection<Thana> Thanas { get; set; }
-        public ICollection<Contractor> Contractors { get; set; }
+        //public ICollection<Thana> Thanas { get; set; }
+        //public ICollection<Contractor> Contractors { get; set; }
 
     }
 }

@@ -1,0 +1,42 @@
+﻿@model List<manahil.ViewModels.UserRoleViewModel>
+@{
+    ViewData["TitleHeader"] = "Edit User In Role";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+    var roleId = ViewBag.RoleId;
+}
+
+<form method="post">
+    <div class="card col-lg-6">
+        <div class="card-header">
+            <h2 class="card-title">Add Or Remove User in Role</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="row m-1">
+                    <div class="btn-block">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <input asp-for="@Model[i].UserId" type="hidden">
+                                    <input asp-for="@Model[i].UserName" type="hidden">
+                                    <input asp-for="@Model[i].IsSelected" type="checkbox">
+                                </span>
+                            </div>
+                            <label asp-for="@Model[i].IsSelected" class="form-control">@Model[i].UserName</label>
+                            @*<input type="text" asp-for="@Model[i].IsSelected" value="" disabled class="form-control">*@
+
+                            @*Start edit role user submit*@
+
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    <input type="submit" value="Update" asp-action="EditUserInRole" asp-controller="Administration" asp-route-id="@roleId" class="btn btn-outline-success btn-block">
+                    <a asp-action="EditRole" asp-controller="Administration" asp-route-id="@roleId" class="btn btn-outline-info btn-block">Cancel</a>
+                </div>
+            </div>
+</form>

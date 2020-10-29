@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TransferAccount>
+@{
+    ViewData["Title"] = "ShowAllTransfer";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+    Layout = null;
+}
+
+<h3 class="text-center text-success">Transfer History</h3>
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="table table-striped table-bordered table-sm text-nowrap table-hover" cellspacing="0" width="100%">
+        <thead class="">
+            <tr>
+                <th>Contractor Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Perpose</th>
+                <th>FC-1/FD-7</th>
+                <th>Approval Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContractorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransferAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransferDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgainstProject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FC1orFD7)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+
+@*@section Scripts{ 
+    <script>
+
+                $('#tbllist').DataTable({
+                    responsive: true
+            });
+            
+    </script>
+}*@
+

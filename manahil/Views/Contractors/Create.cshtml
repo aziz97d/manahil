@@ -1,19 +1,15 @@
-﻿@model manahil.Models.Contractor
+﻿@model manahil.ViewModels.ContractorViewModels
 
 @{
+    ViewData["TitleHeader"] = "Create Contractor";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
-
-<h1>@ViewBag.Title</h1>
-
-<h4>Contractor</h4>
-<hr />
 
 @*@using (Html.BeginForm("Create", "Cities", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {*@
     <div class="row">
         <div class="col-md-4">
-             <form asp-action="Create">
+             <form asp-action="Create" enctype="multipart/form-data">
 
             @if (Model != null)
             {
@@ -52,8 +48,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <div class="custom-file">
+                    <input asp-for="Image" class="form-control custom-file-input" />
+                    <label class="custom-file-label">Choose File...</label>
+                </div>
+                
+                
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label"></label>
@@ -98,35 +98,14 @@
 @section Scripts{
     <script>
 
-    //$("#DeptId").select2();
-
-        function Cotractor_delete() {
-
-        var cntractrId = $("#ContractorId").val();
-            //alert(SalesId);
-            $.ajax({
-
-                url: '@Url.Action("Delete", "Contractors")',
-                //url: '@Url.Action("Delete")',
-                data: JSON.stringify({ id: cntractrId }), //use id here
-                //data: JSON.stringify(salesmain),
-                type: 'POST',
-                contentType: 'application/json;',
-                dataType: 'json',
-                success: function (result) {
-                    if (result.Success == "1") {
-                        //toastr.success(result.ex);
-                    window.setTimeout(function () {
-                        // Move to a new location or you can do something else
-                        window.location.href = '@Url.Action("Index", "Contractors")';
-                    }, 0);
-                }
-                else {
-                    toastr.error(result.ex);
-                }
-            }
+        
+        $(document).ready(function () {
+            $('.custom-file-input').on('change', function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
             });
-    }
+        });
+
     </script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

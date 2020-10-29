@@ -15,58 +15,258 @@ namespace manahil.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("manahil.Models.Cat_Department", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("DeptId")
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ComId")
+                    b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeptBangla")
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.Property<string>("DeptCode")
+                    b.Property<string>("RoleId")
                         .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeptName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
-                    b.Property<DateTime>("DtInput")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("PcName")
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short?>("Slno")
-                        .HasColumnType("smallint");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpdateByUserId")
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("DeptId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Cat_Department");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("manahil.Models.ApprovalProjects", b =>
+                {
+                    b.Property<int>("ApprovalProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ApprovalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("ApprovedMoney")
+                        .HasColumnType("float");
+
+                    b.Property<string>("AuditStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CertificateStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("CurrencyRate")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Donor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndtDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("ExpenseAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("MonumentalNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectImplementAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SerialNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("TotalAcceptedMoney")
+                        .HasColumnType("float");
+
+                    b.HasKey("ApprovalProjectId");
+
+                    b.ToTable("ApprovalProjects");
                 });
 
             modelBuilder.Entity("manahil.Models.Category", b =>
@@ -119,7 +319,7 @@ namespace manahil.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Contact")
@@ -131,8 +331,7 @@ namespace manahil.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -167,6 +366,36 @@ namespace manahil.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("manahil.Models.DepositAccount", b =>
+                {
+                    b.Property<int>("DepositAccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double?>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DepositAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("DepositCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DepositDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepositType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Donor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepositAccountId");
+
+                    b.ToTable("DepositAccounts");
+                });
+
             modelBuilder.Entity("manahil.Models.Designation", b =>
                 {
                     b.Property<int>("DesignationId")
@@ -195,7 +424,7 @@ namespace manahil.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -233,14 +462,14 @@ namespace manahil.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Contact")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("DesignationId")
+                    b.Property<int?>("DesignationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -249,8 +478,7 @@ namespace manahil.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -299,6 +527,33 @@ namespace manahil.Migrations
                     b.ToTable("ManageDrives");
                 });
 
+            modelBuilder.Entity("manahil.Models.ManahilMonumental", b =>
+                {
+                    b.Property<int>("ManahilMonumentalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MonumentalNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ManahilMonumentalId");
+
+                    b.ToTable("ManahilMonumentals");
+                });
+
             modelBuilder.Entity("manahil.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -339,18 +594,18 @@ namespace manahil.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CompletedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("ContractorId1")
+                    b.Property<int?>("ContractorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DistributionDate")
-                        .HasColumnType("datetime2")
-                        .HasMaxLength(100);
+                    b.Property<DateTime?>("DistributionDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DonorId")
                         .HasColumnType("int");
@@ -359,12 +614,11 @@ namespace manahil.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("GetDate")
-                        .HasColumnType("datetime2")
-                        .HasMaxLength(100);
+                    b.Property<DateTime?>("GetDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ManahilSerial")
                         .HasColumnType("int");
@@ -373,14 +627,20 @@ namespace manahil.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("PaymentStatus")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TamidNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProjectId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ContractorId1");
+                    b.HasIndex("ContractorId");
 
                     b.HasIndex("DonorId");
 
@@ -411,31 +671,117 @@ namespace manahil.Migrations
                     b.ToTable("Thanas");
                 });
 
+            modelBuilder.Entity("manahil.Models.TransferAccount", b =>
+                {
+                    b.Property<int>("TransferAccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AgainstProject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApprovalStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContractorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepositAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FC1orFD7")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TransferAmount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("TransferDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TransferAccountId");
+
+                    b.HasIndex("DepositAccountId");
+
+                    b.ToTable("TransferAccounts");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("manahil.Models.City", b =>
                 {
                     b.HasOne("manahil.Models.Country", "Country")
-                        .WithMany("Cities")
+                        .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("manahil.Models.Contractor", b =>
                 {
                     b.HasOne("manahil.Models.City", "City")
-                        .WithMany("Contractors")
+                        .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("manahil.Models.Donor", b =>
                 {
                     b.HasOne("manahil.Models.Country", "Country")
-                        .WithMany("Donors")
+                        .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("manahil.Models.Employee", b =>
@@ -443,71 +789,78 @@ namespace manahil.Migrations
                     b.HasOne("manahil.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("manahil.Models.Designation", "Designation")
-                        .WithMany("Employees")
+                        .WithMany()
                         .HasForeignKey("DesignationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("manahil.Models.ManageDrive", b =>
                 {
                     b.HasOne("manahil.Models.Donor", "Donor")
-                        .WithMany("ManageDrives")
+                        .WithMany()
                         .HasForeignKey("DonorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("manahil.Models.Payment", b =>
                 {
                     b.HasOne("manahil.Models.Contractor", "Contractor")
-                        .WithMany("Payments")
+                        .WithMany()
                         .HasForeignKey("ContractorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("manahil.Models.Donor", "Donor")
-                        .WithMany("Payments")
+                        .WithMany()
                         .HasForeignKey("DonorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("manahil.Models.Project", b =>
                 {
                     b.HasOne("manahil.Models.Category", "Category")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("manahil.Models.Contractor", null)
+                    b.HasOne("manahil.Models.Contractor", "Contractor")
                         .WithMany("Projects")
-                        .HasForeignKey("ContractorId1");
+                        .HasForeignKey("ContractorId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("manahil.Models.Donor", "Donor")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("DonorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("manahil.Models.Employee", "Employee")
                         .WithMany("Projects")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("manahil.Models.Thana", b =>
                 {
                     b.HasOne("manahil.Models.City", "City")
-                        .WithMany("Thanas")
+                        .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("manahil.Models.TransferAccount", b =>
+                {
+                    b.HasOne("manahil.Models.DepositAccount", "DepositAccount")
+                        .WithMany()
+                        .HasForeignKey("DepositAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

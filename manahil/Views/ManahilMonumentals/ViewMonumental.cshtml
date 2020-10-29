@@ -1,0 +1,62 @@
+﻿@model IEnumerable<manahil.Models.ManahilMonumental>
+
+@{
+    ViewData["TitleHeader"] = "Monumental";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonumentalNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Destination)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonumentalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts{
+
+
+    <script>
+    $(document).ready(function () {
+        $('#tbllist').DataTable({});
+    });
+    </script>
+}

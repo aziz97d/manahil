@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using manahil.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DonorsController : Controller
     {
         private readonly DatabaseContext db;
@@ -21,8 +24,25 @@ namespace manahil.Controllers
         // GET: Cities
         public async Task<IActionResult> Index()
         {
-             
-            return View(await db.Donors.Include(c => c.Country).ToListAsync());
+            List<DonorViewModel> donorViewModels = new List<DonorViewModel>();
+            List<Donor> donors = await db.Donors.ToListAsync();
+            foreach(Donor donor in donors)
+            {
+                DonorViewModel donorModel = new DonorViewModel { };
+                donorModel.DonorId = donor.DonorId;
+                donorModel.Name = donor.Name;
+                if(donor.CountryId!=null)
+                    donorModel.Country = db.Countries.Find(donor.CountryId).Name;
+                donorModel.Image = donor.Image;
+                donorModel.TotalProject = db.Projects.Count(d => d.DonorId == donor.DonorId);
+                donorModel.DeliveredProject = db.Projects.Count(d => d.DonorId == donor.DonorId && d.EmployeeId != null);
+
+                donorViewModels.Add(donorModel);
+            }
+
+            //return View(await db.Donors.Include(c => c.Country).Include(d=>d.Projects).ToListAsync());
+            //return View(await db.Donors.Include(c => c.Country).ToListAsync());
+            return View(donorViewModels);
         }
 
         // GET: Cities/Details/5
@@ -36,12 +56,10 @@ namespace manahil.Controllers
             return View();
         }
 
-        // POST: Cities/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("donorId,Name,CountryId")]*/ Donor donor)
+        public async Task<IActionResult> Create( Donor donor)
         {
 
             if (ModelState.IsValid)

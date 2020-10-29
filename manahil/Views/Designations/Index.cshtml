@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<manahil.Models.Designation>
 
 @{
+    ViewData["TitleHeader"] = "Designaiton";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
-
-<h1>Designation List</h1>
-
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
@@ -27,7 +25,7 @@
                 </td>
                 <td class="text-nowrap">
                     <span data-toggle="tooltip" title="Edit!">
-                        @Html.ActionLink(" ", "Edit", new { id = item.DesignationId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                        @Html.ActionLink(" ", "Edit", new { id = item.DesignationId }, new { @class = "fas fa-edit btn btn-warning btn-xs"})
                     </span>
                     <span data-toggle="tooltip" title="Delete!">
                         @Html.ActionLink(" ", "Delete", new { Id = item.DesignationId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })

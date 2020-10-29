@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<manahil.Models.Country>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Countries";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
-
-<h1>Country List</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
@@ -29,7 +27,7 @@
                     </td>
                     <td class="text-nowrap">
                         <span data-toggle="tooltip" title="Edit!">
-                            @Html.ActionLink(" ", "Edit", new { id = item.CountryId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                            @Html.ActionLink(" ", "Edit", new { id = item.CountryId }, new { @class = "fas fa-edit btn btn-warning btn-xs"})
                         </span>
                         <span data-toggle="tooltip" title="Delete!">
                             @Html.ActionLink(" ", "Delete", new { Id = item.CountryId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })

@@ -1,0 +1,101 @@
+﻿@model manahil.Models.TransferAccount
+
+@{
+    ViewData["TitleHeader"] = "Add Transfer";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+    Layout = null;
+}
+
+<div class="col-md-12">
+    
+            <form asp-action="CreateOrEdit" onsubmit="return jQueryAjaxPost(this);" autocomplete="off">
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="TransferAccountId" value="@Model.TransferAccountId" />
+                    ViewData["TitleHeader"] = "Edit Transfer";
+                }
+                else
+                {
+                    <input type="hidden" asp-for="TransferAccountId" value="0" />
+                }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label  class="control-label">Account</label>
+                        <select asp-for="DepositAccountId" id="depositAccountD" class="form-control" asp-items="ViewBag.DepositAccountId">
+                            <option value="">-Select Account-</option>
+                        </select>
+                        <span asp-validation-for="DepositAccountId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label  class="control-label">Date</label>
+                            <input asp-for="TransferDate" class="form-control" required />
+                            <span asp-validation-for="TransferDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label  class="control-label">Contractor Name</label>
+                            <input asp-for="ContractorName" class="form-control" />
+                            <span asp-validation-for="ContractorName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label class="control-label">Against Projects</label>
+                            <input asp-for="AgainstProject" class="form-control" required />
+                            <span asp-validation-for="AgainstProject" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label class="control-label">Amount</label>
+                            <input asp-for="TransferAmount" class="form-control" required />
+                            <span asp-validation-for="TransferAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">FC-1/FD-7</label>
+                            <input asp-for="FC1orFD7" class="form-control" />
+                            <span asp-validation-for="FC1orFD7" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">Approval Status</label>
+                            <input asp-for="ApprovalStatus" class="form-control" />
+                            <span asp-validation-for="ApprovalStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Add Transfer" class="btn btn-outline-success btn-md btn-block" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Close</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        
+</div>

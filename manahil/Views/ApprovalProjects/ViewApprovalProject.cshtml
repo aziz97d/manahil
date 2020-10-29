@@ -1,0 +1,64 @@
+﻿@model ApprovalProjects
+@{
+    Layout = null;
+}
+
+<div class="col-md-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="MonumentalNo"></label>
+                        </div>
+                        <input readonly asp-for="MonumentalNo" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="StartDate"></label>
+                        </div>
+                        <input readonly asp-for="StartDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="EndtDate"></label>
+                        </div>
+                        <input readonly  asp-for="EndtDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="AuditStatus"></label>
+                        </div>
+                        <input readonly asp-for="AuditStatus" class="form-control" />
+                    </div>
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="CertificateStatus"></label>
+                        </div>
+                        <input readonly asp-for="CertificateStatus" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="CurrencyRate"></label>
+                        </div>
+                        <input readonly asp-for="CurrencyRate" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" asp-for="ProjectImplementAddress"></label>
+                    <input multiple asp-for="ProjectImplementAddress" class="form-control" />
+                </div>
+
+</div>

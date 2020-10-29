@@ -1,0 +1,198 @@
+﻿@model IEnumerable<manahil.Models.ApprovalProjects>
+
+@{
+    ViewData["TitleHeader"] = "Approval Projects";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<form class="card p-2 table-responsive">
+
+
+    <table id="tbllist" class="table table-striped table-bordered table-sm text-nowrap  table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SerialNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MonumentalNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovalDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndtDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuditStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CertificateStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovedMoney)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrencyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAcceptedMoney)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpenseAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectImplementAddress)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SerialNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonumentalNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApprovalDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndtDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuditStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CertificateStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApprovedMoney)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrencyRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalAcceptedMoney)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectImplementAddress)
+                    </td>
+                    <td>
+                        <span data-toggle="tooltip" title="Edit">
+                            <a asp-action="Edit" asp-route-id="@item.ApprovalProjectId" class="fas fa-edit btn btn-warning btn-xs"></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Details!">
+                            <a asp-action="Details" asp-route-id="@item.ApprovalProjectId" class="fas fa-arrow-alt-circle-up btn btn-info btn-xs"></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Delete!">
+                            <a asp-action="Delete" asp-route-id="@item.ApprovalProjectId" class="far fa-trash-alt btn btn-danger btn-xs"></a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#tbllist').DataTable({
+
+                dom: 'lBfrtip',
+                "buttons": [
+
+                    {
+                        extend: 'copy',
+                        text: '<i class="fa fa-clone"></i> Copy',
+                        titleAttr: 'Copy to Clipboard'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fas fa-file-csv"></i> CSV',
+                        titleAttr: 'Export to csv'
+
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> Excel',
+                        titleAttr: 'Export to excel'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        titleAttr: 'Export to PDF',
+                        //exportOptions: {
+                        //    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        //}
+
+                    }
+                ],
+                "lengthMenu": [[10,25,50,-1],[10,25,50,"All"]],
+                "searching": true,
+                "paging": true,
+                //"ordering": true,
+
+
+            });
+
+            //$("#tbllist tfoot th").each(function (i) {
+            //    var select = $('<select class="form-control"><option value="">-Select-</option></select>')
+            //        .appendTo($(this).empty())
+            //        .on('change', function () {
+            //            table.column(i)
+            //                .search($(this).val())
+            //                .draw();
+            //        });
+
+            //    table.column(i).data().unique().sort().each(function (d, j) {
+            //        select.append('<option value="' + d + '">' + d + '</option>')
+            //    });
+            //});
+
+
+            //$('div.dataTables_filter').addClass("form-inline");
+            //$('div.dataTables_filter input').addClass("form-control");
+            //$('div.dataTables_filter input').addClass("input-sm");
+            ////$('div.dataTables_length select').addClass("form-control");
+            //$('div.dataTables_length').addClass("form-inline");
+            //$('div.dataTables_length select').addClass("form-control");
+
+        });
+        //var table = $('#tbllist').DataTable();
+
+
+
+    </script>
+}

@@ -13,7 +13,7 @@ namespace manahil.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectId { get; set; }
-        [Display(Name="Serial")]
+        [Display(Name = "Serial")]
         public int ManahilSerial { get; set; }
 
         [Required]
@@ -21,34 +21,50 @@ namespace manahil.Models
 
         [Required]
         [ForeignKey("DonorId")]
+        [Display(Name = "Donor")]
         public int DonorId { get; set; }
         public virtual Donor Donor { get; set; }
 
         [MaxLength(200)]
-        [Display(Name="Org Serial")]
+        [Display(Name = "Org Serial")]
         public string DonorSerial { get; set; }
 
-        [MaxLength(100)]
-        public DateTime GetDate { get; set; }
+        [Display(Name = "Get Date")]
+        [DataType(DataType.Date)]
+        public DateTime? GetDate { get; set; } = DateTime.Today;
+
 
         [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; }
+        [Required]
+        [Display(Name = "Category")]
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
         [ForeignKey("ContractorId")]
-        public string ContractorId { get; set; }
-        [MaxLength(100)]
-        public DateTime DistributionDate { get; set; }
+        [Display(Name = "Contractor")]
+        public int? ContractorId { get; set; }
+        public virtual Contractor Contractor { get; set; }
+
+        [Display(Name="Distribution Date")]
+        [DataType(DataType.Date)]
+        public DateTime? DistributionDate { get; set; }
 
         [ForeignKey("EmployeeId")]
-        public int EmployeeId { get; set; }
+        [Display(Name="Employee")]
+        public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
+        public DateTime? CompletedDate { get; set; }
+
+        [Display(Name ="Payment Status")]
         public bool PaymentStatus { get; set; }
+        public string Notes { get; set; }
+        [Display(Name="Tamid No")]
+        public string TamidNumber { get; set; }
 
 
-        
-        
-        
+
+
+
     }
 }

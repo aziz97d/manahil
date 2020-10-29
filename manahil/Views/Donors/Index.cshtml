@@ -1,16 +1,12 @@
-﻿@model IEnumerable<manahil.Models.Donor>
+﻿@model IEnumerable<manahil.ViewModels.DonorViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Donors";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>Donor List</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
-<form class="card p-2 table-responsive">
+@*<form class="card p-2 table-responsive">
     <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
         <thead class="text-nowrap">
             <tr>
@@ -70,7 +66,77 @@
         </tbody>
     </table>
 
-</form>
+</form>*@
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-3">
+            <!-- Widget: user widget style 2 -->
+            <div class="card card-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-cyan">
+                    <div class="widget-user-image">
+                        @if (item.Image == null)
+                        {
+                            <img class="img-circle elevation-2" src="https://f0.pngfuel.com/png/980/304/man-profile-illustration-computer-icons-user-profile-avatar-png-clip-art-thumbnail.png" alt="User Avatar">
+                        }
+                        else
+                        {
+                            <img class="img-circle elevation-2" src="~/images/@item.Image" alt="Avatar">
+                        }
+
+                    </div>
+
+                    <!-- /.widget-user-image -->
+                    <h4 class="widget-user-username">@item.Name</h4>
+                        <h5 class="widget-user-desc">@item.Country</h5>
+                </div>
+                <div class="card-footer p-0">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+
+                            <p class="nav-link">
+                                Total Projects <span class="float-right badge bg-primary">@item.TotalProject</span>
+                            </p>
+                        </li>
+
+                        <li class="nav-item">
+                            <p class="nav-link">
+                                Completed Projects <span class="float-right badge bg-success">@item.DeliveredProject</span>
+                            </p>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link">
+                                Ongoing Project <span class="float-right badge bg-danger">
+                                    @{
+                                        var onGoingProject = item.TotalProject - item.DeliveredProject;
+                                }@onGoingProject
+                            </span>
+                        </p>
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.DonorId }, new { @class = "btn btn-outline-warning nav-link" })
+                        @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink("Details", "Details", new { Id = item.DonorId }, new { @class = "btn btn-outline-success nav-link" })
+
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Delete", "Delete", new { Id = item.DonorId }, new { @class = "btn btn-outline-danger nav-link" })
+                        @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div> <!-- /.col -->
+
+}
+</div>
 
 @section Scripts{
 

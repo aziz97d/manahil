@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DesignationsController : Controller
     {
         private readonly DatabaseContext db;
@@ -49,12 +51,10 @@ namespace manahil.Controllers
             return View();
         }
 
-        // POST: Designations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("DesignationId,Name")]*/ Designation designation)
+        public async Task<IActionResult> Create( Designation designation)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace manahil.Controllers
             return View(designation);
         }
 
-        // GET: Designations/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,42 +110,7 @@ namespace manahil.Controllers
             return View("Create",designation);
         }
 
-        // POST: Designations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("DesignationId,Name")] Designation designation)
-        //{
-        //    if (id != designation.DesignationId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            db.Update(designation);
-        //            await db.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!DesignationExists(designation.DesignationId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(designation);
-        //}
-
-        // GET: Designations/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

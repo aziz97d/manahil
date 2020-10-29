@@ -1,0 +1,296 @@
+﻿@model manahil.Models.Project
+
+@{
+    ViewData["TitleHeader"] = "Add Projects";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+
+}
+
+<div class="col-md-12">
+   
+    <div class="card card-success border border-success ">
+        <div class="card-header">
+            
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form asp-action="CreateMultiple">
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="ProjectId" value="0" />
+                }
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" id="categoryD" class="form-control" asp-items="ViewBag.CategoryId" required>
+                                <option value="">-Select Category-</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="ManahilSerial" class="control-label"></label>
+                            <input asp-for="ManahilSerial" id="manahilSerialD" class="form-control manahilSerialD" />
+                            <span asp-validation-for="ManahilSerial" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" id="namePorjectD" class="form-control" required />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="DonorSerial" class="control-label"></label>
+                            <input asp-for="DonorSerial" id="orgSerialD" class="form-control" required />
+                            <span asp-validation-for="DonorSerial" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="DonorId" class="control-label"></label>
+                        <select asp-for="DonorId" id="donorD" class="form-control" asp-items="ViewBag.DonorId" required>
+                            <option value="">- Select Donor -</option>
+                        </select>
+                        <span asp-validation-for="DonorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="TamidNumber" class="control-label"></label>
+                            <input asp-for="TamidNumber" id="tamidNumberD" class="form-control" />
+                            <span asp-validation-for="TamidNumber" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="GetDate" class="control-label"></label>
+                            <input asp-for="GetDate" id="getDateD" class="form-control" />
+                            <span asp-validation-for="GetDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                @*text Area*@
+                <!--<div class="row">
+        <div class="col-sm-6">-->
+               
+                <!--<div class="form-group">
+                    <label>Textarea</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+
+        </div>-->
+                @*text Area*@
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @*<input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />*@
+                            <button type="button" class="btn btn-outline-success btn-md btn-block" onclick="add_Row()">Add Project</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+            <hr />
+            <h3 class="text-center text-success">Projects</h3>
+            <form class="p-2 table-responsive">
+                <table id="tbllist" class="table table-striped" cellspacing="0" width="100%">
+                    <thead class="text-nowrap">
+                        <tr>
+                            <th>Serial</th>
+                            <th>Name</th>
+                            <th>Org Serial</th>
+                            <th>Donor</th>
+                            <th hidden>donorId</th>
+                            <th>Category</th>
+                            <th hidden>CategoryId</th>
+                            <th>Tamid</th>
+                            <th>Get Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </form>
+
+            <!-- /.card-body -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @*<input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />*@
+                        <button type="button" class="btn btn-success btn-md btn-block" onclick="addAllPorjects()">Add all projects</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <button class="btn btn-outline-danger btn-md btn-block" id="delete">Delete</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+
+
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-12">
+
+        <!-- /.card-header -->
+        
+    </div>
+    <!-- /.card -->
+    
+</div>
+
+<!-- /.row -->
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $('#tbllist').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [4],
+                        "visible": false
+                    },
+                    {
+                        "targets": [6],
+                        "visible": false
+                    }
+                ]
+            });
+
+
+            $('#tbllist tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#delete').click(function () {
+                $('#tbllist').DataTable().rows('.selected').remove().draw(false);
+            });
+
+        });
+        function add_Row() {
+            var table = $('#tbllist').DataTable();
+            var manahilSerial = $("#manahilSerialD").val();
+            var nameProject = $("#namePorjectD").val();
+            var orgSerial = $("#orgSerialD").val();
+            var donor = $('#donorD').find(":selected").text();
+            var donorId = $('#donorD').find(":selected").val();
+            var category = $('#categoryD').find(":selected").text();
+            var categoryId = $('#categoryD').find(":selected").val();
+            var tamidNumbeer = $('#tamidNumberD').val();
+            var getDate = $("#getDateD").val();
+            if (nameProject == "" || orgSerial == "" || donorId == "" || categoryId == "") {
+                alert("Please fill required field");
+                return;
+            }
+
+            table.row.add([manahilSerial, nameProject, orgSerial, donor, donorId, category, categoryId, tamidNumbeer, getDate]).draw();
+            $("#manahilSerialD").val("" + (parseInt(manahilSerial) + 1));
+            $("#namePorjectD").val("");
+            $('tamidNumberD').val(tamidNumbeer);
+
+        }
+        //Category Change event
+        $('#categoryD').change(function () {
+            var ctgryId = $('#categoryD').val();
+            
+            $.ajax({
+                url: '@Url.Action("GetManahilSerialByCategoryId", "Projects")',
+                data: { categoryId: ctgryId }, 
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+
+                   result.Success;
+                   $('#manahilSerialD').val(result.Success+1);
+                }
+            })
+           
+
+        })
+
+        //Row Edit
+        
+        //Row Edit
+        //Add project to server
+        function addAllPorjects() {
+            var data = $('#tbllist').DataTable().data();
+            //var project = {manahilSeril:"",nameProject="",orgSerial="",donorId}
+            var projects = [];
+
+            for (var i = 0; i < data.length; i++) {
+               // for (var j = 0; j < data[i].length; j++) {
+
+                    var project = {
+                        ManahilSerial: data[i][0],
+                        Name: data[i][1],
+                        DonorSerial: data[i][2],
+                        DonorId: data[i][4],
+                        GetDate: data[i][8],
+                        CategoryId: data[i][6],
+                        TamidNumber: data[i][7]
+                    };
+                    projects.push(project);
+               // }
+            }
+
+            $.ajax({
+                url: '@Url.Action("CreateMultiple", "Projects")',
+                data: { projects: projects },
+                type: 'POST',
+                dataType: 'json',
+                success: function () {
+                    alert('success');
+                },
+                failure: function () {
+                    alert('failure');
+                }
+            });
+
+
+            return;
+        }
+
+
+
+
+
+
+    </script>
+
+}

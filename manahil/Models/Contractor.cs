@@ -25,15 +25,15 @@ namespace manahil.Models
         public string Contact { get; set; }
         [MaxLength(500)]
         public string Address { get; set; }
-        [MaxLength(200)]
+        
         public string Image { get; set; }
         [ForeignKey("CityId")]
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
 
         public virtual City City { get; set; }
 
-        public ICollection<Project> Projects { get; set; }
-        public ICollection<Payment> Payments { get; set; }
+        //public ICollection<Project> Projects { get; set; }
+        //public ICollection<Payment> Payments { get; set; }
     }
 }

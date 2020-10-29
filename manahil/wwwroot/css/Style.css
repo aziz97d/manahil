@@ -1,0 +1,9 @@
+﻿body{
+}
+@font-face {
+    font-family: 'Fonarto';
+    src: url('../font/Fonarto.ttf');
+}
+.manahilfont{
+    font-family:Fonarto;
+}

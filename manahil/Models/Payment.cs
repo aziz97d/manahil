@@ -22,6 +22,7 @@ namespace manahil.Models
         [Required]
         [MaxLength(100)]
         public DateTime PaymentDate { get; set; }
+
         [Required]
         [ForeignKey("ContractorId")]
         public int ContractorId { get; set; }

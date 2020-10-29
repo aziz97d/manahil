@@ -1,0 +1,77 @@
+﻿@model manahil.Models.ManahilMonumental
+
+@{
+    ViewData["TitleHeader"] = "Monumental";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="card card-warning">
+        <div class="card-header"></div>
+        <form asp-action="CreateOrEdit" class="card-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.ManahilMonumentalId != 0)
+            {
+                <input asp-for="ManahilMonumentalId" hidden />
+            }
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="MonumentalNo" class="control-label"></label>
+                    <input asp-for="MonumentalNo" class="form-control" />
+                    <span asp-validation-for="MonumentalNo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Destination" class="control-label"></label>
+                    <input asp-for="Destination" class="form-control" />
+                    <span asp-validation-for="Destination" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label asp-for="Comments" class="control-label"></label>
+                    <input asp-for="Comments" class="form-control" />
+                    <span asp-validation-for="Comments" class="text-danger"></span>
+                </div>
+            </div>
+                
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-outline-success btn-block" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <a asp-action="Index" class="btn btn-outline-primary d-block">Back</a>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+

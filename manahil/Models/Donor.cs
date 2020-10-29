@@ -24,13 +24,13 @@ namespace manahil.Models
         [MaxLength(200)]
         public string Image { get; set; }
         [ForeignKey("CountryId")]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
 
         public virtual Country Country { get; set; }
 
-        public ICollection<ManageDrive> ManageDrives { get; set; }
-        public ICollection<Project> Projects { get; set; }
-        public ICollection<Payment> Payments { get; set; }
+        //public ICollection<ManageDrive> ManageDrives { get; set; }
+        //public ICollection<Project> Projects { get; set; }
+        //public ICollection<Payment> Payments { get; set; }
     }
 }

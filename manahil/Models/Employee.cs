@@ -23,12 +23,12 @@ namespace manahil.Models
         public string Contact { get; set; }
         [MaxLength(1000)]
         public string Address { get; set; }
-        [MaxLength(200)]
+        
         public string Image { get; set; }
         [ForeignKey("DesignationId")]
-        public int DesignationId { get; set; }
-        [ForeignKey("ThanaId")]
-        public int CityId { get; set; }
+        public int? DesignationId { get; set; }
+        [ForeignKey("CityId")]
+        public int? CityId { get; set; }
         public bool Status { get; set; }
 
 

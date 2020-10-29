@@ -13,6 +13,10 @@
     {
       "library": "datatables@1.10.21",
       "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "library": "fakeLoader.js@1.1.0",
+      "destination": "wwwroot/fakeLoader.js/"
     }
   ]
 }

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountriesController : Controller
     {
         private readonly DatabaseContext db;
@@ -24,35 +26,14 @@ namespace manahil.Controllers
             return View(await db.Countries.ToListAsync());
         }
 
-        // GET: Countries/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var city = await db.Countries
-        //        .Include(c => c.Country)
-        //        .FirstOrDefaultAsync(m => m.CityId == id);
-        //    if (city == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(city);
-        //}
-
-        // GET: Countries/Create
+        
         public IActionResult Create()
         {
             ViewBag.Title = "Create";
             return View();
         }
 
-        // POST: Countries/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(/*[Bind("CityId,Name,CountryId")]*/ Country country)
@@ -113,43 +94,7 @@ namespace manahil.Controllers
             return View("Create", country);
         }
 
-        // POST: Countries/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("CityId,Name,CountryId")] City city)
-        //{
-        //    if (id != city.CityId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            db.Update(city);
-        //            await db.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!CityExists(city.CityId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["CountryId"] = new SelectList(db.Countries, "CountryId", "Name", city.CountryId);
-        //    return View(city);
-        //}
-
-        // GET: Countries/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

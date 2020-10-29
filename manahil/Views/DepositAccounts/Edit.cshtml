@@ -1,0 +1,12 @@
+﻿@model manahil.ViewModels.DepositAndTransferViewModel
+
+@{
+    ViewData["TitleHeader"] = "Edit Deposit";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<div id="editPartial">
+    @await Html.PartialAsync("_EditDeposit",Model)
+</div>
+
+

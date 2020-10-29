@@ -1,0 +1,278 @@
+﻿@model IEnumerable<manahil.Models.Project>
+@{
+    ViewData["TitleHeader"] = "Project Delivery";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<table>
+    <tr>
+        <td><button id="button" class="btn btn-success">Delivered</button></td>
+    </tr>
+</table>
+
+@*<button id="button" class="btn btn-success">Distribute</button>*@
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="display" cellspacing="0" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th class="d-none"></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManahilSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonorSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contractor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>Pass Day</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td class="d-none projectidcls">@Html.DisplayFor(modelItem => item.ProjectId)@*<span>@item.ProjectId</span>*@@*<input type="hidden" class="projectidcls" value="@item.ProjectId" />*@</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManahilSerial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonorSerial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.Name)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @{
+                        string days = "";
+                        if (item.DistributionDate == null)
+                        {
+                            days = "Not distribute";
+                        }
+                        else
+                        {
+                            TimeSpan diff = DateTime.Today - Convert.ToDateTime(item.DistributionDate);
+                            days = diff.Days.ToString();
+                        }
+
+                    }
+                    @days
+                </td>
+                <td class="noteCls">
+                    @*<input type="text" class="noteCls" value="@item.Notes" />*@
+                    <span>@item.Notes</span>
+                    <input type="text"  value="@item.Notes" style="display:none" />
+                </td>
+                <td>
+                    <a class="Edit btn btn-warning btn-xs" href="javascript:;">Add Notes</a>
+                    <a class="Update btn btn-success btn-xs" href="javascript:;" style="display:none">Update</a>
+                    <a class="Cancel btn btn-primary btn-xs" href="javascript:;" style="display:none">Cancel</a>
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            
+            var table = $('#tbllist').DataTable();
+
+            $('#tbllist tbody').on('click', 'td:not(:nth-last-child(1),:nth-last-child(2))', function () {
+
+                $(this).closest('tr').toggleClass('selected');
+
+            });
+
+            $('#button').click(function () {
+                var data = table.rows('.selected').data();
+                if (data.length < 1) {
+                    alert('No project Select');
+                    return;
+                }
+                var projectIdlist = [];
+
+
+                for (var i = 0; i < data.length; i++) {
+                    projectIdlist.push(data[i][0]);
+                }
+
+                    $.ajax({
+
+                        url: '@Url.Action("CompletedProject", "Projects")',
+
+                        //data: JSON.stringify({ id: projectIdlist, contractorId: contrctrid, distributionDate: dateD }), //use id here
+                        data: { projectId: projectIdlist }, //use id here
+                        //data: JSON.stringify(salesmain),
+                        type: 'POST',
+                        //contentType: 'application/json;',
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.Success == "1") {
+                                //toastr.success(result.ex);
+                            window.setTimeout(function () {
+                                // Move to a new location or you can do something else
+                                window.location.href = '@Url.Action("CompletedProject", "Projects")';
+                            }, 0);
+                        }
+                        else {
+                            toastr.error(result.ex);
+                        }
+                    }
+                    });
+
+            });
+
+        });
+
+        //row edit
+
+
+        //$('#tbllist tr').on('change', '[class="noteCls"]', function (e) {
+        //    //var data = $(this).val();
+        //    var $tr = $(this).closest('tr');
+        //    var projectid = $(this).closest('tr').find('.noteCls').val();
+        //    var notes = $(this).closest('tr').find('.projectidcls').val();
+        //});
+
+
+        //Edit event handler.
+        $("body").on("click", "#tbllist .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        //$("body").on("click", "#tbllist .Update", function () {
+        //    var row = $(this).closest("tr");
+        //    var projectId = row.find("td:eq(0)").find("input").val();
+        //    var notes = row.find("td:eq(8)").find("input").val();
+        //    //$("td", row).each(function () {
+        //    //    if ($(this).find("input").length > 0) {
+        //    //        var span = $(this).find("span");
+        //    //        var input = $(this).find("input");
+        //    //        span.html(input.val());
+        //    //        span.show();
+        //    //        input.hide();
+        //    //    }
+        //    //});
+        //    row.find(".Edit").show();
+        //    row.find(".Update").hide();
+        //    row.find(".Cancel").hide();
+        //    row.find("input").hide();
+        //    row.find("span").show();
+
+        //    var customer = {};
+        //    customer.CustomerId = row.find(".CustomerId").find("span").html();
+        //    customer.Name = row.find(".Name").find("span").html();
+        //    customer.Country = row.find(".Country").find("span").html();
+        //    //$.ajax({
+        //    //    type: "POST",
+        //    //    url: "/Home/UpdateCustomer",
+        //    //    data: '{customer:' + JSON.stringify(customer) + '}',
+        //    //    contentType: "application/json; charset=utf-8",
+        //    //    dataType: "json"
+        //    //});
+        //});
+
+        //Update event handler.
+        $("body").on("click", "#tbllist .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var prjctId = row.find(".projectidcls").html();
+            var nts = row.find(".noteCls").find("span").html();
+
+            $.ajax({
+                url: '@Url.Action("AddNotesInProject", "Projects")',
+                type: "POST",
+                //url: "/Projects/AddNotesInProject",
+                //data: '{projectId:' + JSON.stringify(prjctId) + ', notes:' + JSON.stringify(notes) + '}',
+                data: { projectId: prjctId, notes: nts },
+                //contentType: "application/json;",
+                dataType: "json",
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                        window.setTimeout(function () {
+                            // Move to a new location or you can do something else
+                            window.location.href = '@Url.Action("CompletedProject", "Projects")';
+                        }, 0);
+                    }
+                    else {
+                        toastr.error(result.ex);
+                    }
+                }
+            });
+        });
+
+        //Cancel event handler.
+        $("body").on("click", "#tbllist .Cancel", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    input.val(span.html());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Update").hide();
+            $(this).hide();
+        });
+
+    </script>
+
+}

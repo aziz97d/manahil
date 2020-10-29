@@ -1,0 +1,97 @@
+﻿@model manahil.Models.ApprovalProjects
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ApprovalProjects</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ApprovalProjectId" />
+            <div class="form-group">
+                <label asp-for="SerialNo" class="control-label"></label>
+                <input asp-for="SerialNo" class="form-control" />
+                <span asp-validation-for="SerialNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonumentalNo" class="control-label"></label>
+                <input asp-for="MonumentalNo" class="form-control" />
+                <span asp-validation-for="MonumentalNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovalDate" class="control-label"></label>
+                <input asp-for="ApprovalDate" class="form-control" />
+                <span asp-validation-for="ApprovalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndtDate" class="control-label"></label>
+                <input asp-for="EndtDate" class="form-control" />
+                <span asp-validation-for="EndtDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Donor" class="control-label"></label>
+                <input asp-for="Donor" class="form-control">
+                <span asp-validation-for="Donor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuditStatus" class="control-label"></label>
+                <input asp-for="AuditStatus" class="form-control" />
+                <span asp-validation-for="AuditStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificateStatus" class="control-label"></label>
+                <input asp-for="CertificateStatus" class="form-control" />
+                <span asp-validation-for="CertificateStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovedMoney" class="control-label"></label>
+                <input asp-for="ApprovedMoney" class="form-control" />
+                <span asp-validation-for="ApprovedMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrencyRate" class="control-label"></label>
+                <input asp-for="CurrencyRate" class="form-control" />
+                <span asp-validation-for="CurrencyRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalAcceptedMoney" class="control-label"></label>
+                <input asp-for="TotalAcceptedMoney" class="form-control" />
+                <span asp-validation-for="TotalAcceptedMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpenseAmount" class="control-label"></label>
+                <input asp-for="ExpenseAmount" class="form-control" />
+                <span asp-validation-for="ExpenseAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectImplementAddress" class="control-label"></label>
+                <input asp-for="ProjectImplementAddress" class="form-control" />
+                <span asp-validation-for="ProjectImplementAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

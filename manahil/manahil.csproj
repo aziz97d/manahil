@@ -13,6 +13,16 @@
     <Compile Remove="Migrations\20200818194027_FirstMigration.Designer.cs" />
     <Compile Remove="Migrations\20200825183525_Contractors.cs" />
     <Compile Remove="Migrations\20200825183525_Contractors.Designer.cs" />
+    <Compile Remove="Migrations\20200829162331_problemfix.cs" />
+    <Compile Remove="Migrations\20200829162331_problemfix.Designer.cs" />
+    <Compile Remove="Migrations\20200829170049_problemfix.cs" />
+    <Compile Remove="Migrations\20200829170049_problemfix.Designer.cs" />
+    <Compile Remove="Migrations\20200829182105_sFinalM.cs" />
+    <Compile Remove="Migrations\20200829182105_sFinalM.Designer.cs" />
+    <Compile Remove="Migrations\20201015032920_addApprovalProjects.cs" />
+    <Compile Remove="Migrations\20201015032920_addApprovalProjects.Designer.cs" />
+    <Compile Remove="Migrations\20201016045807_addDeposit.cs" />
+    <Compile Remove="Migrations\20201016045807_addDeposit.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,13 +38,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Fakeloader\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,25 @@
+﻿@model manahil.ViewModels.CreateRoleViewModels
+@{
+    ViewData["TitleHeader"] = "Create Role";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateRole">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+            </div>
+        </form>
+    </div>
+</div>

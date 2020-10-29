@@ -1,13 +1,10 @@
 ﻿@model manahil.Models.Designation
 
 @{
+    ViewData["TitleHeader"] = "Create Designaiton";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>@ViewBag.Title</h1>
-
-<h4>Designation</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -30,7 +27,7 @@
             <div class="form-group">
                 @if (ViewBag.Title == "Create")
                 {
-                    <input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />
+                    <input type="submit" value="Create" class="btn btn-outline-success btn-md btn-block" />
 
                     @*<button class="btn btn-primary btn-lg btn-block" type="button" onclick="Products_save()">Save</button>*@
                 }

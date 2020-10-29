@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using manahil.Models;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authorization;
 
 namespace manahil.Controllers
 {
+    
     public class ManageDrivesController : Controller
     {
         private readonly DatabaseContext db;
+
 
         public ManageDrivesController(DatabaseContext context)
         {
@@ -26,23 +30,28 @@ namespace manahil.Controllers
         }
 
         // GET: ManageDrives/Details/5
-     
+
 
         // GET: ManageDrives/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+
             ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
             ViewBag.Title = "Create";
-            return View();
+            return View(new ManageDrive());
         }
 
         // POST: ManageDrives/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(/*[Bind("manageDriveId,Name,DonorId")]*/ ManageDrive manageDrive)
         {
+            string link = manageDrive.DriveLink;
+            manageDrive.DriveLink = "http://"+link;
 
             if (ModelState.IsValid)
             {
@@ -86,6 +95,7 @@ namespace manahil.Controllers
         }
 
         // GET: ManageDrives/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,6 +149,7 @@ namespace manahil.Controllers
         //}
 
         // GET: ManageDrives/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +171,8 @@ namespace manahil.Controllers
 
         // POST: ManageDrives/Delete/5
         [HttpPost, ActionName("Delete")]
-      //  [ValidateAntiForgeryToken]
+        //  [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try

@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<manahil.Models.ManageDrive>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Manage Drive";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
-
-<h1>Drive Account List</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
@@ -48,7 +46,7 @@
 
                 <td class="text-nowrap">
                     <span data-toggle="tooltip" title="Edit!">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ManageDriveId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                        @Html.ActionLink(" ", "Edit", new { id = item.ManageDriveId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
                     </span>
                     <span data-toggle="tooltip" title="Delete!">
                         @Html.ActionLink(" ", "Delete", new { Id = item.ManageDriveId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })

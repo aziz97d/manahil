@@ -1,0 +1,231 @@
+﻿@model manahil.Models.ApprovalProjects
+
+@{
+    ViewData["TitleHeader"] = "Create Approval Project";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+<div class="card card-success border border-success">
+    <div class="card-header">
+
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <form asp-action="Create">
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="ApprovalProjectId" />
+                }
+                else
+                {
+                    <input type="hidden" value="0" asp-for="ApprovalProjectId" />
+                }
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="SerialNo" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="SerialNo" class="form-control" />
+                            </div>
+                            <span asp-validation-for="SerialNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="MonumentalNo" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="MonumentalNo" class="form-control" />
+                            </div>
+                            <span asp-validation-for="MonumentalNo" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="ProjectName" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="ProjectName" class="form-control" />
+                            </div>
+                            <span asp-validation-for="ProjectName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="Donor" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="Donor" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Donor" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="ApprovalDate" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="ApprovalDate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="ApprovalDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="StartDate" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="StartDate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="EndtDate" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="EndtDate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="EndtDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="AuditStatus" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="AuditStatus" class="form-control" />
+                            </div>
+                            <span asp-validation-for="AuditStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="CertificateStatus" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="CertificateStatus" class="form-control" />
+                            </div>
+                            <span asp-validation-for="CertificateStatus" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="ApprovedMoney" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="ApprovedMoney" class="form-control" />
+                            </div>
+                            <span asp-validation-for="ApprovedMoney" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="CurrencyRate" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="CurrencyRate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="CurrencyRate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="TotalAcceptedMoney" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="TotalAcceptedMoney" class="form-control" />
+                            </div>
+                            <span asp-validation-for="TotalAcceptedMoney" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="ExpenseAmount" class="input-group-text"></label>
+                                </div>
+                                <input asp-for="ExpenseAmount" class="form-control" />
+                            </div>
+                            <span asp-validation-for="ExpenseAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label asp-for="ProjectImplementAddress" class="input-group-text"></label>
+                                </div>
+                                <textarea asp-for="ProjectImplementAddress" class="form-control"></textarea>
+                            </div>
+                            <span asp-validation-for="ProjectImplementAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-outline-success btn-block" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-action="Index" class="btn btn-outline-info d-block">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+

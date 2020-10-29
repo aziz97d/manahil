@@ -1,6 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -50,6 +48,20 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+/*Manahil font*/
+body {
+}
+
+@font-face {
+    font-family: 'Fonarto';
+    src: url('../font/Fonarto.ttf');
+}
+
+.manahilfont {
+    font-family: Fonarto;
+}
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -60,7 +72,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;*/
 }
 .footer {
   position: absolute;
@@ -69,3 +81,384 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+ /* no work here ?????*/
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+a.btn:hover {
+    cursor: pointer !important;
+}
+
+/*loader*/
+/*.loaderbody {
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background-color: rgba(128,128,128,0.2);
+    z-index: 2147483647;
+}
+
+.loader {
+    border: 10px solid #f3f3f3;*/ /* Light grey */
+    /*border-top: 16px solid #129730;*/ /* green */
+    /*border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 45%;
+    left: 40%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    display: none;
+}*/
+
+
+ /*   Our prujects */
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* DEMO GENERAL ============================== */
+.hover {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 60%;
+}
+
+.hover-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    transition: all 0.4s;
+}
+
+.hover img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s;
+}
+
+.hover-content {
+    position: relative;
+    z-index: 99;
+}
+
+
+/* DEMO 1 ============================== */
+/*.hover-1 img {
+    width: 105%;
+    position: absolute;
+    top: 0;
+    left: -5%;
+    transition: all 0.3s;
+}
+
+.hover-1-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    transition: all 0.4s;
+}
+
+.hover-1 .hover-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hover-1-description {
+    transform: translateY(0.5rem);
+    transition: all 0.4s;
+    opacity: 0;
+}
+
+.hover-1:hover .hover-1-content {
+    bottom: 2rem;
+}
+
+.hover-1:hover .hover-1-description {
+    opacity: 1;
+    transform: none;
+}
+
+.hover-1:hover img {
+    left: 0;
+}
+
+.hover-1:hover .hover-overlay {
+    opacity: 0;
+}*/
+
+
+/* DEMO 2 ============================== */
+/*.hover-2 .hover-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1));
+}
+
+.hover-2-title {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 99;
+    transition: all 0.3s;
+}
+
+.hover-2-description {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    left: 0;
+    text-align: center;
+    z-index: 99;
+    transition: all 0.3s;
+}
+
+.hover-2:hover .hover-2-title {
+    transform: translateY(-1.5rem);
+}
+
+.hover-2:hover .hover-2-description {
+    bottom: 0.5rem;
+    opacity: 1;
+}
+
+.hover-2:hover .hover-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1));
+}*/
+
+
+/* DEMO 3 ============================== */
+.hover-3::after {
+    content: '';
+    width: calc(100% - 3rem);
+    height: calc(100% - 3rem);
+    border: 1px solid #fff;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 90;
+    transition: all 0.3s;
+    transform: scale(1.1);
+    opacity: 0;
+    display: block;
+    opacity: 0;
+}
+
+.hover-3-content {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    text-align: center;
+    z-index: 99;
+}
+
+.hover-3-description {
+    opacity: 0;
+    transform: scale(1.3);
+    transition: all 0.3s;
+}
+
+.hover-3 img {
+    width: 110%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hover-3 .hover-overlay {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.hover-3:hover img {
+    width: 100%;
+}
+
+.hover-3:hover::after {
+    opacity: 1;
+    transform: none;
+}
+
+.hover-3:hover .hover-3-description {
+    opacity: 1;
+    transform: none;
+}
+
+.hover-3:hover .hover-overlay {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+
+/* DEMO 4 ============================== */
+/*.hover-4 img {
+    width: 110%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hover-4 .hover-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
+}
+
+.hover-4-title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 3rem;
+    z-index: 99;
+}
+
+.hover-4-description {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    text-align: right;
+    border-right: 3px solid #fff;
+    padding: 0 1rem;
+    z-index: 99;
+    transform: translateX(-1.5rem);
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+@media (min-width: 992px) {
+    .hover-4-description {
+        width: 50%;
+    }
+}
+
+.hover-4:hover img {
+    width: 100%;
+}
+
+.hover-4:hover::after {
+    opacity: 1;
+    transform: none;
+}
+
+.hover-4:hover .hover-4-description {
+    opacity: 1;
+    transform: none;
+}
+
+.hover-4:hover .hover-overlay {
+    background: rgba(0, 0, 0, 0.8);
+}*/
+
+
+/* DEMO 5 ============================== */
+/*.hover-5::after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background: #47c650;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    display: block;
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.hover-5 .hover-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hover-5-title {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    transition: all 0.3s;
+    padding: 2rem 3rem;
+    z-index: 99;
+}
+
+    .hover-5-title span {
+        transition: all 0.4s;
+        opacity: 0;
+        color: #47c650;
+    }
+
+.hover-5:hover .hover-overlay {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.hover-5:hover .hover-5-title {
+    bottom: 0;
+}
+
+    .hover-5:hover .hover-5-title span {
+        opacity: 1;
+    }
+
+.hover-5:hover::after {
+    bottom: 0;
+}*/
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+/*body {
+    min-height: 100vh;
+    background-color: #fafafa;
+}*/
+
+
+/*footer*/
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSE
+* ==========================================
+*
+*/
+
+/*body {
+    background: #ff5f6d;
+    background: -webkit-linear-gradient(to right, #ff5f6d, #ffc371);
+    background: linear-gradient(to right, #ff5f6d, #ffc371);
+    min-height: 100vh;
+}*/
+
+

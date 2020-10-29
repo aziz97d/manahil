@@ -1,12 +1,9 @@
 ﻿@model IEnumerable<manahil.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Categories";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
-
-<h1>Category List</h1>
-
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
@@ -31,7 +28,7 @@
                     
                     <td class="text-nowrap">
                         <span data-toggle="tooltip" title="Edit!">
-                            @Html.ActionLink(" ", "Edit", new { id = item.CategoryId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
+                            @Html.ActionLink(" ", "Edit", new { id = item.CategoryId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
                         </span>
                         <span data-toggle="tooltip" title="Delete!">
                             @Html.ActionLink(" ", "Delete", new { Id = item.CategoryId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
@@ -108,7 +105,10 @@
                             extend: 'print',
                             text: '<i class="mdi mdi-printer"></i>',
                             className: 'btn-info',
-                            titleAttr: 'Print Table'
+                            titleAttr: 'Print Table',
+                            
+
+                          
                         }
 
                     ]

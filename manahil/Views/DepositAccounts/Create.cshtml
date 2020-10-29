@@ -1,0 +1,90 @@
+﻿@model manahil.Models.DepositAccount
+
+@{
+    ViewData["TitleHeader"] = "Create Deposit";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <!-- general form elements disabled -->
+    <div class="card card-success border border-success">
+        <div class="card-header">
+            <h3 class="card-title">@ViewData["TitleHeader"]</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form asp-action="Create">
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="DepositAccountId" value="@Model.DepositAccountId" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="DepositAccountId" value="0" />
+                }
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="Donor" class="control-label"></label>
+                            <input asp-for="Donor" class="form-control" required />
+                            <span asp-validation-for="Donor" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="DepositCode" class="control-label"></label>
+                            <input asp-for="DepositCode"  class="form-control" />
+                            <span asp-validation-for="DepositCode" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="DepositDate" class="control-label"></label>
+                            <input asp-for="DepositDate" class="form-control" required />
+                            <span asp-validation-for="DepositDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="DepositType" class="control-label"></label>
+                        <select asp-for="DepositType" class="form-control" required>
+                            <option value="">-Select Deposit Type-</option>
+                            <option value="Bank">Bank</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                        <span asp-validation-for="DepositType" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="DepositAmount" class="control-label"></label>
+                            <input asp-for="DepositAmount"  class="form-control" />
+                            <span asp-validation-for="DepositAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-outline-primary btn-md btn-block" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-action="Index" class="btn btn-outline-info btn-md btn-block">Back</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>

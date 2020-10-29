@@ -1,0 +1,86 @@
+﻿@model IEnumerable<manahil.Models.DepositAccount>
+
+@{
+    ViewData["TitleHeader"] = "Deposit";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<form class="card p-2 table-responsive">
+    <table id="tbllist" class="table table-striped table-bordered table-sm text-nowrap  table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepositCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepositDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepositType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepositAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepositAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td class="justify-content-center">
+                        
+                        <span data-toggle="tooltip" title="Transfer!">
+                            <a onclick="showInPopupDetails('@Url.Action("ShowAllTransfer","DepositAccounts",new { id=item.DepositAccountId},Context.Request.Scheme)',@item.DepositCode.ToString() +' All Transfer')" class="fas fa-arrow-alt-circle-up btn btn-info btn-sm"></a>
+                        </span>
+
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tbllist').DataTable({
+                "searching": true,
+                "paging": true,
+                "ordering": false,
+                
+            });
+        });
+
+                            //$(".search_input").addClass('form-control input-lg col-xs-12');
+
+    </script>
+}

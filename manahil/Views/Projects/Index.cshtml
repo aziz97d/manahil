@@ -1,0 +1,273 @@
+﻿@model IEnumerable<manahil.Models.Project>
+
+@{
+    ViewData["TitleHeader"] = "Project";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+<style>
+    .selected{
+        background-color:lawngreen !important;
+    }
+</style>
+<p>
+    <a asp-action="CreateMultiple" class="btn btn-success">Add Projects</a>
+</p>
+<form class="card p-2 table-responsive">
+    
+    <table id="tbllist" class="display" cellspacing="0" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManahilSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonorSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GetDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contractor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DistributionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompletedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaymentStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-nowrap">
+            @foreach (var item in Model)
+            {
+                @if (item.EmployeeId == null)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManahilSerial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Donor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonorSerial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GetDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contractor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DistributionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompletedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td class="text-nowrap">
+                            <span data-toggle="tooltip" title="Edit!">
+                                @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
+                            </span>
+                            <span data-toggle="tooltip" title="Delete!">
+                                @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                            </span>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="selected">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManahilSerial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Donor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonorSerial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GetDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contractor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DistributionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompletedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td class="text-nowrap">
+                            <span data-toggle="tooltip" title="Edit!">
+                                @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
+                            </span>
+                            <span data-toggle="tooltip" title="Delete!">
+                                @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                            </span>
+                        </td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+</form>
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tbllist').DataTable({
+
+                //dom: '<"dom_wrapper fh-fixedHeader"flB>tip',
+                //"sDom": "<'row'<'col-sm-12'<'form-group'<f>>>>tr<'row'<'col-sm-12'<'pull-left'i><'pull-right'p><'clearfix'>>>",
+                //buttons: [
+                //    'copy', 'csv', 'excel', 'pdf'
+                //],
+                buttons: {
+                    dom: {
+                        button: {
+                            className: 'btn rounded-0'
+                        }
+                    },
+                    //buttons: [
+                    //    //'copy', 'csv', 'excel', 'pdf'
+                    //    //$(this).addClass("btn-group dt-buttons justify-content-center mb-3")
+                    //    {
+                    //        extend: 'colvis',
+                    //        "columns": ':not(:last-child)',
+                    //        text: '<i class="mdi mdi-view-column"></i>',
+                    //        className: 'btn-info',
+                    //        titleAttr: 'Show / hide columns',
+                    //        //collectionLayout: 'fixed two-column'
+
+                    //    },
+                    //    {
+                    //        extend: 'copy',
+                    //        text: '<i class="mdi mdi-content-copy"></i>',
+                    //        className: 'btn-primary',
+                    //        titleAttr: 'Copy to Clipboard'
+                    //    },
+                    //    {
+                    //        extend: 'csv',
+                    //        text: '<i class="mdi mdi-note-outline"></i>',
+                    //        className: 'btn-secondary',
+                    //        titleAttr: 'Export to csv'
+
+                    //    },
+                    //    {
+                    //        extend: 'excel',
+                    //        text: '<i class="mdi mdi-file-excel"></i>',
+                    //        className: 'btn-success',
+                    //        titleAttr: 'Export to excel'
+                    //    },
+                    //    {
+                    //        extend: 'pdfHtml5',
+                    //        orientation: 'landscape',
+                    //        pageSize: 'LEGAL',
+                    //        text: '<i class="mdi mdi-file-pdf"></i>',
+                    //        className: 'btn-danger',
+                    //        titleAttr: 'Export to PDF',
+                    //        //exportOptions: {
+                    //        //    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    //        //}
+
+                    //    },
+                    //    {
+                    //        extend: 'print',
+                    //        text: '<i class="mdi mdi-printer"></i>',
+                    //        className: 'btn-info',
+                    //        titleAttr: 'Print Table'
+                    //    }
+
+                    //]
+                },
+                //"columnDefs": [
+                // Hide second, third and fourth columns
+                //{ "visible": false, "targets": [3, 4, 7, 9, 10] }
+                //],
+                "searching": true,
+                "paging": true,
+                //"ordering": true,
+                
+                //"info": true,
+                //"iDisplayLength": 10,
+                //"lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+                //"scrollX": true,
+                //"scrollY": "60vh",
+                //"scrollCollapse": true,
+                //language: {
+                //    sLengthMenu: "_MENU_"
+                //}
+                //fixedColumns: {
+                //    leftColumns: 1,
+                //    rightColumns: 1
+                //}
+
+                //"sScrollXInner": "100%",
+                //dom: 'Blfrtip',
+                ////,"fixedHeader": true
+            });
+        });
+
+        //$("#btn").click(function () {
+        //     $('#tbllist tr th').bind('click.sorting');
+        //})
+        
+
+                        //$(".search_input").addClass('form-control input-lg col-xs-12');
+
+    </script>
+}

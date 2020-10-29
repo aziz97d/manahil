@@ -1,82 +1,83 @@
-﻿@model IEnumerable<manahil.Models.Contractor>
+﻿@model IEnumerable<manahil.ViewModels.ContractorOnlyViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["TitleHeader"] = "Contractor";
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 
-<h1>Contractor List</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
 <form class="card p-2 table-responsive">
-    <table id="tbllist" class="table table-striped table-bordered table-sm  table-hover" cellspacing="0" width="100%">
-        <thead class="text-nowrap">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PrintEmail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrintEmail)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Image)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City.Name)
-                    </td>
-                    <td class="text-nowrap">
-                        <span data-toggle="tooltip" title="Edit!">
-                            @Html.ActionLink(" ", "Edit", new { id = item.ContractorId }, new { @class = "fas fa-edit btn btn-warning btn-xs", @target = "_blank" })
-                        </span>
-                        <span data-toggle="tooltip" title="Delete!">
-                            @Html.ActionLink(" ", "Delete", new { Id = item.ContractorId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
-                        </span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 
-</form>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <div class="col-md-3">
+                <!-- Widget: user widget style 2 -->
+                <div class="card card-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-warning">
+                        <div class="widget-user-image">
+                            @if (item.Image == null)
+                            {
+                            <img class="img-circle elevation-2" src="https://f0.pngfuel.com/png/980/304/man-profile-illustration-computer-icons-user-profile-avatar-png-clip-art-thumbnail.png" alt="User Avatar">
+                            }
+                            else
+                            {
+                                <img class="img-circle elevation-2" src="~/images/@item.Image" alt="Avatar">
+                            }
+
+
+                        </div>
+                        
+                        <!-- /.widget-user-image -->
+                        <h4 class="widget-user-username">@item.Name</h4>
+                        <h5 class="widget-user-desc" >@*@item.City.Name*@</h5>
+                    </div>
+                    <div class="card-footer p-0">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                
+                                <a href="#" class="nav-link">
+                                    Total Projects <span class="float-right badge bg-primary">@item.TotalProject</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Complete Projects <span class="float-right badge bg-success">@item.DeliveredProject</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    OnGoing Projects <span class="float-right badge bg-danger">@{int onGoingProject = item.TotalProject - item.DeliveredProject;}@onGoingProject</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ContractorId }, new { @class = "btn btn-outline-warning nav-link" })
+                                @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                            </li>
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Details", "Details", new { Id = item.ContractorId }, new { @class = "btn btn-outline-success nav-link" })
+                                
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Delete", "Delete", new { Id = item.ContractorId }, new { @class = "btn btn-outline-danger nav-link" })
+                                @*<a href="#" class="btn btn-outline-warning nav-link">Edit</a>*@
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div> <!-- /.col -->
+
+             }
+    </div>
+    </form>
+
+<!-- /.col -->
+
 
 @section Scripts{
 
@@ -174,7 +175,7 @@
             });
         });
 
-                        //$(".search_input").addClass('form-control input-lg col-xs-12');
+                            //$(".search_input").addClass('form-control input-lg col-xs-12');
 
     </script>
 }

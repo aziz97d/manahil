@@ -1,37 +1,37 @@
-﻿
+﻿@*@model IEnumerable<manahil.Models.Category>*@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor IHttpContext
+@using manahil.Models
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<meta name="viewport" content="width=device-width" />*@
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.TitleHeader</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Dashboard 3</title>
+    <title>Dashboard</title>
     <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
 
-    <!-- Font Awesome Icons -->
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Style.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
-    <!-- IonIcons -->
-    @*<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">*@
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
+    <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/admin.min.css">
+
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link href="~/Fakeloader/fakeloader.css" rel="stylesheet" />
+
+    <script src="~/js/site.js"></script>
+    @*<script src="~/js/jquery.tabledit.min.js"></script>*@
+
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to to the body tag
-to get the desired effect
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
-<body class="hold-transition sidebar-mini" >
+
+<body class="hold-transition sidebar-mini">
+
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -40,16 +40,16 @@ to get the desired effect
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                @*<li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li>*@
             </ul>
 
             <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
+            @*<form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
                     <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
@@ -58,7 +58,7 @@ to get the desired effect
                         </button>
                     </div>
                 </div>
-            </form>
+            </form>*@
 
         </nav>
         <!-- /.navbar -->
@@ -68,283 +68,367 @@ to get the desired effect
             <a class="brand-link" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/images/images.png" alt="AMWFB Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">Al Manahil</span>
+                <span class="brand-text font-weight-light manahilfont">Al Manahil</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
+
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="https://f0.pngfuel.com/png/980/304/man-profile-illustration-computer-icons-user-profile-avatar-png-clip-art-thumbnail.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Name</a>
+                        <a href="#" class="d-block">@User.Identity.Name</a>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+
                         <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
+                            <a asp-action="Index" asp-controller="Dashboard" class="nav-link border border-success">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Widgets
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
+                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="ProjectView">
+                                <i class="fas fa-globe nav-icon"></i>
+                                <p>Project View</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Common
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">6</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Country</p>
+                        @if (User.IsInRole("Management") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-header">Management Menu</li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="DepositAccounts" asp-action="DepositView">
+                                    <i class="nav-icon far fa-circle"></i>
+                                    <p>
+                                        Accounts
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
+                                    <i class="nav-icon far fa-circle"></i>
+                                    <p>
+                                        Projects Approval
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="ManahilMonumentals" asp-action="ViewMonumental">
+                                    <i class="nav-icon far fa-circle"></i>
+                                    <p>
+                                        Al Manahil Monumental
+                                    </p>
+                                </a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Accounting Manager") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-header">Accounts Menu</li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
+                                    <i class="nav-icon far fa-circle"></i>
+                                    <p>
+                                        Projects Approval View
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="ApprovalProjects" asp-action="Index" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Projects Approval</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="DepositAccounts" asp-action="Index" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Account Deposit</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="ManahilMonumentals" asp-action="Index" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Al Manahil Monumental</p>
+                                </a>
+                            </li>
+                        }
+                            @if (User.IsInRole("Admin") || User.IsInRole("Computer Operator"))
+                            {
+                                <li class="nav-header">Operator Menu</li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-hand-holding-water"></i>
+
+                                        <p>
+                                            Water Well
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="4" class="nav-link btn-danger">
+                                                <i class="fas fa-tint nav-icon"></i>
+                                                <p>Emergency</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" id="generaltubewell">
+                                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="1" class="nav-link">
+                                                <i class="fas fa-tint nav-icon"></i>
+                                                <p>General</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="3" class="nav-link">
+                                                <i class="fas fa-tint nav-icon"></i>
+                                                <p>Tiles</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="2" class="nav-link">
+                                                <i class="fas fa-tint nav-icon"></i>
+                                                <p>Deep</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>City</p>
+                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="6" class="nav-link">
+                                        <i class="nav-icon fas fa-faucet"></i>
+                                        <p>
+
+                                            Ablution
+                                            @*<span class="right badge badge-danger">New</span>*@
+                                        </p>
                                     </a>
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="5" class="nav-link">
+                                        <i class="nav-icon fas fa-mosque"></i>
+                                        <p>
+                                            Mosque
+
+                                        </p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-tasks"></i>
+                                        <p>
+                                            All Categories
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @{
+                                            var Categories = IHttpContext.HttpContext.Session.GetObject<List<Category>>("categories");
+
+                                            if (Categories != null)
+                                            {
+                                                foreach (var item in Categories)
+                                                {
+                                                    <li class="nav-item">
+
+                                                        <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="@item.CategoryId" class="nav-link">
+                                                            <i class="fas fa-tint nav-icon"></i>
+                                                            <p>@item.Name</p>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+
+
+                                    </ul>
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-table"></i>
+                                        <p>
+                                            Extra
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="ManageDrives" asp-action="Index">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Manage Drive Account</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-header">Admin Menu</li>
+
+
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-book"></i>
+                                        <p>
+                                            Project
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
+                                                <i class="nav-icon far fa-image"></i>
+                                                <p>
+                                                    Projects
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="CreateMultiple">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Add Projects</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="DistributionProject">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Distribution Project</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Common
+                                            <i class="fas fa-angle-left right"></i>
+
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">
+                                                <i class="fas fa-pencil-ruler nav-icon"></i>
+                                                <p>Country</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">
+                                                <i class="fas fa-pencil-ruler nav-icon"></i>
+                                                <p>City</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Thanas" asp-action="Index">
+                                                <i class="fas fa-pencil-ruler nav-icon"></i>
+                                                <p>Thana</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">
+                                                <i class="fas fa-pencil-ruler nav-icon"></i>
+                                                <p>Category</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Designations" asp-action="Index">
+                                                <i class="fas fa-pencil-ruler nav-icon"></i>
+                                                <p>Designation</p>
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>
+                                            Employee
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Donors" asp-action="Index">
+                                                <i class="fas fa-handshake nav-icon"></i>
+                                                <p>Donor</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">
+                                                <i class="fas fa-user-friends nav-icon"></i>
+                                                <p>Employee</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Contractors" asp-action="Index">
+                                                <i class="fas fa-hands-helping nav-icon"></i>
+                                                <p>Contractor</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Thanas" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thana</p>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon far fa-plus-square"></i>
+                                        <p>
+                                            Admin
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Category</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Designations" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Designation</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Donors" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Donor</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Department" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Cat Department</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Charts
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>ChartJS</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Flot</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    UI Elements
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/UI/general.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>General</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/UI/icons.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Icons</p>
-                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a asp-controller="Administration" asp-action="Index" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Role</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Administration" asp-action="ListUser" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>User</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a asp-controller="Account" asp-action="ForgotPassword" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Forgot Password</p>
+                                            </a>
+                                        </li>
+                                        
+
+                                    </ul>
                                 </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Forms
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/forms/general.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>General Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/advanced.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Advanced Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/editors.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Editors</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/validation.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Validation</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Extra
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="ManageDrives" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Drive Account</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>DataTables</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/jsgrid.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>jsGrid</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header">EXAMPLES</li>
+                            }
 
-                        <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Gallery
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item has-treeview">
+                                <a asp-controller="Account" asp-action="Logout" class="nav-link btn-danger ">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>
+                                        Logout
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Pages
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/examples/invoice.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Invoice</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/profile.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profile</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>
-                                    Extras
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/examples/login.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Login</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/register.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Register</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/forgot-password.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Forgot Password</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/recover-password.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Recover Password</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                    </ul>
+                        </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
@@ -358,13 +442,13 @@ to get the desired effect
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard</h1>
+                            <h1 class="m-0 text-dark"> @ViewData["TitleHeader"]</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                            @*<ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Dashboard v3</li>
-                            </ol>
+                            </ol>*@
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -385,6 +469,31 @@ to get the desired effect
             </div>
             <!-- /.content -->
         </div>
+
+
+        @*Popup Modal*@
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content border border-success">
+                    <div class="modal-header border-bottom border-success">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="fakeloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
+
+        @*Popup modal*@
+
         <!-- /.content-wrapper -->
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -393,27 +502,37 @@ to get the desired effect
         <!-- /.control-sidebar -->
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a href="http:">Abdul Aziz</a>.</strong>
+            <strong>Developed by <a target="_blank" href="https://www.facebook.com/aziz97d" class="manahilfont">Abdul Aziz</a></strong>
 
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0.0
-            </div>
         </footer>
     </div>
+
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE -->
-    <script src="~/js/adminlte.js"></script>
+
+
+    <script src="~/Fakeloader/fakeloader.js"></script>
+    <script src="~/js/admin.js"></script>
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+
+
     <script>
 
-        //Toaster Code Start
+
+        window.FakeLoader.init({ auto_hide: true });
 
 
             var status = @Html.Raw(Json.Serialize(TempData["Status"]));
@@ -428,11 +547,11 @@ to get the desired effect
                 else if (status == "3") {
                     toastr.error(message);
                 }
-                
+
             }
         //Toaster Code End
 
-        
+
     </script>
     @RenderSection("Scripts", required: false)
 
