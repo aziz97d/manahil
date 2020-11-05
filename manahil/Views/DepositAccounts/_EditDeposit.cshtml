@@ -158,13 +158,17 @@
                             @Html.DisplayFor(modelItem => item.ApprovalStatus)
                         </td>
                         <td class="text-nowrap">
+
+
                             <span data-toggle="tooltip" title="Edit!">
                                 <a onclick="showInPopup('@Url.Action("CreateOrEdit","DepositAccounts",new { id=item.TransferAccountId},Context.Request.Scheme)','Update Transfer',@Model.DepositAccountId)" class="far fa-edit btn btn-warning btn-xs"></a>
-                                @*<a asp-action="Edit" asp-controller="TransferAccounts" asp-route-id="@item.TransferAccountId" class="far fa-edit btn btn-warning btn-xs"></a>*@
+                                <a asp-action="Edit" asp-controller="TransferAccounts" asp-route-id="@item.TransferAccountId" class="far fa-edit btn btn-warning btn-xs"></a>
                             </span>
-                            <span data-toggle="tooltip" title="Delete!">
-                                <a onclick="jQueryAjaxDelete('@Url.Action("DeleteTransfer","DepositAccounts",new { transferAccountId=item.TransferAccountId,depositAccountId=item.DepositAccountId},Context.Request.Scheme)')" class="far fa-trash-alt btn btn-danger btn-xs"></a>
-                            </span>
+
+
+                                    @*<span data-toggle="tooltip" title="Delete!">
+                    <a onclick="jQueryAjaxDelete('@Url.Action("DeleteTransfer","DepositAccounts",new { transferAccountId=item.TransferAccountId,depositAccountId=item.DepositAccountId},Context.Request.Scheme)')" class="far fa-trash-alt btn btn-danger btn-xs"></a>
+                         </span>*@
                         </td>
                     </tr>
                     }

@@ -28,8 +28,30 @@ namespace manahil.Controllers
         // GET: Cities
         public async Task<IActionResult> Index()
         {
-             
-            return View(await db.Employees.Include(e=>e.Projects).Include(c => c.City).Include(d =>d.Designation).ToListAsync());
+            List<EmployeeViewModel> employeeViews = new List<EmployeeViewModel>();
+            var employees = await db.Employees.ToListAsync();
+            foreach (Employee employee in employees)
+            {
+                EmployeeViewModel empvm = new EmployeeViewModel
+                {
+                    EmployeeId = employee.EmployeeId,
+                    Name = employee.Name,
+                    Email = employee.Email,
+                    CityId = employee.CityId,
+                    Contact = employee.Contact,
+                    Address = employee.Address,
+                    DesignationId = employee.DesignationId,
+                    Image = employee.Image,
+                    Status = employee.Status,
+                    TodayCompleteProjects = db.Projects.Count(e=>e.EmployeeId == employee.EmployeeId && e.CompletedDate == DateTime.Today),
+                    TotalCompleteProjects = db.Projects.Count(e => e.EmployeeId == employee.EmployeeId)
+                };
+
+                employeeViews.Add(empvm);
+                
+            }
+
+            return View(employeeViews);
         }
 
         // GET: Cities/Details/5

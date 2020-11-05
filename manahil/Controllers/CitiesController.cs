@@ -15,6 +15,7 @@ namespace manahil.Controllers
     {
         private readonly DatabaseContext db;
 
+        
         public CitiesController(DatabaseContext context)
         {
             ViewBag.Heading = "City";

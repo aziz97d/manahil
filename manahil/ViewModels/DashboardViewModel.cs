@@ -20,6 +20,10 @@ namespace manahil.ViewModels
         public List<int> TotalProjectByContractor { get; set; }
         public List<int> TotalOnGoingProjectByContractor { get; set; }
 
+
+        public List<ProjectChart> ProjectCharts { get; set; }
+
+
         public DashboardViewModel()
         {
             DonorName = new List<string>();
@@ -29,6 +33,19 @@ namespace manahil.ViewModels
             ContractorName = new List<string>();
             TotalProjectByContractor = new List<int>();
             TotalOnGoingProjectByContractor = new List<int>();
+
+            ProjectCharts = new List<ProjectChart>();
+
         }
+
+
     }
+
+    public class ProjectChart
+    {
+        public int Months { get; set; }
+        public int TotalGetProjectsByMonth { get; set; }
+        public int TotalDeliveredProjectsByMonths { get; set; }
+    }
+
 }

@@ -56,7 +56,10 @@
 
     <script>
     $(document).ready(function () {
-        $('#tbllist').DataTable({});
+        $('#tbllist').DataTable({
+            "order": [[0, "desc"]]
+        });
+
     });
     </script>
 }

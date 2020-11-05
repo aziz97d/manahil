@@ -84,7 +84,7 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label asp-for="ContractorId" class="control-label"></label>
-                            <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId" required>
+                            <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId" >
                                 <option value="">-Select Contractor-</option>
                             </select>
                             <span asp-validation-for="ContractorId" class="text-danger"></span>
@@ -103,7 +103,7 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label asp-for="EmployeeId" class="control-label"></label>
-                            <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId" required>
+                            <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId">
                                 <option value="">-Select Employee-</option>
                             </select>
                             <span asp-validation-for="EmployeeId" class="text-danger"></span>

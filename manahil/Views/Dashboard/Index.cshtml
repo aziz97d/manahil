@@ -73,7 +73,7 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    
+
                     <button type="button" class="btn btn-tool" data-card-widget="remove">
                         <i class="fas fa-times"></i>
                     </button>
@@ -93,7 +93,7 @@
                             int totalOnGoingProjectByContractor = Model.TotalOnGoingProjectByContractor[i];
                             int totalDeliveredProject = totalProjectByContractor - totalOnGoingProjectByContractor;
                             int percentage1 = 0;
-                            if (totalProjectByContractor!=0)
+                            if (totalProjectByContractor != 0)
                             {
                                 percentage1 = (100 / totalProjectByContractor) * totalDeliveredProject;
                             }
@@ -124,7 +124,7 @@
                             int totalOnGoingProjectByDonor = Model.TotalOnGoingProjectByDonor[i];
                             int totalDeliveredProject = totalProjectByDonor - totalOnGoingProjectByDonor;
                             int percentage = 0;
-                            if (totalProjectByDonor!=0)
+                            if (totalProjectByDonor != 0)
                             {
                                 percentage = (100 / totalProjectByDonor) * totalDeliveredProject;
                             }
@@ -138,12 +138,10 @@
 
                                 </div>
                             </div>
-                            
+
                         }
 
                         <!-- /.progress-group -->
-
-                        
                         <!-- /.progress-group -->
                     </div>
                     <!-- /.col -->
@@ -151,9 +149,117 @@
                 <!-- /.row -->
             </div>
             <!-- ./card-body -->
-                        
+
         </div>
         <!-- /.card -->
     </div>
     <!-- /.col -->
 </div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">All Projects Report</h5>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 border border-warning">
+                        <p class="text-center">
+                            <strong>Last Six Months Report</strong>
+                        </p>
+
+                        <div id="barchart_div"></div>
+
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- ./card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                contentType: "application/json",
+                url: '/Dashboard/ProjectsChart',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+
+            function drawChart(result) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'Months');
+                data.addColumn('number', 'Get Project');
+                data.addColumn('number', 'Delivered Project');
+                var dataArray = [];
+                $.each(result, function (i, obj) {
+                    dataArray.push([obj.Months, obj.TotalGetProjectsByMonth, obj.TotalDeliveredProjectsByMonths]);
+                });
+
+                data.addRows(dataArray);
+
+                var options = {
+                    title: 'Monthly Projects Report',
+                    vAxis: { title: 'Projects' },
+                    hAxis: { title: 'Month' },
+                    seriesType: 'bars',
+                    series: { 2: { type: 'line' } }
+                };
+
+                var barchart = new google.visualization.ComboChart(document
+                    .getElementById('barchart_div'));
+                barchart.draw(data, options);
+
+                //var options = {
+                //    chart: {
+                //        title: 'Company Performance',
+                //        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                //    },
+                //    bars: 'horizontal' // Required for Material Bar Charts.
+                //};
+
+                //var chart = new google.charts.Bar(document.getElementById('barchart_div'));
+
+                //chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
+
+
+        });
+
+    </script>
+}

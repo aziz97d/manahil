@@ -30,6 +30,8 @@ namespace manahil.Controllers
             List<Donor> donors = db.Donors.ToList();
             List<Contractor> contractors = db.Contractors.ToList();
 
+
+
             foreach (Donor donor in donors)
             {
                 dashboardViewModel.DonorName.Add(donor.Name);
@@ -42,7 +44,44 @@ namespace manahil.Controllers
                 dashboardViewModel.TotalProjectByContractor.Add(db.Projects.Count(c => c.ContractorId == contractor.ContractorId));
                 dashboardViewModel.TotalOnGoingProjectByContractor.Add(db.Projects.Count(c => c.ContractorId == contractor.ContractorId && c.EmployeeId == null));
             }
+
             return View(dashboardViewModel);
         }
+
+
+        public IActionResult ProjectsChart()
+        {
+            try
+            {
+                //var now = DateTimeOffset.Now;
+                //var lastSixMonths = Enumerable.Range(0, 6).Select(i => now.AddDays(-i).ToString("MMyyyy"));
+                
+                DateTime sixMonthsBefore = DateTime.Now.AddMonths(-6);
+                DateTime tommorowDate = DateTime.Now.AddDays(1);
+                var sixMonthsProjects = db.Projects.Where(e => e.GetDate >sixMonthsBefore && e.GetDate<tommorowDate);
+                List<int> distinctMonths = sixMonthsProjects.OrderByDescending(e => e.GetDate).Select(e => e.GetDate.Value.Month).Distinct().Take(6).ToList();
+                //var u = DateTime.Parse("MMyyy");
+
+                List<ProjectChart> projectCharts = new List<ProjectChart>();
+                foreach (var month in distinctMonths)
+                {
+                    ProjectChart projectChart = new ProjectChart
+                    {
+                        Months = month,
+                        TotalGetProjectsByMonth = sixMonthsProjects.Where(e => e.GetDate.Value.Month == month).Count(),
+                        TotalDeliveredProjectsByMonths = sixMonthsProjects.Where(e => e.CompletedDate.Value.Month == month).Count()
+                    };
+                    projectCharts.Add(projectChart);
+                }
+
+                return Ok(projectCharts);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }

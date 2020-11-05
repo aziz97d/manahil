@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/Fakeloader/fakeloader.css" rel="stylesheet" />
     <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
-
 
 
 </head>
@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom border-success box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Al Manahil Walfare Foundation</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Al Manahil Welfare Foundation</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,33 +58,39 @@
 
             </div>
         </footer>*@
+
+
+    <div id="fakeloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
+
+
+    <hr class="dark" />
     <footer class="bg-white">
         <div class="container py-1">
-            <div class="row py-1">
-                <div class="col-lg-4 col-md-6 mb-lg-0">
-                    
-                    <img src="~/images/images.png" alt="AMWFB Logo" width="130" class="">
-                    <p class="text-muted">Al Manahil Welfare Foundation Bangladesh is a non-profit NGO helping charity organization. Our motive is to help the poor, helpless and orphan children in Bangladesh.Advanced settings.</p>
+            <div class="row text-center py-1">
+                <div class="col-md-4">
+
+                    <img src="~/images/images.png" alt="AMWFB Logo" width="100" class="">
+                    <p class="text-muted">Al Manahil Welfare Foundation Bangladesh is a non-profit NGO helping charity organization. Our motive is to help the poor, helpless and orphan children in Bangladesh.</p>
                     <ul class="list-inline mt-4">
-                        <li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/amwfborg" class="text-muted" target="_blank" title="facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" target="_blank" class="text-muted" title="youtube"><i class="fab fa-youtube"></i></a></li>
+
+                        <li class="list-inline-item"><a href="#" target="_blank" class="text-muted" title="twitter"><i class="fab fa-twitter"></i></a></li>
+
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-lg-0">
+                <div class="col-md-2">
                     <h6 class="text-uppercase font-weight-bold ">About Us</h6>
-                    <ul class="list-unstyled mb-0">
+                    <ul class="list-unstyled">
                         <li class="mb-2"><a asp-action="AboutUs" asp-controller="Home" class="text-muted">About Us</a></li>
                         <li class="mb-2"><a asp-action="OurProjects" asp-controller="Home" class="text-muted">Our Projects</a></li>
                         <li class="mb-2"><a href="#" class="text-muted">Stores</a></li>
                         <li class="mb-2"><a href="#" class="text-muted">Our Blog</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-lg-0">
+                <div class="col-md-2">
                     <h6 class="text-uppercase font-weight-bold ">Appeals</h6>
-                    <ul class="list-unstyled mb-0">
+                    <ul class="list-unstyled">
                         <li class="mb-2"><a href="#" class="text-muted">Mosque</a></li>
                         <li class="mb-2"><a href="#" class="text-muted">Waterwell</a></li>
                         <li class="mb-2"><a href="#" class="text-muted">Ablution</a></li>
@@ -93,22 +99,22 @@
                         <li class="mb-2"><a href="#" class="text-muted">Orphans</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-lg-0">
+                <div class="col-md-4">
                     <h6 class="text-uppercase font-weight-bold">Contact Us</h6>
-                    <ul class="list-unstyled mb-0">
+                    <ul class="list-unstyled">
                         <li class="mb-2"><i class="fas fa-home mr-2"></i><p class="text-muted d-inline">#177 No Building, 1 No Road, Sugandha R/A 758 Chittagong, Chittagong Division</p></li>
                         <li class="mb-2"><i class="fas fa-phone-alt mr-2"></i><p class="text-muted d-inline">0088 01814 898 803, 0088 031 255 8070</p></li>
                         <li class="mb-2"><i class="fas fa-envelope mr-2"></i><p class="text-muted d-inline">amwfb@gmail.com</p></li>
-                        
+
                     </ul>
                 </div>
             </div>
         </div>
-
+        <hr class="dark" />
         <!-- Copyrights -->
         <div class="bg-light py-3">
             <div class="container text-center">
-                <p class="text-muted mb-0">© @DateTime.Now.Year Al Manahil Walfare Foundation Bangladesh.</p>
+                <p class="text-muted mb-0">© @DateTime.Now.Year Al Manahil Welfare Foundation Bangladesh.</p>
             </div>
             <div class="container text-center">
                 <p class="text-muted mb-0">Developed by <a target="_blank" href="https://www.facebook.com/aziz97d" class="manahilfont">Abdul Aziz</a></p>
@@ -119,10 +125,18 @@
 
 
 
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Fakeloader/fakeloader.js"></script>
+
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+
+    <script>
+
+        window.FakeLoader.init({ auto_hide: true });
+    </script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

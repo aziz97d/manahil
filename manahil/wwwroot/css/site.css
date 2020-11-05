@@ -22,8 +22,7 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Sticky footer styles-------------------------------------------------- */
 html {
   font-size: 14px;
 }
@@ -49,8 +48,7 @@ button.accept-policy {
   line-height: inherit;
 }
 /*Manahil font*/
-body {
-}
+
 
 @font-face {
     font-family: 'Fonarto';
@@ -70,10 +68,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  /*margin-bottom: 60px;*/
-}
 .footer {
   position: absolute;
   bottom: 0;
@@ -96,42 +90,6 @@ a.btn:hover {
     cursor: pointer !important;
 }
 
-/*loader*/
-/*.loaderbody {
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    background-color: rgba(128,128,128,0.2);
-    z-index: 2147483647;
-}
-
-.loader {
-    border: 10px solid #f3f3f3;*/ /* Light grey */
-    /*border-top: 16px solid #129730;*/ /* green */
-    /*border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    animation: spin 2s linear infinite;
-    position: fixed;
-    top: 45%;
-    left: 40%;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.hide {
-    display: none;
-}*/
 
 
  /*   Our prujects */

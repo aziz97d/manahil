@@ -227,6 +227,15 @@ namespace manahil.Controllers
                     {
                         _context.Update(transferAccount);
                         await _context.SaveChangesAsync();
+                        double oldAmount = _context.TransferAccounts.Find(transferAccount.TransferAccountId).TransferAmount;
+                        double differnceAmount = transferAccount.TransferAmount - oldAmount;
+                        DepositAccount dAcount = _context.DepositAccounts.Find(transferAccount.DepositAccountId);
+                        dAcount.Balance -= differnceAmount;
+                        
+                        
+                        
+                        _context.Update(dAcount);
+                        await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
@@ -263,30 +272,30 @@ namespace manahil.Controllers
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "CreateOrEdit", transferAccount) });
         }
 
+        //Delete Transfer
+        //[HttpPost, ActionName("DeleteTransfer")]
+        //[Authorize(Roles = "Admin,Accounting Manager")]
+        ////[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int transferAccountId, int depositAccountId)
+        //{
+        //    var transferModel = await _context.TransferAccounts.FindAsync(transferAccountId);
+        //    _context.TransferAccounts.Remove(transferModel);
+        //    await _context.SaveChangesAsync();
+        //    DepositAndTransferViewModel depositAndTransferViewModel = new DepositAndTransferViewModel();
+        //    DepositAccount depositAccount = await _context.DepositAccounts.FindAsync(depositAccountId);
 
-        [HttpPost, ActionName("DeleteTransfer")]
-        [Authorize(Roles = "Admin,Accounting Manager")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int transferAccountId, int depositAccountId)
-        {
-            var transferModel = await _context.TransferAccounts.FindAsync(transferAccountId);
-            _context.TransferAccounts.Remove(transferModel);
-            await _context.SaveChangesAsync();
-            DepositAndTransferViewModel depositAndTransferViewModel = new DepositAndTransferViewModel();
-            DepositAccount depositAccount = await _context.DepositAccounts.FindAsync(depositAccountId);
+        //    depositAndTransferViewModel.DepositAccountId = depositAccount.DepositAccountId;
+        //    depositAndTransferViewModel.Donor = depositAccount.Donor;
+        //    depositAndTransferViewModel.DepositCode = depositAccount.DepositCode;
+        //    depositAndTransferViewModel.DepositDate = depositAccount.DepositDate;
+        //    depositAndTransferViewModel.DepositType = depositAccount.DepositType;
+        //    depositAndTransferViewModel.DepositAmount = depositAccount.DepositAmount;
+        //    depositAndTransferViewModel.Balance = depositAccount.Balance;
+        //    depositAndTransferViewModel.TransferAccounts =
+        //        _context.TransferAccounts.Where(d => d.DepositAccountId == depositAccount.DepositAccountId).ToList();
 
-            depositAndTransferViewModel.DepositAccountId = depositAccount.DepositAccountId;
-            depositAndTransferViewModel.Donor = depositAccount.Donor;
-            depositAndTransferViewModel.DepositCode = depositAccount.DepositCode;
-            depositAndTransferViewModel.DepositDate = depositAccount.DepositDate;
-            depositAndTransferViewModel.DepositType = depositAccount.DepositType;
-            depositAndTransferViewModel.DepositAmount = depositAccount.DepositAmount;
-            depositAndTransferViewModel.Balance = depositAccount.Balance;
-            depositAndTransferViewModel.TransferAccounts =
-                _context.TransferAccounts.Where(d => d.DepositAccountId == depositAccount.DepositAccountId).ToList();
-
-            return Json(new { html = Helper.RenderRazorViewToString(this, "_EditDeposit", depositAndTransferViewModel) });
-        }
+        //    return Json(new { html = Helper.RenderRazorViewToString(this, "_EditDeposit", depositAndTransferViewModel) });
+        //}
 
         [Authorize(Roles = "Admin,Accounting Manager,Management")]
         [HttpGet]

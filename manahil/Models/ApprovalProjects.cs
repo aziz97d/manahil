@@ -43,16 +43,16 @@ namespace manahil.Models
         public string CertificateStatus { get; set; }
 
         [Display(Name = "অনুমোদিত অর্থ")]
-        public double ApprovedMoney { get; set; }
+        public string ApprovedMoney { get; set; }
 
         [Display(Name = "বিনিময় দর")]
-        public double CurrencyRate { get; set; }
+        public string CurrencyRate { get; set; }
 
         [Display(Name = "গৃহীত টাকা ও তারিখ")]
-        public double TotalAcceptedMoney { get; set; }
+        public string TotalAcceptedMoney { get; set; }
 
         [Display(Name = "ব্যয়িত টাকা")]
-        public double ExpenseAmount { get; set; }
+        public string ExpenseAmount { get; set; }
 
         [Display(Name = "প্রকল্পের ঠিকানা")]
         public string ProjectImplementAddress { get; set; }

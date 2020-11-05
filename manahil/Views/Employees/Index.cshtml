@@ -1,4 +1,4 @@
-﻿@model IEnumerable<manahil.Models.Employee>
+﻿@model IEnumerable<manahil.ViewModels.EmployeeViewModel>
 
 @{
     ViewData["TitleHeader"] = "Employees";
@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-sm-6 border-right">
                                 <div class="description-block">
-                                    <h5 class="description-header">@itemm.Projects.Count(e => e.EmployeeId == itemm.EmployeeId).ToString()</h5>
+                                    <h5 class="description-header">@itemm.TotalCompleteProjects</h5>
                                     <span class="description-text">Total</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -46,7 +46,7 @@
                             <!-- /.col -->
                             <div class="col-sm-6">
                                 <div class="description-block">
-                                    <h5 class="description-header">@itemm.Projects.Count(e => e.CompletedDate == DateTime.Today)</h5>
+                                    <h5 class="description-header">@itemm.TodayCompleteProjects</h5>
                                     <span class="description-text">Today</span>
                                 </div>
                                 <!-- /.description-block -->

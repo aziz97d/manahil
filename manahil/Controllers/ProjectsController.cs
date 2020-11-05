@@ -30,75 +30,75 @@ namespace manahil.Controllers
                 Include(c => c.Category).Include(e => e.Employee).ToListAsync());
         }
 
-        // GET: Projects/Details/5
+        //GET: Projects/Details/5
 
 
         // GET: Projects/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
-        //    ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
-        //    ViewData["ContractorId"] = new SelectList(db.Contractors, "ContractorId", "Name");
-        //    ViewData["EmployeeId"] = new SelectList(db.Employees, "EmployeeId", "Name");
-        //    ViewBag.Title = "Create";
-        //    return View();
-        //}
+        public IActionResult Create()
+        {
+            ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
+            ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
+            ViewData["ContractorId"] = new SelectList(db.Contractors, "ContractorId", "Name");
+            ViewData["EmployeeId"] = new SelectList(db.Employees, "EmployeeId", "Name");
+            ViewBag.Title = "Create";
+            return View();
+        }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create( Project project)
-        //{
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Project project)
+        {
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        if(project.ProjectId > 0)
-        //        {
-        //            db.Update(project);
-        //            await db.SaveChangesAsync();
-        //            TempData["Message"] = "Data Update Successfully";
-        //            TempData["Status"] = "2";
-        //        }
-        //        else
-        //        {
-        //            try
-        //            {
-        //                for (int i = 0; i < 1000; i++)
-        //                {
-        //                    project.ProjectId = 0;
-        //                    db.Add(project);
-        //                    await db.SaveChangesAsync();
-        //                }
+            if (ModelState.IsValid)
+            {
+                if (project.ProjectId > 0)
+                {
+                    db.Update(project);
+                    await db.SaveChangesAsync();
+                    TempData["Message"] = "Data Update Successfully";
+                    TempData["Status"] = "2";
+                }
+                else
+                {
+                    try
+                    {
+                        for (int i = 0; i < 1000; i++)
+                        {
+                            project.ProjectId = 0;
+                            db.Add(project);
+                            await db.SaveChangesAsync();
+                        }
 
 
 
-        //                TempData["Message"] = "Data Added Successfully";
-        //                TempData["Status"] = "1";
-        //                //ViewBag.Message = "Data Added Successfully";
-        //                //ViewBag.Status = "1";
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if (!ProjectExists(project.ProjectId))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
+                        TempData["Message"] = "Data Added Successfully";
+                        TempData["Status"] = "1";
+                        //ViewBag.Message = "Data Added Successfully";
+                        //ViewBag.Status = "1";
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!ProjectExists(project.ProjectId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
 
-        //        }
+                }
 
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
-        //    ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
-        //    ViewData["ContractorId"] = new SelectList(db.Contractors, "ContractorId", "Name");
-        //    ViewData["EmployeeId"] = new SelectList(db.Employees, "EmployeeId", "Name");
-        //    return View(project);
-        //}
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
+            ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
+            ViewData["ContractorId"] = new SelectList(db.Contractors, "ContractorId", "Name");
+            ViewData["EmployeeId"] = new SelectList(db.Employees, "EmployeeId", "Name");
+            return View(project);
+        }
         [Authorize(Roles = "Admin")]
         public IActionResult CreateMultiple()
         {
@@ -110,30 +110,34 @@ namespace manahil.Controllers
             return View(new Project());
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMultiple(List<Project> projects)
+        public IActionResult CreateMultiple(List<Project> projects)
         {
             try
             {
                 foreach (Project project in projects)
                 {
-                    await db.Projects.AddAsync(project);
+                     db.Projects.Add(project);
                 }
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 TempData["Message"] = projects.Count+" projects Add Successfully";
                 TempData["Status"] = "1";
-                return RedirectToAction(nameof(Index));
+                //    return View(new Project());
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //        throw;
+                //}
+                return Json(new { Success = 1 });
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                    throw;
+                // If Sucess== 0 then Unable to perform Save/Update Operation and send Exception to View as JSON
+                return Json(new { Success = 0, ex = ex.InnerException.InnerException.Message.ToString() });
             }
 
-
-             
-            
             //ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
             //ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
             //ViewData["ContractorId"] = new SelectList(db.Contractors, "ContractorId", "Name");
@@ -239,13 +243,13 @@ namespace manahil.Controllers
         }
 
 
-        //Only Create Project
+        //ProjectView
         [Authorize(Roles = "Admin,Management,Accounting Manager,Computer Operator")]
         public async Task<IActionResult> ProjectView()
         {
             ProjectsViewModel projects = new ProjectsViewModel();
             projects.Projects = await db.Projects.Include(d => d.Donor).
-                Include(c => c.Category).ToListAsync();
+                Include(c => c.Category).Include(c=>c.Contractor).Include(c=>c.Employee).ToListAsync();
             return View(projects);
         }
 
@@ -260,7 +264,7 @@ namespace manahil.Controllers
             DateTime endDateAdd = Convert.ToDateTime(endDate).AddDays(1);
 
             var query =  db.Projects.Include(d => d.Donor).
-                Include(c => c.Category).Include(c => c.Contractor);
+                Include(c => c.Category).Include(c => c.Contractor).Include(e=>e.Employee);
 
             List<Project> projects = new List<Project>();
             if (startDate!=null && endDate==null && projectType == null)

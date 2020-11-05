@@ -35,6 +35,6 @@ namespace manahil.Models
         public virtual Designation Designation { get; set; }
         public virtual City City { get; set; }
 
-        public ICollection<Project> Projects { get; set; }
+       // public ICollection<Project> Projects { get; set; }
     }
 }

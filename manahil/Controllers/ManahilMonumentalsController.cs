@@ -70,7 +70,7 @@ namespace manahil.Controllers
                 int todayYear = DateTime.Now.Year;
                 int thisyearMonumental = _context.ManahilMonumentals.Count(d => d.Date.Year == todayYear);
                 ManahilMonumental manahilMonumental = new ManahilMonumental();
-                manahilMonumental.MonumentalNo = "আল মানাহিল/প্রকা/"+ monumentalDateCode+"/"+ thisyearMonumental+1;
+                manahilMonumental.MonumentalNo = "আল মানাহিল/প্রকা/"+ monumentalDateCode+"/"+ (thisyearMonumental+1);
                 manahilMonumental.Date = DateTime.Now;
                 return View(manahilMonumental);
             }

@@ -228,10 +228,10 @@
         //Category Change event
         $('#categoryD').change(function () {
             var ctgryId = $('#categoryD').val();
-            
+
             $.ajax({
                 url: '@Url.Action("GetManahilSerialByCategoryId", "Projects")',
-                data: { categoryId: ctgryId }, 
+                data: { categoryId: ctgryId },
                 type: 'POST',
                 dataType: 'json',
                 success: function (result) {
@@ -240,12 +240,12 @@
                    $('#manahilSerialD').val(result.Success+1);
                 }
             })
-           
+
 
         })
 
         //Row Edit
-        
+
         //Row Edit
         //Add project to server
         function addAllPorjects() {
@@ -256,30 +256,57 @@
             for (var i = 0; i < data.length; i++) {
                // for (var j = 0; j < data[i].length; j++) {
 
-                    var project = {
-                        ManahilSerial: data[i][0],
-                        Name: data[i][1],
+                var project = {
+                    ProjectId: 0,
+                    ManahilSerial: data[i][0],
+                    Name: data[i][1],
                         DonorSerial: data[i][2],
                         DonorId: data[i][4],
-                        GetDate: data[i][8],
-                        CategoryId: data[i][6],
-                        TamidNumber: data[i][7]
+                    GetDate: data[i][8],
+                    CategoryId: data[i][6],
+                    ContractorId:null,
+                    DistributionDate:null,
+                    CompletedDate:null,
+                    EmployeeId:null,
+                    TamidNumber: data[i][7],
+                    PaymentStatus: false
+
                     };
                     projects.push(project);
                // }
             }
-
+            //projects = JSON.stringify({ 'projects': projects });
+            console.log(projects)
             $.ajax({
                 url: '@Url.Action("CreateMultiple", "Projects")',
+                
+                //data: JSON.stringify({ projects: projects }),
                 data: { projects: projects },
                 type: 'POST',
+                //contentType: 'application/json;',
                 dataType: 'json',
-                success: function () {
-                    alert('success');
-                },
-                failure: function () {
-                    alert('failure');
+                //success: function () {
+                //    alert('success');
+                //},
+                //failure: function () {
+                //    alert('failure');
+                //}
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //toastr.success(result.ex);
+                    window.setTimeout(function () {
+                        // Move to a new location or you can do something else
+                        window.location.href = '@Url.Action("CreateMultiple", "Projects")';
+                    }, 0);
                 }
+                else {
+                    toastr.error(result.ex);
+                }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
             });
 
 
