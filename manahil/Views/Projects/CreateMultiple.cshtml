@@ -7,10 +7,10 @@
 }
 
 <div class="col-md-12">
-   
+
     <div class="card card-success border border-success ">
         <div class="card-header">
-            
+
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -88,15 +88,14 @@
                 </div>
                 @*text Area*@
                 <!--<div class="row">
-        <div class="col-sm-6">-->
-               
+                <div class="col-sm-6">-->
                 <!--<div class="form-group">
-                    <label>Textarea</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                </div>
-            </div>
+                            <label>Textarea</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                    </div>
 
-        </div>-->
+                </div>-->
                 @*text Area*@
                 <div class="row">
                     <div class="col-sm-6">
@@ -166,10 +165,10 @@
     <div class="col-12">
 
         <!-- /.card-header -->
-        
+
     </div>
     <!-- /.card -->
-    
+
 </div>
 
 <!-- /.row -->
@@ -275,11 +274,19 @@
                     projects.push(project);
                // }
             }
+            if (projects.length < 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No Projects Added!'
+                });
+                return;
+            }
             //projects = JSON.stringify({ 'projects': projects });
-            console.log(projects)
+            //console.log(projects)
             $.ajax({
                 url: '@Url.Action("CreateMultiple", "Projects")',
-                
+
                 //data: JSON.stringify({ projects: projects }),
                 data: { projects: projects },
                 type: 'POST',
@@ -319,5 +326,5 @@
 
 
     </script>
-
+    
 }

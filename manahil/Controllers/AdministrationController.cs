@@ -26,7 +26,12 @@ namespace manahil.Controllers
             RoleManager = roleManager;
             UserManager = userManager;
             Logger = logger;
+
+
+            
+           
         }
+
         public IActionResult Index()
         {
             var roleList = RoleManager.Roles;
@@ -148,6 +153,8 @@ namespace manahil.Controllers
 
                 if (result.Succeeded)
                 {
+                    
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -192,6 +199,8 @@ namespace manahil.Controllers
                 }
                 model.Add(userRoleViewModel);
             }
+
+            
 
             return View(model);
         }
@@ -294,11 +303,12 @@ namespace manahil.Controllers
                         continue;
                     else
                     {
+                        await CheckRoles();
                         return RedirectToAction("EditRole", new { Id = id });
                     }
 
                 }
-
+                
                 return RedirectToAction("EditRole",new {Id=id });
             }
                 
@@ -323,21 +333,57 @@ namespace manahil.Controllers
             }
             else
             {
-                var result = await UserManager.DeleteAsync(user);
-                if (result.Succeeded)
+                try
                 {
-                    return RedirectToAction("ListUser");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
+                    var result = await UserManager.DeleteAsync(user);
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("",error.Description);
+                        return Json(new { Success = 1 });
                     }
-                    return View("ListUser");
+                    else
+                    {
+                        //foreach (var error in result.Errors)
+                        //{
+                        //    ModelState.AddModelError("",error.Description);
+                        //}
+                        return Json(new { Success = 0, ex = result.Errors.ToString() });
+                    }
                 }
+                catch (Exception ex)
+                {
+                    return Json(new { Success = 0, ex = ex.InnerException.ToString() });
+                }
+                
             }
         }
+        
+        //[HttpPost]
+        //public async Task<IActionResult> DeleteUser(string id)
+        //{
+        //    var user = await UserManager.FindByIdAsync(id);
+
+        //    if (user == null)
+        //    {
+        //        ViewBag.ErrorMessage = $"User Not Found, Id={id}";
+        //        return View("NotFound");
+        //    }
+        //    else
+        //    {
+        //        var result = await UserManager.DeleteAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("ListUser");
+        //        }
+        //        else
+        //        {
+        //            foreach (var error in result.Errors)
+        //            {
+        //                ModelState.AddModelError("",error.Description);
+        //            }
+        //            return View("ListUser");
+        //        }
+        //    }
+        //}
 
 
         [HttpGet]
@@ -395,6 +441,54 @@ namespace manahil.Controllers
                 }
 
                 return View(model);
+            }
+        }
+
+
+
+        public async Task CheckRoles()
+        {
+            //initializing custom roles 
+            //var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string roleName =  "Admin";
+            IdentityResult roleResult;
+
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                // ensure that the role does not exist
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: 
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+           
+
+            // find the user with the admin email 
+            var _user = await UserManager.FindByEmailAsync("abdulaziz@gmail.com");
+            
+            // check if the user exists
+            if (_user == null)
+            {
+                //Here you could create the super admin who will maintain the web app
+                var adminUser = new IdentityUser
+                {
+                    UserName = "abdulaziz@gmail.com",
+                    Email = "abdulaziz@gmail.com",
+                };
+                string adminPassword = "123456";
+
+                var createAdminUser = await UserManager.CreateAsync(adminUser, adminPassword);
+                if (createAdminUser.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(adminUser, "Admin");
+
+                }
+            }
+            var isAdmin = await UserManager.IsInRoleAsync(_user, roleName);
+            if (!isAdmin)
+            {
+                await UserManager.AddToRoleAsync(_user, roleName);
             }
         }
     }

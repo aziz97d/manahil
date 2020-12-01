@@ -17,6 +17,14 @@
     {
       "library": "fakeLoader.js@1.1.0",
       "destination": "wwwroot/fakeLoader.js/"
+    },
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/lib/jquery-validate/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
     }
   ]
 }

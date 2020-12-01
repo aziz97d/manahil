@@ -1,9 +1,80 @@
-﻿body{
-}
-@font-face {
+﻿
+/*@font-face {
     font-family: 'Fonarto';
     src: url('../font/Fonarto.ttf');
 }
 .manahilfont{
     font-family:Fonarto;
 }
+*/
+
+
+/**{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background: linear-gradient(45deg, #8500ff, #5acaff);
+    height:100vh;
+}*/
+
+#containerE{
+    /*position: absolute;*/
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    background: url(''), #151729 ;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+
+}
+
+#containerE .contentE{
+    max-width: 600px;
+    text-align: center;
+}
+#containerE .contentE h2{
+    font-size: 18vw;
+    color: #fff;
+    line-height: 1em;
+    margin-top: 10px;
+}
+#containerE .contentE h4{
+    /*position: relative;*/
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #111;
+    background: #fff;
+    font-weight: 300;
+    padding: 10px 20px;
+    display: inline-block;
+
+}
+#containerE .contentE p{
+    color:#fff;
+    font-size: 1.2em;
+}
+#containerE .contentE a{
+    /*position: relative;*/
+    display: inline-block;
+    padding: 10px 25px;
+    background: #fff;
+    color: #282828;
+    text-decoration: none;
+    margin-top: 25px;
+    border-radius: 25px;
+    border:1px solid #07a500; 
+    margin-bottom:10px;
+
+    }
+    #containerE .contentE a:hover {
+        color: #fff;
+        background: #07a500;
+        
+    }

@@ -25,6 +25,25 @@ namespace manahil.Controllers
         // GET: DepositAccounts
         public async Task<IActionResult> Index()
         {
+            //var depositAccounts = await _context.DepositAccounts.ToListAsync();
+           
+            //List<DepositAccount> depositAccountsList = new List<DepositAccount>();
+            //foreach (DepositAccount depositAccount in depositAccounts)
+            //{
+            //    DepositAccount dpA = new DepositAccount
+            //    {
+            //        DepositAccountId = depositAccount.DepositAccountId,
+            //        DepositCode = depositAccount.DepositCode,
+            //        DepositAmount = depositAccount.DepositAmount,
+            //        DepositDate = depositAccount.DepositDate,
+            //        DepositType = depositAccount.DepositType,
+            //        Donor = depositAccount.Donor,
+            //        Balance = depositAccount.DepositAmount - _context.TransferAccounts.Where(c => c.DepositAccountId == depositAccount.DepositAccountId).Sum(s => s.TransferAmount)
+
+            //    };
+            //    depositAccountsList.Add(dpA);
+            //}
+
             return View(await _context.DepositAccounts.ToListAsync());
         }
 
@@ -58,7 +77,7 @@ namespace manahil.Controllers
         public IActionResult Create()
         {
             int count = _context.DepositAccounts.Count();
-            string countFormatted = count.ToString("000");
+            string countFormatted = count++.ToString("000");
             DepositAccount depositAccount = new DepositAccount();
             depositAccount.DepositCode = DateTime.Now.Date.ToString("ddMMyyyy") +"-"+ countFormatted;
             depositAccount.DepositDate = DateTime.Today.Date;
@@ -101,6 +120,7 @@ namespace manahil.Controllers
             depositAndTransferViewModel.DepositType = depositAccount.DepositType;
             depositAndTransferViewModel.DepositAmount = depositAccount.DepositAmount;
             depositAndTransferViewModel.Balance = depositAccount.Balance;
+            //depositAndTransferViewModel.Balance = depositAccount.DepositAmount - _context.TransferAccounts.Where(c=>c.DepositAccountId == depositAccount.DepositAccountId).Sum(s=>s.TransferAmount);
             depositAndTransferViewModel.TransferAccounts = 
                 _context.TransferAccounts.Where(d => d.DepositAccountId == depositAccount.DepositAccountId).ToList();
 
@@ -226,15 +246,15 @@ namespace manahil.Controllers
                     try
                     {
                         _context.Update(transferAccount);
-                        await _context.SaveChangesAsync();
-                        double oldAmount = _context.TransferAccounts.Find(transferAccount.TransferAccountId).TransferAmount;
-                        double differnceAmount = transferAccount.TransferAmount - oldAmount;
-                        DepositAccount dAcount = _context.DepositAccounts.Find(transferAccount.DepositAccountId);
-                        dAcount.Balance -= differnceAmount;
-                        
-                        
-                        
-                        _context.Update(dAcount);
+
+                        //await _context.SaveChangesAsync();
+                        //double oldAmount = _context.TransferAccounts.Find(transferAccount.TransferAccountId).TransferAmount;
+                        //double differnceAmount = transferAccount.TransferAmount - oldAmount;
+                        //DepositAccount dAcount = _context.DepositAccounts.Find(transferAccount.DepositAccountId);
+                        //dAcount.Balance -= differnceAmount;
+
+                        //_context.Update(dAcount);
+
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)

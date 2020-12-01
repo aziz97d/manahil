@@ -3,11 +3,36 @@
     ViewData["Title"] = "Not Found";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div id="containerE">
+    <div class="contentE">
+        <h2>404</h2>
+        <h4>Opps! Page not found</h4>
+        <p>The page you are looking for doesn't exists. You may have mistyed the address.</p>
+        <a asp-action="index" asp-controller="home">Back to Home</a>
+    </div>
+</div>
 
-<div class="row d-inline-flex justify-content-center">
+@*<div class="row d-inline-flex justify-content-center">
     <h2>@ViewBag.ErrorMessage</h2>
 
     <h1>404</h1>
     <h1>NotFound</h1>
-</div>
 
+</div>*@
+
+@*<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Error</title>
+    <link href="~/css/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div class="content">
+            <h2>404</h2>
+            <h4>Opps! Page not found</h4>
+            <p>The page you are looking for doesn't exists. You may have mistyed the address.</p>
+            <a asp-action="index" asp-controller="home">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>*@

@@ -33,6 +33,7 @@ namespace manahil
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddSingleton<>();
+            //services.AddScoped<DatabaseContext, DatabaseContext>();
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -81,6 +82,7 @@ namespace manahil
             }
             else
             {
+                app.UseStatusCodePagesWithRedirects("Error/{0}");
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();

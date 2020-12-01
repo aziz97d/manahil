@@ -32,6 +32,8 @@ namespace manahil.Models
         public DbSet<DepositAccount> DepositAccounts { get; set; }
         public DbSet<TransferAccount> TransferAccounts { get; set; }
         public DbSet<ManahilMonumental> ManahilMonumentals { get; set; }
+        public DbSet<BdDonation> BdDonations { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

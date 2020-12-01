@@ -61,9 +61,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().ManahilSerial)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Donor)
                 </th>
@@ -88,13 +86,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().PaymentStatus)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
+                </th>
             </tr>
         </thead>
 
         <tfoot>
             <tr>
                 <th>Serial</th>
-                <th>Name</th>
                 <th>Donor</th>
                 <th>Donor Serial</th>
                 <th>Get Date</th>
@@ -103,6 +103,7 @@
                 <th>Distribute Date</th>
                 <th>Employee</th>
                 <th>Payment Status</th>
+                <th>Name</th>
             </tr>
         </tfoot>
         <tbody class="text-nowrap">
@@ -110,73 +111,75 @@
             {
                 @if (item.EmployeeId == null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ManahilSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Donor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DonorSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GetDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Contractor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DistributionDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManahilSerial)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonorSerial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GetDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistributionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            </tr>
                 }
                 else
                 {
-                    <tr class="selected">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ManahilSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Donor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DonorSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GetDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Contractor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DistributionDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>
-                    </tr>
+        <tr class="selected">
+            <td>
+                @Html.DisplayFor(modelItem => item.ManahilSerial)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Donor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonorSerial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GetDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contractor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistributionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
                 }
 
             }
@@ -197,6 +200,12 @@
 
     <script>
         $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = dd + '-' + mm + '-' + yyyy;
             var table = $('#tbllist').DataTable({
 
                 dom: 'lBfrtip',
@@ -210,13 +219,15 @@
                     {
                         extend: 'csv',
                         text: '<i class="fas fa-file-csv"></i> CSV',
-                        titleAttr: 'Export to csv'
+                        titleAttr: 'Export to csv',
+                        title: today + '-Projects',
 
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fas fa-file-excel"></i> Excel',
-                        titleAttr: 'Export to excel'
+                        titleAttr: 'Export to excel',
+                        title: today + '-Projects'
                     },
                     {
                         extend: 'pdfHtml5',
@@ -224,6 +235,7 @@
                         pageSize: 'A4',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
                         titleAttr: 'Export to PDF',
+                        title:  today+'-Projects',
                         //exportOptions: {
                         //    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                         //}

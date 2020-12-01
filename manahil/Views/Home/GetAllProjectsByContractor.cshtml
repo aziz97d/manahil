@@ -93,6 +93,13 @@
 
     <script>
         $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = dd + '-' + mm + '-' + yyyy;
+            
             //$('#tbllist').DataTable({
 
 
@@ -120,7 +127,8 @@
                         extend: 'excel',
                         className:'btn-outline-success',
                         text: '<i class="fas fa-file-excel"></i> Excel',
-                        titleAttr: 'Export to excel'
+                        titleAttr: 'Export to excel',
+                        title: today + '- Projects'
                     },
                     {
                         extend: 'pdfHtml5',
@@ -128,6 +136,7 @@
                         pageSize: 'A4',
                         text: '<i class="fas fa-file-pdf"></i> PDF',
                         titleAttr: 'Export to PDF',
+                        title: today + '- Projects'
 
                     }
                     

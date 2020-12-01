@@ -34,19 +34,19 @@
                     </td>
                     
                     <td class="text-nowrap">
-                        <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
-                            <span data-toggle="tooltip" title="Edit!">
-                                <a class="fas fa-edit btn btn-warning btn-xs" asp-action="EditUser" asp-route-id="@item.Id"></a>
-                                @*@Html.ActionLink(" ", "EditUser", new { Id = item.Id }, new { @class = "far fa-edit btn btn-warning btn-xs" })*@
-                            </span>
-                            <span data-toggle="tooltip" title="Delete!">
-
-                                <button type="submit" class="fas fa-edit btn btn-danger btn-xs" onclick="return confirm('Do you delete : @item.UserName user')">Delete</button>
-
-
-                                @*@Html.ActionLink(" ", "DeleteUser", new { Id = item.Id }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })*@
-                            </span>
-                        </form>
+                        <!--<form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
+        <span data-toggle="tooltip" title="Edit!">
+            <a class="fas fa-edit btn btn-warning btn-xs" asp-action="EditUser" asp-route-id="@item.Id"></a>-->
+                        @*@Html.ActionLink(" ", "EditUser", new { Id = item.Id }, new { @class = "far fa-edit btn btn-warning btn-xs" })*@
+                        <!--</span>
+    <span data-toggle="tooltip" title="Delete!">-->
+                        @*<button type="submit" class="fas fa-edit btn btn-danger btn-xs" onclick="return confirm('Do you delete : @item.UserName user')">Delete</button>*@
+                        @*<button type="submit" class="fas fa-edit btn btn-danger btn-xs" onclick="return confirm('Do you delete : @item.UserName user')">Delete</button>*@
+                        <!--<button type="submit" class="fas fa-edit btn btn-danger btn-xs" onclick="deleteUser(@item.UserName)">Delete</button>-->
+                        @*@Html.ActionLink(" ", "DeleteUser", new { Id = item.Id }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })*@
+                        <!--</span>
+    </form>-->
+                        <button class="fas fa-edit btn btn-danger btn-xs" onclick="deleteUser('@item.Id')">Delete</button>
                     </td>
                 </tr>
     }
@@ -73,19 +73,91 @@
                     </tbody>
                 </table>
             }
+@*<form asp-action="DeleteUser" asp-route-id="50" method="post">*@
+    @*<button  class="fas fa-edit btn btn-danger btn-xs" onclick="deleteUser('50')">Delete</button>*@
+    @*</form>*@
+
+    @section Scripts{
+
+        <script>
+
+            $(document).ready(function () {
+
+                var table = $('#tbllist').DataTable();
 
 
+            });
 
-@section Scripts{
+            function deleteUser(id) {
+                Swal.fire({
+                    title: 'Are you sure? ' + message,
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteUser", "Administration")',
+                            data:{ id: id },
+                            type: 'POST',
+                            //contentType: 'application/json;',
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.Success == "1") {
+                                    let timerInterval
+                                    Swal.fire({                                        
+                                        title: 'Deleted',
+                                        html: 'User Deleted Successfully',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        willOpen: () => {
+                                            Swal.showLoading()
+                                            timerInterval = setInterval(() => {
+                                                const content = Swal.getContent()
+                                                if (content) {
+                                                    const b = content.querySelector('b')
+                                                    if (b) {
+                                                        b.textContent = Swal.getTimerLeft()
+                                                    }
+                                                }
+                                            }, 100)
+                                        },
+                                        onClose: () => {
+                                            clearInterval(timerInterval)
+                                            window.location.href = '@Url.Action("ListUser", "Administration")';
+                                        }
+                                    }).then((result) => {
+                                        /* Read more about handling dismissals below */
+                                        window.location.href = '@Url.Action("ListUser", "Administration")';
+                                    })
 
-    <script>
+                                }
+                                //else if (result.Success == "2") {
+                                //    Swal.fire(
+                                //        'Not Found!',
+                                //        '' + ViewBag.ErrorMessage,
+                                //        'fail'
+                                //    )
 
-        $(document).ready(function () {
+                                //}
+                                else {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        ''+result.ex,
+                                        'Fail'
 
-            var table = $('#tbllist').DataTable();
+                                    )
+                                }
+                            }
+                        });
 
+                    }
+                })
+            }
 
-        });
-    </script>
+        </script>
 
-}
+    }

@@ -42,29 +42,65 @@ jQueryAjaxPost = form => {
     }
 }
 
-jQueryAjaxDelete = url => {
-    if (confirm('Are you sure to delete this record ?')) {
-        try {
-            $.ajax({
-                type: 'POST',
-                url: url,
+//jQueryAjaxDelete = url => {
+//    if (confirm('Are you sure to delete this record ?')) {
+//        try {
+//            $.ajax({
+//                type: 'POST',
+//                url: url,
                 
-                contentType: false,
-                processData: true,
-                success: function (res) {
-                    $('#editPartial').html(res.html);
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-            })
-        } catch (ex) {
-            console.log(ex)
-        }
-    }
+//                contentType: false,
+//                processData: true,
+//                success: function (res) {
+//                    $('#editPartial').html(res.html);
+//                },
+//                error: function (err) {
+//                    console.log(err)
+//                }
+//            })
+//        } catch (ex) {
+//            console.log(ex)
+//        }
+//    }
 
-    //prevent default form submit event
-    return false;
+//    //prevent default form submit event
+//    return false;
+//}
+
+jQueryAjaxDelete = url => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+
+                    contentType: false,
+                    processData: true,
+                    success: function (res) {
+                        $('#editPartial').html(res.html);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+        //prevent default form submit event
+        return false;
+    })
+
 }
 
 showInPopupDetails = (url, title) => {
