@@ -9,6 +9,7 @@ namespace manahil.ViewModels
     {
         public int TodayDeliveredProject { get; set; }
         public int TodayGetProject { get; set; }
+        public int TodayDistributeProject { get; set; }
         public int OnGoingProject { get; set; }
         public int TotalProject { get; set; }
 

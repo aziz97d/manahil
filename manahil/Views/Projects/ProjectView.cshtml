@@ -6,7 +6,7 @@
 }
 <style>
     .selected {
-        background-color: limegreen !important;
+        background-color: yellowgreen !important;
     }
 </style>
 <form asp-action="ProjectView" method="post">
@@ -83,9 +83,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Employee)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().PaymentStatus)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
                 </th>
@@ -102,7 +102,7 @@
                 <th>Contractor</th>
                 <th>Distribute Date</th>
                 <th>Employee</th>
-                <th>Payment Status</th>
+                @*<th>Payment Status</th>*@
                 <th>Name</th>
             </tr>
         </tfoot>
@@ -137,9 +137,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee.Name)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.PaymentStatus)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -173,9 +173,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.Name)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.PaymentStatus)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

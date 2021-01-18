@@ -101,13 +101,13 @@
                                 <p>Project View</p>
                             </a>
                         </li>
-                        @if (User.IsInRole("Management") || User.IsInRole("Admin"))
+                        @if (User.IsInRole("Management"))
                         {
                             <li class="nav-header">Management Menu</li>
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="DepositAccounts" asp-action="DepositView">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon fas fa-wallet"></i>
                                     <p>
                                         Accounts
                                     </p>
@@ -115,7 +115,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon fas fa-book"></i>
                                     <p>
                                         Projects Approval
                                     </p>
@@ -123,7 +123,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="ManahilMonumentals" asp-action="ViewMonumental">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon fas fa-envelope-open-text"></i>
                                     <p>
                                         Al Manahil Monumental
                                     </p>
@@ -137,7 +137,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon fas fa-book-open"></i>
                                     <p>
                                         Projects Approval View
                                     </p>
@@ -145,24 +145,24 @@
                             </li>
                             <li class="nav-item">
                                 <a asp-controller="ApprovalProjects" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-book nav-icon"></i>
                                     <p>Projects Approval</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a asp-controller="DepositAccounts" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-wallet nav-icon"></i>
                                     <p>Account Deposit</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a asp-controller="ManahilMonumentals" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-envelope-open-text nav-icon"></i>
                                     <p>Al Manahil Monumental</p>
                                 </a>
                             </li>
                         }
-                        @if (User.IsInRole("Donation Manager") || User.IsInRole("Admin"))
+                        @*@if (User.IsInRole("Donation Manager") || User.IsInRole("Admin"))
                         {
                             <li class="nav-item" id="generaltubewell">
                                 <a asp-controller="BdDonations" asp-action="index" class="nav-link">
@@ -170,7 +170,7 @@
                                     <p>Bangladesh Donation</p>
                                 </a>
                             </li>
-                        }
+                        }*@
                         @if (User.IsInRole("Admin") || User.IsInRole("Computer Operator"))
                         {
                             <li class="nav-header">Operator Menu</li>
@@ -300,13 +300,13 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="CreateMultiple">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-plus-circle nav-icon"></i>
                                             <p>Add Projects</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="DistributionProject">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-minus-circle nav-icon"></i>
                                             <p>Distribution Project</p>
                                         </a>
                                     </li>

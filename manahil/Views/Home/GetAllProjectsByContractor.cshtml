@@ -36,7 +36,20 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if (item.Category == "General Tubewell" && item.PassDays > 10)
+                if (item.IsComplete)
+                {
+                <tr class="bg-success">
+                    <td>@item.ManahilSerial</td>
+                    <td>@item.Name</td>
+                    <td>@item.Donor</td>
+                    <td>@item.DonorSerial</td>
+                    <td>@item.Category</td>
+                    <td>@item.DistributionDate</td>
+                    <td>@item.PassDays</td>
+                    <td>@item.Notes</td>
+                </tr>
+                }
+                else if (item.Category == "General Tubewell" && item.PassDays > 10)
                 {
                     <tr class="bg-warning">
                         <td>@item.ManahilSerial</td>
@@ -51,7 +64,7 @@
                 }
                 else if (item.Category == "Ablution" && item.PassDays > 30)
                 {
-                    <tr class="bg-danger">
+                    <tr class="bg-danger text-white">
                         <td>@item.ManahilSerial</td>
                         <td>@item.Name</td>
                         <td>@item.Donor</td>

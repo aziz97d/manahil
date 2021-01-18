@@ -77,7 +77,8 @@ namespace manahil.Controllers
         public IActionResult Create()
         {
             int count = _context.DepositAccounts.Count();
-            string countFormatted = count++.ToString("000");
+            count++;
+            string countFormatted = count.ToString("0000");
             DepositAccount depositAccount = new DepositAccount();
             depositAccount.DepositCode = DateTime.Now.Date.ToString("ddMMyyyy") +"-"+ countFormatted;
             depositAccount.DepositDate = DateTime.Today.Date;

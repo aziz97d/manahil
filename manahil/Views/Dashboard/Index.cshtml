@@ -22,8 +22,8 @@
         <div class="info-box mb-3">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-arrow-alt-circle-down"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">Today Get Project</span>
-                <span class="info-box-number">@Model.TodayGetProject</span>
+                <span class="info-box-text">Today Distribute Project</span>
+                <span class="info-box-number">@Model.TodayDistributeProject</span>
 
             </div>
             <!-- /.info-box-content -->
@@ -89,13 +89,14 @@
                         </p>
                         @for (int i = 0; i < Model.ContractorName.Count; i++)
                         {
-                            int totalProjectByContractor = Model.TotalProjectByContractor[i];
-                            int totalOnGoingProjectByContractor = Model.TotalOnGoingProjectByContractor[i];
-                            int totalDeliveredProject = totalProjectByContractor - totalOnGoingProjectByContractor;
-                            int percentage1 = 0;
+                            double totalProjectByContractor = Model.TotalProjectByContractor[i];
+                            double totalOnGoingProjectByContractor = Model.TotalOnGoingProjectByContractor[i];
+                            double totalDeliveredProject = totalProjectByContractor - totalOnGoingProjectByContractor;
+                            double percentage1 = 0;
                             if (totalProjectByContractor != 0)
                             {
-                                percentage1 = (100 / totalProjectByContractor) * totalDeliveredProject;
+                                percentage1 = (100 / totalProjectByContractor);
+                                percentage1 *= totalDeliveredProject;
                             }
 
                             <div class="progress-group">
@@ -120,10 +121,10 @@
                         </p>
                         @for (int i = 0; i < Model.DonorName.Count; i++)
                         {
-                            int totalProjectByDonor = Model.TotalProjectByDonor[i];
-                            int totalOnGoingProjectByDonor = Model.TotalOnGoingProjectByDonor[i];
-                            int totalDeliveredProject = totalProjectByDonor - totalOnGoingProjectByDonor;
-                            int percentage = 0;
+                            double totalProjectByDonor = Model.TotalProjectByDonor[i];
+                            double totalOnGoingProjectByDonor = Model.TotalOnGoingProjectByDonor[i];
+                            double totalDeliveredProject = totalProjectByDonor - totalOnGoingProjectByDonor;
+                            double percentage = 0;
                             if (totalProjectByDonor != 0)
                             {
                                 percentage = (100 / totalProjectByDonor) * totalDeliveredProject;
@@ -161,7 +162,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">All Projects Report</h5>
+                <h5 class="card-title">Last Six Months Report</h5>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

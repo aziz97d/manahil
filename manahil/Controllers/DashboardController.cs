@@ -23,7 +23,8 @@ namespace manahil.Controllers
             DashboardViewModel dashboardViewModel = new DashboardViewModel
             {
                 TodayDeliveredProject = db.Projects.Count(c=>c.CompletedDate == DateTime.Today),
-                TodayGetProject = db.Projects.Count(c=>c.GetDate == DateTime.Today),
+                //TodayGetProject = db.Projects.Count(c=>c.GetDate == DateTime.Today),
+                TodayDistributeProject = db.Projects.Count(c=>c.DistributionDate == DateTime.Today),
                 OnGoingProject = db.Projects.Count(c=>c.EmployeeId == null),
                 TotalProject = db.Projects.Count()
             };

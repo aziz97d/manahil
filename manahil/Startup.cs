@@ -47,6 +47,8 @@ namespace manahil
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
+
+            
             
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -67,7 +69,17 @@ namespace manahil
 
             IMvcBuilder builder = services.AddRazorPages();
             builder.AddRazorRuntimeCompilation();
-            services.AddSession();
+            services.AddSession(option =>
+            {
+                //option.IdleTimeout = TimeSpan.FromHours(12);
+                option.IdleTimeout = TimeSpan.FromMinutes(720);
+            });
+            services.ConfigureApplicationCookie(option =>
+            {
+                //option.ExpireTimeSpan = TimeSpan.FromHours(12);
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(720);
+
+            });
             
 
         }

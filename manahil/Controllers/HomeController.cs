@@ -80,6 +80,7 @@ namespace manahil.Controllers
                 contractorProject.Category = db.Categories.Find(projcet.CategoryId).Name;
                 contractorProject.DistributionDate = Convert.ToDateTime(projcet.DistributionDate).ToShortDateString();
                 TimeSpan diff = DateTime.Today - Convert.ToDateTime(projcet.DistributionDate);
+                contractorProject.IsComplete = (projcet.EmployeeId > 0) ? true : false;
                 contractorProject.PassDays = diff.Days;
                 contractorProject.Notes = projcet.Notes;
 

@@ -14,7 +14,7 @@
 </p>
 <form class="card p-2 table-responsive">
     
-    <table id="tbllist" class="display" cellspacing="0" width="100%">
+    <table id="tbllist" class="display" cellspacing="0" style="font-size:15px" width="100%">
         <thead class="text-nowrap">
             <tr>
                 <th>
@@ -47,9 +47,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CompletedDate)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.PaymentStatus)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>
@@ -92,9 +92,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CompletedDate)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Notes)
                         </td>
@@ -141,9 +141,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CompletedDate)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Notes)
                         </td>

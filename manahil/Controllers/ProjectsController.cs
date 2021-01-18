@@ -261,6 +261,7 @@ namespace manahil.Controllers
             DateTime? startDate = projectsViewModel.StartDate;
             DateTime? endDate = projectsViewModel.EndDate;
             int? projectType = projectsViewModel.ProjectType;
+            //DateTime startDateAdd = Convert.ToDateTime(startDate).AddDays(-1);
             DateTime endDateAdd = Convert.ToDateTime(endDate).AddDays(1);
 
             var query =  db.Projects.Include(d => d.Donor).
@@ -269,7 +270,7 @@ namespace manahil.Controllers
             List<Project> projects = new List<Project>();
             if (startDate!=null && endDate==null && projectType == null)
             {
-                 projects = await query.Where(d=>d.GetDate>startDate).ToListAsync();
+                 projects = await query.Where(d=>d.GetDate>= startDate).ToListAsync();
             }
             else if(startDate == null && endDate != null && projectType == null)
             {
@@ -277,21 +278,22 @@ namespace manahil.Controllers
 
             }else if (startDate != null && endDate != null && projectType == null)
             {
-                 projects = await query.Where(d =>d.GetDate>startDate && d.GetDate < endDateAdd).ToListAsync();
+                 projects = await query.Where(d =>d.GetDate>= startDate && d.GetDate < endDateAdd).ToListAsync();
             }else if (startDate == null && endDate == null && projectType == 1)
             {
                  projects = await query.Where(d=>d.EmployeeId==null).ToListAsync();
+
             }else if (startDate == null && endDate == null && projectType == 2)
             {
                  projects = await query.Where(d =>d.EmployeeId != null).ToListAsync();
             }
             else if (startDate != null && endDate != null && projectType == 1)
             {
-                projects = await query.Where(d => d.GetDate > startDate && d.GetDate < endDateAdd && d.EmployeeId == null).ToListAsync();
+                projects = await query.Where(d => d.GetDate >= startDate && d.GetDate < endDateAdd && d.EmployeeId == null).ToListAsync();
             }
             else if (startDate != null && endDate != null && projectType == 2)
             {
-                projects = await query.Where(d => d.GetDate > startDate && d.GetDate < endDateAdd && d.EmployeeId != null).ToListAsync();
+                projects = await query.Where(d => d.GetDate >= startDate && d.GetDate < endDateAdd && d.EmployeeId != null).ToListAsync();
             }
             else
             {
@@ -540,7 +542,23 @@ namespace manahil.Controllers
                     db.Projects.Update(project);
                 }
                 db.SaveChanges();
-                TempData["Message"] = "Thank you For Ready "+projectId.Length+" project";
+                if (projectId.Length==1)
+                {
+                    TempData["Message"] = "Thank You. " + projectId.Length + " Project Delivered";
+                }
+                else if (projectId.Length>10 && projectId.Length<20)
+                {
+                    TempData["Message"] = "Congratulation For Your Half Century. " + projectId.Length + " Projects Delivered";
+                }
+                else if (projectId.Length > 20)
+                {
+                    TempData["Message"] = "Congratulation For Your Century. " + projectId.Length + " Projects Delivered";
+                }
+                else
+                {
+                    TempData["Message"] = "Thank You. " + projectId.Length + " Projects Delivered";
+                }
+                
                 TempData["Status"] = "1";
 
 

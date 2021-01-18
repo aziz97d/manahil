@@ -118,7 +118,7 @@ namespace manahil.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    CookieOptions option = new CookieOptions();
+                    CookieOptions option1 = new CookieOptions();
 
                     int userIdForCookie=0;
                     string userEmailForCookie = model.Email;
@@ -141,12 +141,17 @@ namespace manahil.Controllers
 
                     if (model.RememberMe)
                     {   
-                        option.Expires = DateTime.Now.AddDays(7);
+                        option1.Expires = DateTime.Now.AddDays(7);
+                    }
+                    else
+                    {
+                        option1.Expires = DateTime.Now.AddDays(1);
                     }
                     
-                    option.Expires = DateTime.Now.AddDays(1);
+                    
+                    //option1.Expires = TimeSpan.FromHours(12);
 
-                    Response.Cookies.Append("UserId", userIdForCookie.ToString(), option);
+                    Response.Cookies.Append("UserId", userIdForCookie.ToString(), option1);
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(ViewBag.ReturnUrl))
                     {

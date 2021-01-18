@@ -17,5 +17,6 @@ namespace manahil.ViewModels
         public string Category { get; set; }
         public int PassDays { get; set; }
         public string Notes { get; set; }
+        public bool IsComplete { get; set; }
     }
 }
