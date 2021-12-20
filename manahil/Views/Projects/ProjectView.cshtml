@@ -6,7 +6,7 @@
 }
 <style>
     .selected {
-        background-color: yellowgreen !important;
+        background-color: #9efd9e !important;
     }
 </style>
 <form asp-action="ProjectView" method="post">
@@ -48,6 +48,21 @@
 
             </div>
         </div>
+
+        @*<div class="col-md-2">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Search By</label>
+                    </div>
+                    <select asp-for="SearchBy" class="form-control">
+                        <option value="1">Get Date</option>
+                        <option value="2">Distribute Date</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>*@
         <div class="col-md-3">
             <input type="submit" class="btn btn-success btn-block" value="Search" />
         </div>
@@ -83,9 +98,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Employee)
                 </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().PaymentStatus)
-                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().TamidNumber)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
                 </th>
@@ -96,13 +111,13 @@
             <tr>
                 <th>Serial</th>
                 <th>Donor</th>
-                <th>Donor Serial</th>
+                <th>Donor Sl</th>
                 <th>Get Date</th>
                 <th>Category</th>
                 <th>Contractor</th>
                 <th>Distribute Date</th>
                 <th>Employee</th>
-                @*<th>Payment Status</th>*@
+                <th>Tamid</th>
                 <th>Name</th>
             </tr>
         </tfoot>
@@ -123,7 +138,11 @@
                     @Html.DisplayFor(modelItem => item.DonorSerial)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GetDate)
+                    @*@Html.DisplayFor(modelItem => item.GetDate)*@
+                    @if (item.GetDate != null)
+                    {
+                        @item.GetDate?.ToString("dd/MM/yy");
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.Name)
@@ -132,14 +151,19 @@
                     @Html.DisplayFor(modelItem => item.Contractor.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DistributionDate)
+                    @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
+                    @if (item.DistributionDate != null)
+                    {
+                        @item.DistributionDate?.ToString("dd/MM/yy");
+
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee.Name)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.PaymentStatus)
-                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamidNumber)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -159,7 +183,11 @@
                 @Html.DisplayFor(modelItem => item.DonorSerial)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GetDate)
+                @*@Html.DisplayFor(modelItem => item.GetDate)*@
+                @if (item.GetDate != null)
+                {
+                    @item.GetDate?.ToString("dd/MM/yy");
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
@@ -168,14 +196,18 @@
                 @Html.DisplayFor(modelItem => item.Contractor.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DistributionDate)
+                @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
+                @if (item.DistributionDate != null)
+                {
+                    @item.DistributionDate?.ToString("dd/MM/yy");
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.Name)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.PaymentStatus)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.TamidNumber)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

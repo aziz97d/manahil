@@ -26,13 +26,13 @@ namespace manahil.Models
         public virtual Donor Donor { get; set; }
 
         [MaxLength(200)]
-        [Display(Name = "Org Serial")]
+        [Display(Name = "Org Sl")]
         public string DonorSerial { get; set; }
 
         [Display(Name = "Get Date")]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime? GetDate { get; set; } = DateTime.Today;
-
 
         [ForeignKey("CategoryId")]
         [Required]
@@ -45,7 +45,8 @@ namespace manahil.Models
         public int? ContractorId { get; set; }
         public virtual Contractor Contractor { get; set; }
 
-        [Display(Name="Distribution Date")]
+        [Display(Name="Distribute Date")]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime? DistributionDate { get; set; }
 
@@ -54,6 +55,9 @@ namespace manahil.Models
         public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
+        [Display(Name = "Completion Date")]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime? CompletedDate { get; set; }
 
         [Display(Name ="Payment Status")]

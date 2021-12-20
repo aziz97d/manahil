@@ -5,7 +5,8 @@
 }
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
+
+        <div class="info-box box-design" onclick="showInPopupDetails('@Url.Action("showDashboardProjects","Dashboard",new {value=1},Context.Request.Scheme)','Today Delivere Projects')">
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-arrow-alt-circle-up"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Today Delivered Project </span>
@@ -19,7 +20,7 @@
     </div>
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
+        <div class="info-box box-design mb-3" onclick="showInPopupDetails('@Url.Action("showDashboardProjects","Dashboard",new {value=2},Context.Request.Scheme)','Today Distribute Projects')">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-arrow-alt-circle-down"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Today Distribute Project</span>
@@ -99,15 +100,20 @@
                                 percentage1 *= totalDeliveredProject;
                             }
 
-                            <div class="progress-group">
-                                @Model.ContractorName[i]
-                                <span class="float-right"><b>@totalDeliveredProject</b>/@totalProjectByContractor</span>
-                                <div class="progress progress-sm">
-                                    @*<div class="progress-bar bg-warning" style="width: 35%"></div>*@
-                                    @Html.Raw("<div class='progress-bar bg-warning' style='width:" + percentage1 + "%'></div> ")
+                            if (totalDeliveredProject != totalProjectByContractor)
+                            {
+                                <div class="progress-group">
+                                    @Model.ContractorName[i]
+                                    <span class="float-right"><b>@totalDeliveredProject</b>/@totalProjectByContractor</span>
+                                    <div class="progress progress-sm">
+                                        @*<div class="progress-bar bg-warning" style="width: 35%"></div>*@
+                                        @Html.Raw("<div class='progress-bar bg-warning' style='width:" + percentage1 + "%'></div> ")
 
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            
+
 
                         }
 
@@ -130,15 +136,20 @@
                                 percentage = (100 / totalProjectByDonor) * totalDeliveredProject;
                             }
 
-                            <div class="progress-group">
-                                @Model.DonorName[i]
-                                <span class="float-right"><b>@totalDeliveredProject</b>/@totalProjectByDonor</span>
-                                <div class="progress progress-sm">
-                                    @*<div class="progress-bar bg-primary" style="width: 35%"></div>*@
-                                    @Html.Raw("<div class='progress-bar bg-primary' style='width:" + percentage + "%'></div> ")
+                            if (totalProjectByDonor != totalDeliveredProject)
+                            {
+                                <div class="progress-group">
+                                    @Model.DonorName[i]
+                                    <span class="float-right"><b>@totalDeliveredProject</b>/@totalProjectByDonor</span>
+                                    <div class="progress progress-sm">
+                                        @*<div class="progress-bar bg-primary" style="width: 35%"></div>*@
+                                        @Html.Raw("<div class='progress-bar bg-primary' style='width:" + percentage + "%'></div> ")
 
+                                    </div>
                                 </div>
-                            </div>
+                            }
+
+
 
                         }
 
@@ -223,12 +234,15 @@
 
             function drawChart(result) {
 
+                console.log(result);
+
                 var data = new google.visualization.DataTable();
                 data.addColumn('number', 'Months');
                 data.addColumn('number', 'Get Project');
                 data.addColumn('number', 'Delivered Project');
                 var dataArray = [];
                 $.each(result, function (i, obj) {
+                    console.log(obj);
                     dataArray.push([obj.Months, obj.TotalGetProjectsByMonth, obj.TotalDeliveredProjectsByMonths]);
                 });
 

@@ -74,6 +74,8 @@
                         <div class="form-group">
                             <label asp-for="GetDate" class="control-label"></label>
                             <input asp-for="GetDate" id="getDateD" class="form-control" />
+                            @*<input asp-for="GetDate" type="text" id="getDateD" asp-format="{0:dd/MM/yyyy}" class="form-control date-picker-formate-custom" />*@
+                            
                             <span asp-validation-for="GetDate" class="text-danger"></span>
                         </div>
                     </div>
@@ -93,6 +95,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label asp-for="DistributionDate" class="control-label"></label>
+                            @*<input asp-for="DistributionDate" type="text" asp-format="{0:dd/MM/yyyy}" class="form-control date-picker-formate-custom" />*@
                             <input asp-for="DistributionDate" class="form-control" />
                             <span asp-validation-for="DistributionDate" class="text-danger"></span>
                         </div>
@@ -110,16 +113,24 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    @*<div class="col-sm-6">
                         <div class="form-group">
                             <label asp-for="PaymentStatus" class="control-label"></label>
                             <input asp-for="PaymentStatus" class="form-control" />
                             <span asp-validation-for="PaymentStatus" class="text-danger"></span>
                         </div>
+                    </div>*@
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="CompletedDate" class="control-label"></label>
+                            <input asp-for="CompletedDate"  class="form-control" />
+                            @*<input asp-for="CompletedDate" type="text" asp-format="{0:dd/MM/yyyy}" class="form-control date-picker-formate-custom" />*@
+                            <span asp-validation-for="CompletedDate" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label asp-for="TamidNumber" class="control-label"></label>
@@ -127,6 +138,18 @@
                             <span asp-validation-for="TamidNumber" class="text-danger"></span>
                         </div>
                     </div>
+                    
+                    @if (ViewBag.Title == "Edit")
+                    {
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Notes" class="control-label"></label>
+                                <input asp-for="Notes" class="form-control" />
+                                <span asp-validation-for="Notes" class="text-danger"></span>
+                            </div>
+                        </div>
+                    }
+
                 </div>
                 @*text Area*@
                 <!--<div class="row">
@@ -189,9 +212,11 @@
 
 @section Scripts{
     <script>
-
-    //$("#DeptId").select2();
-
+        $('.date-picker-formate-custom').datepicker({ dateFormat: 'dd-mm-yy' })
+        //$("#DeptId").select2();
+        //$(document).ready(function() {
+           
+        //})
         function Project_delete() {
 
         var prjctId = $("#ProjectId").val();
@@ -218,7 +243,9 @@
                 }
             }
             });
-    }
+        }
+
+
     </script>
 
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@

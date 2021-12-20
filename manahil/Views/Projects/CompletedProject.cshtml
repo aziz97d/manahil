@@ -34,6 +34,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TamidNumber)
+                </th>
                 <th>Pass Day</th>
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
@@ -68,6 +71,9 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.TamidNumber)
+                </td>
+                <td>
                     @{
                         string days = "";
                         if (item.DistributionDate == null)
@@ -86,7 +92,7 @@
                 <td class="noteCls">
                     @*<input type="text" class="noteCls" value="@item.Notes" />*@
                     <span>@item.Notes</span>
-                    <input type="text"  value="@item.Notes" style="display:none" />
+                    <input type="text" value="@item.Notes" style="display:none" />
                 </td>
                 <td>
                     <a class="Edit btn btn-warning btn-xs" href="javascript:;">Add Notes</a>
@@ -106,7 +112,9 @@
 
         $(document).ready(function () {
             
-            var table = $('#tbllist').DataTable();
+            var table = $('#tbllist').DataTable({
+                "order": [[8, "desc"]]
+            });
 
             $('#tbllist tbody').on('click', 'td:not(:nth-last-child(1),:nth-last-child(2))', function () {
 

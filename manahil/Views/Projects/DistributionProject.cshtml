@@ -107,8 +107,8 @@
                 }
                 var contrctrid = $("#contractorD").val();
                 var dateD = $("#dateD").val();
-                if (contrctrid == "" || dateD == "") {
-                    alert("Plese Date and Must Required");
+                if (contrctrid == "" || dateD == "" || projectIdlist<1) {
+                    alert("Please Select at least one project, Distribute Date and Contractor");
                 }
                 else {
                     $.ajax({
@@ -126,7 +126,7 @@
                                 //toastr.success(result.ex);
                             window.setTimeout(function () {
                                 // Move to a new location or you can do something else
-                                window.location.href = '@Url.Action("Index", "Projects")';
+                                window.location.href = '@Url.Action("DistributionProject", "Projects")';
                             }, 0);
                         }
                         else {

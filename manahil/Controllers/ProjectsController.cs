@@ -25,16 +25,99 @@ namespace manahil.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            
+
             return View(await db.Projects.Include(d => d.Donor).Include(c => c.Contractor).
                 Include(c => c.Category).Include(e => e.Employee).ToListAsync());
+
+            //return View("indexSS");
+        }
+        private class TempProjectModel
+        {
+            public string  ManahilSerial { get; set; }
+            public string Name { get; set; }
+            public string DonorName { get; set; }
+            public string DonorSerial { get; set; }
+            public string CategoryName { get; set; }
+            public string GetDate { get; set; }
+            public string ContractorName { get; set; }
+            public string DistributeDate { get; set; }
+            public string EmployeeName { get; set; }
+            public string CompletionDate { get; set; }
+            public string TamidNumber { get; set; }
+            public string Notes { get; set; }
+
         }
 
-        //GET: Projects/Details/5
+        // Extra Method for server side rendering
+
+        //[HttpPost]
+        //public IActionResult GetProjects()
+        //{
+        //    try
+        //    {
+        //        var draw = Request.Form["draw"].FirstOrDefault();
+        //        var start = Request.Form["start"].FirstOrDefault();
+        //        var length = Request.Form["length"].FirstOrDefault();
+        //        var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+        //        var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+        //        var searchValue = Request.Form["search[value]"].FirstOrDefault();
+        //        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+        //        int skip = start != null ? Convert.ToInt32(start) : 0;
+        //        int recordsTotal = 0;
+        //        var projectsData = (from tempProject in db.Projects join  select tempProject);
+
+        //        List< TempProjectModel> data = (from project in db.Projects
+        //                    from donor in db.Donors.Where(d => d.DonorId == project.DonorId).DefaultIfEmpty()
+        //                    from category in db.Categories.Where(c => c.CategoryId == project.CategoryId).DefaultIfEmpty()
+        //                    from contractor in db.Contractors.Where(c => c.ContractorId == project.ContractorId).DefaultIfEmpty()
+        //                    from employee in db.Employees.Where(e => e.EmployeeId == project.EmployeeId).DefaultIfEmpty()
+        //                    select new TempProjectModel
+        //                    {
+        //                        ManahilSerial = project.ManahilSerial.ToString(),
+        //                        Name = project.Name,
+        //                        DonorName = donor.Name,
+        //                        DonorSerial = project.DonorSerial,
+        //                        CategoryName = category.Name,
+        //                        GetDate = project.GetDate.ToString(),
+        //                        ContractorName = contractor.Name,
+        //                        DistributeDate = project.DistributionDate.ToString(),
+        //                        EmployeeName = employee.Name,
+        //                        CompletionDate = project.CompletedDate.ToString(),
+        //                        TamidNumber = project.TamidNumber,
+        //                        Notes = project.Notes,
+        //                    }).ToList();
+        //        //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+        //        //{
+        //        //    //projectsData = projectsData.OrderBy(sortColumn + " " + sortColumnDirection);
+        //        //    projectsData = projectsData.OrderBy(sortColumn + " " + sortColumnDirection);
+        //        //}
+        //        if (!string.IsNullOrEmpty(searchValue))
+        //        {
+        //            data = data.Where(m => m.ManahilSerial.Contains(searchValue)
+        //                                        || m.Name.Contains(searchValue)
+        //                                        || m.DonorName.Contains(searchValue)
+        //                                        || m.DonorSerial.Contains(searchValue)
+        //                                        || m.CategoryName.Contains(searchValue)
+        //                                        || m.ContractorName.Contains(searchValue)
+        //                                        || m.EmployeeName.Contains(searchValue)
+        //                                        || m.TamidNumber.Contains(searchValue)
+        //                                        || m.Notes.Contains(searchValue));
+        //        }
+        //        recordsTotal = projectsData.Count();
+        //        var data = projectsData.Skip(skip).Take(pageSize).ToList();
+        //        var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+        //        return Ok(jsonData);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+    
 
 
-        // GET: Projects/Create
-        public IActionResult Create()
+    // GET: Projects/Create
+    public IActionResult Create()
         {
             ViewData["DonorId"] = new SelectList(db.Donors, "DonorId", "Name");
             ViewData["CategoryId"] = new SelectList(db.Categories, "CategoryId", "Name");
@@ -54,6 +137,8 @@ namespace manahil.Controllers
             {
                 if (project.ProjectId > 0)
                 {
+                    project.GetDate = Convert.ToDateTime(project.GetDate);
+                    project.DistributionDate = Convert.ToDateTime(project.DistributionDate);
                     db.Update(project);
                     await db.SaveChangesAsync();
                     TempData["Message"] = "Data Update Successfully";
@@ -242,17 +327,47 @@ namespace manahil.Controllers
             return db.Projects.Any(e => e.ProjectId == id);
         }
 
+        //public JsonResult TestDataTableData()
+        //{
+        //    var projectList = db.Projects.Include(d => d.Donor).
+        //        Include(c => c.Category).Include(c => c.Contractor).Include(c => c.Employee).ToListAsync();
+
+        //    return Json(new { data = projectList });
+            
+        //}
 
         //ProjectView
         [Authorize(Roles = "Admin,Management,Accounting Manager,Computer Operator")]
         public async Task<IActionResult> ProjectView()
         {
             ProjectsViewModel projects = new ProjectsViewModel();
-            projects.Projects = await db.Projects.Include(d => d.Donor).
+            
+            var projectList = await db.Projects.Include(d => d.Donor).
                 Include(c => c.Category).Include(c=>c.Contractor).Include(c=>c.Employee).ToListAsync();
+            projects.Projects = projectList;
             return View(projects);
         }
 
+        //public class PorjectsView1
+        //{
+        //    public int Id { get; set; }
+        //    public string ManahilSerial { get; set; }
+        //    public string Name { get; set; }
+        //    public string DonorName { get; set; }
+        //    public string DonorSerial { get; set; }
+        //    public DateTime? GetDate { get; set; }
+        //    public string CategoryName { get; set; }
+        //    public string ContractorName { get; set; }
+        //    public DateTime? DistributionDate { get; set; }
+        //    public string EmployeeName { get; set; }
+
+        //    public DateTime? CompletedDate { get; set; }
+        //    public string Notes { get; set; }
+        //    public string TamidNumber
+        //    {
+        //        get; set;
+        //    }
+        //}
 
         [HttpPost]
         [Authorize(Roles = "Admin,Management,Accounting Manager,Computer Operator")]
@@ -261,6 +376,7 @@ namespace manahil.Controllers
             DateTime? startDate = projectsViewModel.StartDate;
             DateTime? endDate = projectsViewModel.EndDate;
             int? projectType = projectsViewModel.ProjectType;
+            int? searchBy = projectsViewModel.SearchBy;
             //DateTime startDateAdd = Convert.ToDateTime(startDate).AddDays(-1);
             DateTime endDateAdd = Convert.ToDateTime(endDate).AddDays(1);
 
@@ -268,6 +384,7 @@ namespace manahil.Controllers
                 Include(c => c.Category).Include(c => c.Contractor).Include(e=>e.Employee);
 
             List<Project> projects = new List<Project>();
+            //if(searchBy ==2 )
             if (startDate!=null && endDate==null && projectType == null)
             {
                  projects = await query.Where(d=>d.GetDate>= startDate).ToListAsync();
@@ -278,7 +395,7 @@ namespace manahil.Controllers
 
             }else if (startDate != null && endDate != null && projectType == null)
             {
-                 projects = await query.Where(d =>d.GetDate>= startDate && d.GetDate < endDateAdd).ToListAsync();
+                 projects = await query.Where(d =>d.GetDate >= startDate && d.GetDate < endDateAdd).ToListAsync();
             }else if (startDate == null && endDate == null && projectType == 1)
             {
                  projects = await query.Where(d=>d.EmployeeId==null).ToListAsync();

@@ -37,13 +37,13 @@ namespace manahil.Controllers
         public async Task<IActionResult> ViewApprovalProject(int id = 0)
         {
 
-                var transferAccount = await _context.ApprovalProjects.FindAsync(id);
-                if (transferAccount == null)
+                var approvalProjects = await _context.ApprovalProjects.FindAsync(id);
+                if (approvalProjects == null)
                 {
                     return NotFound();
                 }
                 
-                return View(transferAccount);
+                return View(approvalProjects);
 
         }
 

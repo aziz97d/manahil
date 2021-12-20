@@ -11,6 +11,7 @@ namespace manahil.ViewModels
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? ProjectType { get; set; }
+        public int? SearchBy { get; set; }
         public List<Project> Projects { get; set; }
         public ProjectsViewModel()
         {

@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_AdLayout.cshtml";
 }
 <style>
-    .selected{
-        background-color:lawngreen !important;
+    .selected {
+        background-color: #9efd9e !important;
     }
 </style>
 <p>
@@ -47,9 +47,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CompletedDate)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TamidNumber)
+                </th>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.PaymentStatus)
-                </th>*@
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>
@@ -61,52 +64,67 @@
             {
                 @if (item.EmployeeId == null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ManahilSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Donor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DonorSerial)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GetDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Contractor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DistributionDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CompletedDate)
-                        </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>*@
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Notes)
-                        </td>
-                        <td class="text-nowrap">
-                            <span data-toggle="tooltip" title="Edit!">
-                                @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
-                            </span>
-                            <span data-toggle="tooltip" title="Delete!">
-                                @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
-                            </span>
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManahilSerial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonorSerial)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.GetDate)*@
+                    @if (item.GetDate != null)
+                    {
+                        @item.GetDate?.ToString("dd/MM/yy");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
+                    @if (item.DistributionDate != null)
+                    {
+                        @item.DistributionDate?.ToString("dd/MM/yy");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.CompletedDate)*@
+                    @if (item.CompletedDate != null)
+                    {
+                        @item.CompletedDate?.ToString("dd/MM/yy");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamidNumber)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td class="text-nowrap">
+                    <span data-toggle="tooltip" title="Edit!">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
+                    </span>
+                    <span data-toggle="tooltip" title="Delete!">
+                        @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                    </span>
+                </td>
+            </tr>
                 }
                 else
                 {
@@ -124,7 +142,11 @@
                             @Html.DisplayFor(modelItem => item.DonorSerial)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GetDate)
+                            @*@Html.DisplayFor(modelItem => item.GetDate)*@
+                            @if (item.GetDate != null)
+                            {
+                                @item.GetDate?.ToString("dd/MM/yy");
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Category.Name)
@@ -133,13 +155,24 @@
                             @Html.DisplayFor(modelItem => item.Contractor.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DistributionDate)
+                            @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
+                            @if (item.DistributionDate != null)
+                            {
+                                @item.DistributionDate?.ToString("dd/MM/yy");
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Employee.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CompletedDate)
+                            @*@Html.DisplayFor(modelItem => item.CompletedDate)*@
+                            @if (item.CompletedDate != null)
+                            {
+                                @item.CompletedDate?.ToString("dd/MM/yy");
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TamidNumber)
                         </td>
                         @*<td>
                             @Html.DisplayFor(modelItem => item.PaymentStatus)

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<manahil.Models.Project>
+
+@{
+    ViewData["TitleHeader"] = "Project";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+<style>
+    .selected {
+        background-color: #9efd9e !important;
+    }
+</style>
+<p>
+    <a asp-action="CreateMultiple" class="btn btn-success">Add Projects</a>
+</p>
+<form class="card p-2 table-responsive">
+    
+    <table id="tbllist" class="display" cellspacing="0" style="font-size:15px" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th>
+                    Manahil Sl
+                </th>
+                <th>Name</th>
+                <th>Donor</th>
+                <th>
+                    Org Sl
+                </th>
+                <th>
+                    Get Date
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Contractor
+                </th>
+                <th>
+                    Distribution Date
+                </th>
+                <th>
+                    Employee
+                </th>
+                <th>
+                    Completion Date
+                </th>
+                <th>
+                    Tamid Number
+                </th>
+                @*<th>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>*@
+                <th>
+                    Notes
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        
+    </table>
+
+</form>
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tbllist').DataTable({
+
+                buttons: {
+                    dom: {
+                        button: {
+                            className: 'btn rounded-0'
+                        }
+                    },
+                    
+                   
+                },
+                //"columnDefs": [
+                // Hide second, third and fourth columns
+                //{ "visible": false, "targets": [3, 4, 7, 9, 10] }
+                //],
+                "searching": true,
+                "paging": true,
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": "/projects/GetProjects",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "ManahilSerial", "name": "ManahilSerial", "autoWidth": true },
+                    { "data": "Name", "name": "Name", "autoWidth": true },
+                    { "data": "DonorSerial", "name": "Donor Serial", "autoWidth": true },
+                    { "data": "GetDate", "name": "Get Date", "autoWidth": true },
+                    { "data": "DistributionDate", "name": "Distribution Date", "autoWidth": true },
+                    { "data": "ContractorId", "name": "Contractor Id", "autoWidth": true },
+                    {
+                        "render": function (data, row) { return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" +row.ProjectId+ "'); >Delete</a>"; }
+                    }
+                ]
+            });
+        });
+
+ 
+    </script>
+}

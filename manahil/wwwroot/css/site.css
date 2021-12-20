@@ -49,7 +49,16 @@ button.accept-policy {
 }
 /*Manahil font*/
 
-
+/*Dashboard*/
+.box-design{
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+.box-design:hover{
+    transform:scale(1.05);
+    box-shadow: 1px 1px 15px gray;
+}
+/*Dashboard*/
 @font-face {
     font-family: 'Fonarto';
     src: url('../font/Fonarto.ttf');
