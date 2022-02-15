@@ -131,14 +131,21 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label asp-for="TamidNumber" class="control-label"></label>
                             <input asp-for="TamidNumber" class="form-control" />
                             <span asp-validation-for="TamidNumber" class="text-danger"></span>
                         </div>
                     </div>
-                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
                     @if (ViewBag.Title == "Edit")
                     {
                         <div class="col-sm-6">

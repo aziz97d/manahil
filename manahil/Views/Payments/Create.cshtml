@@ -1,0 +1,439 @@
+﻿@model manahil.Models.Payment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdLayout.cshtml";
+}
+
+<h1>Create</h1>
+
+
+<div class="col-md-12">
+
+    <div class="card card-success border border-success ">
+        <div class="card-header">
+
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            @*<form >*@
+            @if (Model != null)
+            {
+                <input type="hidden" asp-for="PaymentId" value="@Model.PaymentId" />
+            }
+            else
+            {
+                <input type="hidden" asp-for="PaymentId" value="0" />
+            }
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="ContractorId" class="control-label"></label>
+                                        <select asp-for="ContractorId" id="contractorD" class="form-control" asp-items="ViewBag.ContractorId" required>
+                                            <option value="">-Select Contractor-</option>
+                                        </select>
+                                        <span asp-validation-for="ContractorId" class="text-danger"></span>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="PaymentDate" class="control-label"></label>
+                                        <input asp-for="PaymentDate" id="paymentDateD" class="form-control manahilSerialD" />
+                                        <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="Invoice" class="control-label"></label>
+                                        <input asp-for="Invoice" id="InvoiceD" class="form-control manahilSerialD" />
+                                        <span asp-validation-for="Invoice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Mobile Number</label>
+                                        <input id="mobileD" class="form-control" readonly />
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label class="control-label">Address</label>
+                                        <input id="addressD" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <select id="donorD" class="form-control">
+                                        <option value="">- Select Donor -</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <select id="categoryD" class="form-control">
+                                        <option value="">- Select Category -</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button onclick="getProjectsByDonorContractorAndCategoryId()" class="btn btn-outline-success"><i class="fas fa-plus"></i></button>
+
+                                </div>
+
+                            </div>
+                            <br />
+                            <div id="tblRow" class="row d-none">
+                                <table id="tbllist" class="table table-striped " cellspacing="0" width="100%">
+                                    <thead class="text-nowrap">
+                                        <tr>
+                                            <th>Proect Id</th>
+                                            <th>Serial</th>
+                                            <th>Org Serial</th>
+                                            <th>Donor</th>
+                                            <th hidden>donorId</th>
+                                            <th>Category</th>
+                                            <th hidden>CategoryId</th>
+                                            <th>Tamid</th>
+                                            <th>Get Date</th>
+                                            <th>Contractor</th>
+                                            <th hidden>ContractorId</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            @*<input type="submit" value="Save" class="btn btn-primary btn-md btn-block" />*@
+                                            <button id="addToPaymentBtn" type="button" class="btn btn-success btn-md btn-block">Add to Payment</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <button class="btn btn-outline-danger btn-md btn-block" id="deleteTableBtn">Delete</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br />
+
+                            <div id="projectPaymentTbl" class="table-responsive">
+                                <table id="data" class="table table-centered mb-0 table-nowrap">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Donor</th>
+                                            <th>Category</th>
+                                            <th>Qty</th>
+                                            <th>Rate</th>
+                                            <th>Net Amt</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td><input class="form-control-plaintext" type="text" id="txtItemName" value="Abdullah Faisal asdfada Jahrani" readonly></td>
+                                            <td><input class="form-control form-control-sm" type="text" id="txtMrp" readonly></td>
+                                            <td><input class="form-control form-control-sm" type="text" id="txtQty"></td>
+                                            <td><input class="form-control form-control-sm" type="text" id="txtDiscAmt" readonly></td>
+                                            <td><input class="form-control form-control-sm" type="text" id="txtNetAmt" readonly></td>
+                                            <td><a class="action-icon text-danger" id="btndelete" value="Delete" onclick="deleteRow(this)"><i class="mdi mdi-trash-can" font-size-18"></i></a></td>
+
+                                        </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                </div>
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Order Summary</h4>
+                            <div class="table-responsive">
+                                <table id="tableSummary" class="table mb-0">
+
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Grand Total :</td>
+                                            <td id="GrandTotal"> 0 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discount : </td>
+                                            <td id="Discount"> 0 </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total :</th>
+                                            <th id="Total"> 0 </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table-responsive -->
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="submit" id="btnsubmit" class="btn btn-primary w-md">Submit</button>
+                            @*<button type="reset" id="btnClear" class="btn btn-warning w-md">Reset</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*</form>*@
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            //Selected projectsId list
+            var projectIdlist = [];
+
+            var table = $('#tbllist').DataTable({
+                columnDefs: [{
+                    "defaultContent": "-",
+                    "targets": "_all",
+                    "searchable": true
+                }]
+            });
+
+            $('#tbllist tbody').on('click', 'td:not(:nth-last-child(1),:nth-last-child(2))', function () {
+
+                $(this).closest('tr').toggleClass('selected');
+
+            });
+
+            $('#addToPaymentBtn').click(function () {
+                var data = table.rows('.selected').data();
+                if (data.length < 1) {
+                    alert('No project Select');
+                    return;
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    projectIdlist.push(data[i][0]);
+                }
+
+                addDataToSummaryTable(data.length)
+                var sum = 0;
+                $('.netTotal').each(function () {
+                    sum += parseFloat(this.value);
+                });
+                console.log($('.netTotal').text())
+            });
+
+
+
+
+        var items = "<option value='0'>-Select-</option>";
+
+        $("#donorD").html("<option value='0'>- Select Donor -</option>")
+        $("#categoryD").html("<option value='0'>- Select Category -</option>")
+
+
+        $('#contractorD').change(function () {
+            var contrId = $('#contractorD').val();
+            items = "<option value='0'>- Select Donor -</option>";
+            $.ajax({
+                url: '@Url.Action("GetDonorsByContractorId", "Payments")',
+                data: { contractorId: contrId },
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, dnr) {
+                        items += "<option value='"+dnr.Value+"'>"+dnr.Text+"</option>"
+                    })
+                    $("#donorD").html(items)
+
+                    items=""
+                }
+            });
+        });
+
+
+        $('#donorD').change(function () {
+            var dnrId = $('#donorD').val();
+            var contrId = $('#contractorD').val();
+            items = "<option value='0'>- Select Category -</option>";
+            $.ajax({
+                url: '@Url.Action("GetCategoryByDonorIdAndContractorId", "Payments")',
+                data: { donorId: dnrId, contractorId: contrId },
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, ctr) {
+                        items += "<option value='"+ctr.Value+"'>"+ctr.Text+"</option>"
+                    })
+                    $("#categoryD").html(items)
+                    items = ""
+                }
+            });
+        });
+
+        $('#btnAddToTable').click(function () {
+
+        })
+    });
+
+
+
+        getProjectPrice = async (donorId, contractorId, categoryId) => {
+            return new Promise(function (resolve, reject) {
+                try {
+                    $.ajax({
+                        url: '@Url.Action("GetPriceByCategoryIdAndDonorId", "ProjectPricings")',
+                        data: { categoryId: categoryId, donorId: donorId, contractorId: contractorId },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            resolve(data.Success)
+                        }
+                    });
+                } catch (err) {
+                    reject(ErrorTypes.toApiError(err));
+                }
+            })
+
+        }
+
+        addDataToSummaryTable = async (selectedProject) => {
+            var dnrId = $('#donorD :selected').val();
+            var contrId = $('#contractorD :selected').val();
+            var ctgoryId = $('#categoryD :selected').val();
+
+            var dnr = $('#donorD :selected').text();
+            var ctgory = $('#categoryD :selected').text();
+            var projectPrice = 0;
+            var totalPrice = 0;
+              await getProjectPrice(dnrId, contrId, ctgoryId).then(res => {
+                  projectPrice = res;
+                  totalPrice = res * selectedProject;
+              });
+
+            
+            
+
+            if (dnrId > 0 && contrId > 0 && ctgoryId > 0) {
+                //console.log(projectIdlist)
+                $("#projectPaymentTbl").find("tbody")
+                    .append($('<tr>')
+                        .append($('<td>')
+                            .append($('<p>')
+                                .attr('class', 'form-control form-control-sm')
+                                .text(dnr)
+                            )
+                        )
+                        .append($('<td>')
+                            .append($('<p>')
+                                .attr('class', 'form-control form-control-sm')
+                                .text(ctgory)
+                            )
+                        )
+                        .append($('<td>')
+                            .append($('<p>')
+                                .attr('class', 'form-control form-control-sm')
+                                .text(selectedProject)
+                            )
+                        )
+                        .append($('<td>')
+                            .append($('<p>')
+                                .attr('class', 'form-control form-control-sm')
+                                .text(projectPrice)
+                            )
+                        )
+                        .append($('<td>')
+                            .append($('<p>')
+                                .attr('class','netTotal', 'form-control form-control-sm')
+                                .text(totalPrice)
+                            )
+                        )
+                        .append($('<td>')
+                            .append($('<button>')
+                                .append($('<i>')
+                                    .attr('class', 'fas fa-minus')
+                                )
+                                .attr('class', 'btn btn-outline-danger btn-sm')
+                            )
+                        )
+                    )
+
+            }
+        }
+
+        //Payment Section
+        getProjectsByDonorContractorAndCategoryId = () => {
+            var dnrId = $('#donorD :selected').val();
+            var contrId = $('#contractorD :selected').val();
+            var ctgoryId = $('#categoryD :selected').val();
+
+            $.ajax({
+                url: '@Url.Action("GetProjectsByDonorContractorAndCategory", "Payments")',
+                data: { donorId: dnrId, contractorId: contrId, categoryId: ctgoryId},
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+
+                    add_Row(result.Data)
+                    $('#tblRow').addClass('d-block');
+                }
+            })
+            add_Row = (data) => {
+                var table = $('#tbllist').DataTable();
+                data.map(a => {
+                    //console.log(a);
+                    table.row.add([a.ProjectId,a.ManahilSerial, a.DonorSerial, a.Donor.Name, a.Category.Name, a.Tamid, a.GetDate, a.Contractor.Name, a.Price]).draw(false);
+                }
+                );
+                //table.row.add([a.manahilSerial, a.orgSerial, a.donor, a.donorId, a.category, a.categoryId]).draw()
+
+            }
+
+            //Modal Shows
+            @*$.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetProjectsByDonorContractorAndCategory", "Payments", Context.Request.Scheme)?&donorId=' + dnrId + '&contractorId=' + contrId + '&categoryId=' + ctgoryId,
+                success: function (res) {
+                    $('#form-modal .modal-body').html(res);
+                    $('#form-modal .modal-title').html("hello");
+                    $('#form-modal .modal-dialog').addClass('modal-lg');
+                    $('#form-modal').modal('show');
+                }
+            })*@
+
+        }
+
+    </script>
+
+}

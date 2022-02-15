@@ -23,14 +23,14 @@ namespace manahil.Controllers
 
         // GET: Projects
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int months=1)
         {
 
-            return View(await db.Projects.Include(d => d.Donor).Include(c => c.Contractor).
+            return View(await db.Projects.Where(d=>d.GetDate >= DateTime.Now.AddMonths(-months)).Include(d => d.Donor).Include(c => c.Contractor).
                 Include(c => c.Category).Include(e => e.Employee).ToListAsync());
-
-            //return View("indexSS");
         }
+
+     
         private class TempProjectModel
         {
             public string  ManahilSerial { get; set; }
@@ -202,9 +202,12 @@ namespace manahil.Controllers
         {
             try
             {
+                
                 foreach (Project project in projects)
                 {
-                     db.Projects.Add(project);
+                   
+                        db.Projects.Add(project);
+
                 }
                 db.SaveChanges();
                 TempData["Message"] = projects.Count+" projects Add Successfully";
@@ -342,7 +345,7 @@ namespace manahil.Controllers
         {
             ProjectsViewModel projects = new ProjectsViewModel();
             
-            var projectList = await db.Projects.Include(d => d.Donor).
+            var projectList = await db.Projects.Where(d => d.GetDate >= projects.StartDate).Include(d => d.Donor).
                 Include(c => c.Category).Include(c=>c.Contractor).Include(c=>c.Employee).ToListAsync();
             projects.Projects = projectList;
             return View(projects);
@@ -380,6 +383,15 @@ namespace manahil.Controllers
             //DateTime startDateAdd = Convert.ToDateTime(startDate).AddDays(-1);
             DateTime endDateAdd = Convert.ToDateTime(endDate).AddDays(1);
 
+            //if(projectsViewModel.selectedMonths == 999)
+            //{
+            //    startDate = null;
+            //}
+            //else
+            //{
+            //    startDate = DateTime.Now.AddMonths(-Convert.ToInt32(projectsViewModel.selectedMonths));
+            //}
+         
             var query =  db.Projects.Include(d => d.Donor).
                 Include(c => c.Category).Include(c => c.Contractor).Include(e=>e.Employee);
 

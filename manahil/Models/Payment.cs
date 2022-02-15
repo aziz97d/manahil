@@ -14,11 +14,7 @@ namespace manahil.Models
         public int PaymentId { get; set; }
         [MaxLength(500)]
         public string Invoice { get; set; }
-        [Required]
-        [ForeignKey("DonorId")]
-        public int DonorId { get; set; }
-        public virtual Donor Donor { get; set; }
-
+        
         [Required]
         [MaxLength(100)]
         public DateTime PaymentDate { get; set; }
@@ -27,11 +23,17 @@ namespace manahil.Models
         [ForeignKey("ContractorId")]
         public int ContractorId { get; set; }
         public virtual Contractor Contractor { get; set; }
+
+        public string PaymentMethod { get; set; }
+
+        public string Reference { get; set; }
+        
         [Required]
-        public int PaidProjects { get; set; }
+        public float TotalAmount { get; set; }
+        public float Discount { get; set; }
 
 
-        
-        
+
+
     }
 }

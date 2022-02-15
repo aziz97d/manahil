@@ -9,11 +9,24 @@
         background-color: #9efd9e !important;
     }
 </style>
-<p>
+
+<div  class="d-flex justify-content-between">
     <a asp-action="CreateMultiple" class="btn btn-success">Add Projects</a>
-</p>
+    <div class="btn-group">
+        @Html.ActionLink("One Month","index","projects", new { months = 1 },  new { @class = "btn btn-primary" })
+        @Html.ActionLink("Six Months","index","projects", new { months = 6 },  new { @class = "btn btn-primary" })
+        @Html.ActionLink("One Year","index","projects", new { months = 12 },  new { @class = "btn btn-primary" })
+        @Html.ActionLink("All","index","projects", new { months = 999 },  new { @class = "btn btn-primary" })
+        @*<a onclick="getData(1)" class="btn btn-primary active" aria-current="page">One Months</a>
+        <a onclick="getData(6)" class="btn btn-primary">Six Months</a>
+        <a onclick="getData(12)" class="btn btn-primary">One Year</a>
+        <a onclick="getData(999)" class="btn btn-primary">All</a>*@
+    </div>
+</div>
+<br />
+
 <form class="card p-2 table-responsive">
-    
+
     <table id="tbllist" class="display" cellspacing="0" style="font-size:15px" width="100%">
         <thead class="text-nowrap">
             <tr>
@@ -51,8 +64,8 @@
                     @Html.DisplayNameFor(model => model.TamidNumber)
                 </th>
                 @*<th>
-            @Html.DisplayNameFor(model => model.PaymentStatus)
-        </th>*@
+                        @Html.DisplayNameFor(model => model.PaymentStatus)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>
@@ -64,67 +77,67 @@
             {
                 @if (item.EmployeeId == null)
                 {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManahilSerial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Donor.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DonorSerial)
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.GetDate)*@
-                    @if (item.GetDate != null)
-                    {
-                        @item.GetDate?.ToString("dd/MM/yy");
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contractor.Name)
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
-                    @if (item.DistributionDate != null)
-                    {
-                        @item.DistributionDate?.ToString("dd/MM/yy");
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Name)
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.CompletedDate)*@
-                    @if (item.CompletedDate != null)
-                    {
-                        @item.CompletedDate?.ToString("dd/MM/yy");
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TamidNumber)
-                </td>
-                @*<td>
-            @Html.DisplayFor(modelItem => item.PaymentStatus)
-        </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-                <td class="text-nowrap">
-                    <span data-toggle="tooltip" title="Edit!">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
-                    </span>
-                    <span data-toggle="tooltip" title="Delete!">
-                        @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
-                    </span>
-                </td>
-            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManahilSerial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Donor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonorSerial)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.GetDate)*@
+                            @if (item.GetDate != null)
+                            {
+                                @item.GetDate?.ToString("dd/MM/yy");
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contractor.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.DistributionDate)*@
+                            @if (item.DistributionDate != null)
+                            {
+                                @item.DistributionDate?.ToString("dd/MM/yy");
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.CompletedDate)*@
+                            @if (item.CompletedDate != null)
+                            {
+                                @item.CompletedDate?.ToString("dd/MM/yy");
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TamidNumber)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.PaymentStatus)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td class="text-nowrap">
+                            <span data-toggle="tooltip" title="Edit!">
+                                @Html.ActionLink(" ", "Edit", new { id = item.ProjectId }, new { @class = "fas fa-edit btn btn-warning btn-xs" })
+                            </span>
+                            <span data-toggle="tooltip" title="Delete!">
+                                @Html.ActionLink(" ", "Delete", new { Id = item.ProjectId }, new { @class = "far fa-trash-alt btn btn-danger btn-xs" })
+                            </span>
+                        </td>
+                    </tr>
                 }
                 else
                 {
@@ -175,8 +188,8 @@
                             @Html.DisplayFor(modelItem => item.TamidNumber)
                         </td>
                         @*<td>
-                            @Html.DisplayFor(modelItem => item.PaymentStatus)
-                        </td>*@
+                                @Html.DisplayFor(modelItem => item.PaymentStatus)
+                            </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Notes)
                         </td>
@@ -274,7 +287,7 @@
                 "searching": true,
                 "paging": true,
                 //"ordering": true,
-                
+
                 //"info": true,
                 //"iDisplayLength": 10,
                 //"lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
@@ -293,14 +306,18 @@
                 //dom: 'Blfrtip',
                 ////,"fixedHeader": true
             });
+
+
+            getData = (months) => {
+                $.ajax({
+                url: '@Url.Action("index", "Projects")',
+                    data: { months: months },
+                type: 'POST',
+                dataType: 'json'
+            })
+            }
         });
 
-        //$("#btn").click(function () {
-        //     $('#tbllist tr th').bind('click.sorting');
-        //})
-        
-
-                        //$(".search_input").addClass('form-control input-lg col-xs-12');
 
     </script>
 }

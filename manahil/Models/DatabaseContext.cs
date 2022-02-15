@@ -24,7 +24,6 @@ namespace manahil.Models
         
         public DbSet<Contractor> Contractors { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        
         public DbSet<Project> Projects { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ManageDrive> ManageDrives { get; set; }
@@ -34,6 +33,10 @@ namespace manahil.Models
         public DbSet<ManahilMonumental> ManahilMonumentals { get; set; }
         public DbSet<BdDonation> BdDonations { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
+
+        // Updating for payment
+        public DbSet<ProjectPricing> ProjectPricings { get; set; }
+        public DbSet<PaymentDetails> PaymentDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

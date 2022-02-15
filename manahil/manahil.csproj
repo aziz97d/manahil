@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20201015032920_addApprovalProjects.Designer.cs" />
     <Compile Remove="Migrations\20201016045807_addDeposit.cs" />
     <Compile Remove="Migrations\20201016045807_addDeposit.Designer.cs" />
+    <Compile Remove="Migrations\20211228173617_Payment-update.cs" />
+    <Compile Remove="Migrations\20211228173617_Payment-update.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,12 +42,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<manahil.Models.Project>
+@{
+    @*ViewData["TitleHeader"] = "Project Delivery";*@
+    @*Layout = "~/Views/Shared/_AdLayout.cshtml";*@
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <td><button id="buttond" onclick="paymentProjectTable()" class="btn btn-success">Delivered</button></td>
+    </tr>
+    <tr>Total Selected : <p id="showSelectedProject">0</p></tr>
+</table>
+
+@*<button id="button" class="btn btn-success">Distribute</button>*@
+<form class="card p-2 table-responsive">
+    <table id="paymentProjectTable" class="display" cellspacing="0" width="100%">
+        <thead class="text-nowrap">
+            <tr>
+                <th class="d-none"></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManahilSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Donor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonorSerial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contractor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TamidNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="d-none projectidcls">@Html.DisplayFor(modelItem => item.ProjectId)@*<span>@item.ProjectId</span>*@@*<input type="hidden" class="projectidcls" value="@item.ProjectId" />*@</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManahilSerial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Donor.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonorSerial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contractor.Name)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</form>

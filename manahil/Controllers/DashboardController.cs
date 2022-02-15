@@ -19,7 +19,45 @@ namespace manahil.Controllers
         {
             this.db = context;
         }
+        [HttpGet]
         public IActionResult Index()
+        {
+            int todayProjectsDelivered = db.Projects.Count(c => c.CompletedDate == DateTime.Today);
+            int todayProjectsDistribute = db.Projects.Count(c => c.DistributionDate == DateTime.Today);
+            int onGoing = db.Projects.Count(c => c.EmployeeId == null);
+            int total = db.Projects.Count();
+            DashboardViewModel dashboardViewModel = new DashboardViewModel
+            {
+                TodayDeliveredProject = todayProjectsDelivered,
+                //TodayGetProject = db.Projects.Count(c=>c.GetDate == DateTime.Today),
+                TodayDistributeProject = todayProjectsDistribute,
+                OnGoingProject = onGoing,
+                TotalProject = total
+            };
+            List<Donor> donors = db.Donors.ToList();
+            List<Contractor> contractors = db.Contractors.ToList();
+
+            DateTime thisYearFirstDate = Convert.ToDateTime("01/01/2022");
+
+            foreach (Donor donor in donors)
+            {
+                dashboardViewModel.DonorName.Add(donor.Name);
+                dashboardViewModel.TotalProjectByDonor.Add(db.Projects.Where(d=> d.GetDate >= thisYearFirstDate).Count(c=>c.DonorId == donor.DonorId));
+                dashboardViewModel.TotalOnGoingProjectByDonor.Add(db.Projects.Where(d => d.GetDate >= thisYearFirstDate).Count(c => c.DonorId == donor.DonorId && c.EmployeeId == null));
+            }
+            foreach (Contractor contractor in contractors)
+            {
+                dashboardViewModel.ContractorName.Add(contractor.Name);
+                dashboardViewModel.TotalProjectByContractor.Add(db.Projects.Where(d => d.GetDate >= thisYearFirstDate).Count(c => c.ContractorId == contractor.ContractorId));
+                dashboardViewModel.TotalOnGoingProjectByContractor.Add(db.Projects.Where(d => d.GetDate >= thisYearFirstDate).Count(c => c.ContractorId == contractor.ContractorId && c.EmployeeId == null));
+            }
+
+            return View(dashboardViewModel);
+        }
+
+        // not complete yet create for year wise data in dashboard
+        [HttpPost]
+        public IActionResult Index(int showData)
         {
             int todayProjectsDelivered = db.Projects.Count(c => c.CompletedDate == DateTime.Today);
             int todayProjectsDistribute = db.Projects.Count(c => c.DistributionDate == DateTime.Today);
@@ -41,7 +79,7 @@ namespace manahil.Controllers
             foreach (Donor donor in donors)
             {
                 dashboardViewModel.DonorName.Add(donor.Name);
-                dashboardViewModel.TotalProjectByDonor.Add(db.Projects.Count(c=>c.DonorId == donor.DonorId));
+                dashboardViewModel.TotalProjectByDonor.Add(db.Projects.Count(c => c.DonorId == donor.DonorId));
                 dashboardViewModel.TotalOnGoingProjectByDonor.Add(db.Projects.Count(c => c.DonorId == donor.DonorId && c.EmployeeId == null));
             }
             foreach (Contractor contractor in contractors)
@@ -103,11 +141,6 @@ namespace manahil.Controllers
                 dashboardProjects.Add(td);
             }
             }
-            
-            
-            
-
-
 
             return View(dashboardProjects);
 

@@ -48,6 +48,22 @@
 
             </div>
         </div>
+        @*<div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Show Data Last</label>
+                    </div>
+                    <select asp-for="selectedMonths" class="form-control">
+                        <option value="1">One Months</option>
+                        <option value="6">Six Months</option>
+                        <option value="12">One Year</option>
+                        <option value="999">All</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>*@
 
         @*<div class="col-md-2">
             <div class="form-group">
@@ -102,6 +118,9 @@
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().TamidNumber)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Price)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)
                 </th>
             </tr>
@@ -118,6 +137,7 @@
                 <th>Distribute Date</th>
                 <th>Employee</th>
                 <th>Tamid</th>
+                <th>Price</th>
                 <th>Name</th>
             </tr>
         </tfoot>
@@ -165,6 +185,9 @@
                     @Html.DisplayFor(modelItem => item.TamidNumber)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
             </tr>
@@ -207,6 +230,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TamidNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

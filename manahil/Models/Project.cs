@@ -62,6 +62,8 @@ namespace manahil.Models
 
         [Display(Name ="Payment Status")]
         public bool PaymentStatus { get; set; }
+
+        public int? Price { get; set; }
         public string Notes { get; set; }
         [Display(Name="Tamid No")]
         public string TamidNumber { get; set; }

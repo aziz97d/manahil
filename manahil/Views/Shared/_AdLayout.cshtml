@@ -106,324 +106,333 @@
                         </li>
                         @if (User.IsInRole("Management"))
                         {
-                        <li class="nav-header">Management Menu</li>
+                            <li class="nav-header">Management Menu</li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="DepositAccounts" asp-action="DepositView">
-                                <i class="nav-icon fas fa-wallet"></i>
-                                <p>
-                                    Accounts
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Projects Approval
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="ManahilMonumentals" asp-action="ViewMonumental">
-                                <i class="nav-icon fas fa-envelope-open-text"></i>
-                                <p>
-                                    Al Manahil Monumental
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="DepositAccounts" asp-action="DepositView">
+                                    <i class="nav-icon fas fa-wallet"></i>
+                                    <p>
+                                        Accounts
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        Projects Approval
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="ManahilMonumentals" asp-action="ViewMonumental">
+                                    <i class="nav-icon fas fa-envelope-open-text"></i>
+                                    <p>
+                                        Al Manahil Monumental
+                                    </p>
+                                </a>
+                            </li>
                         }
 
                         @if (User.IsInRole("Accounting Manager") || User.IsInRole("Admin"))
                         {
-                        <li class="nav-header">Accounts Menu</li>
+                            <li class="nav-header">Accounts Menu</li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
-                                <i class="nav-icon fas fa-book-open"></i>
-                                <p>
-                                    Projects Approval View
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="ApprovalProjects" asp-action="Index" class="nav-link">
-                                <i class="fas fa-book nav-icon"></i>
-                                <p>Projects Approval</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="DepositAccounts" asp-action="Index" class="nav-link">
-                                <i class="fas fa-wallet nav-icon"></i>
-                                <p>Account Deposit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="ManahilMonumentals" asp-action="Index" class="nav-link">
-                                <i class="fas fa-envelope-open-text nav-icon"></i>
-                                <p>Al Manahil Monumental</p>
-                            </a>
-                        </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="approvalProjects" asp-action="ApprovalProjectsList">
+                                    <i class="nav-icon fas fa-book-open"></i>
+                                    <p>
+                                        Projects Approval View
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="ApprovalProjects" asp-action="Index" class="nav-link">
+                                    <i class="fas fa-book nav-icon"></i>
+                                    <p>Projects Approval</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="DepositAccounts" asp-action="Index" class="nav-link">
+                                    <i class="fas fa-wallet nav-icon"></i>
+                                    <p>Account Deposit</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="ManahilMonumentals" asp-action="Index" class="nav-link">
+                                    <i class="fas fa-envelope-open-text nav-icon"></i>
+                                    <p>Al Manahil Monumental</p>
+                                </a>
+                            </li>
                         }
                         @*@if (User.IsInRole("Donation Manager") || User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item" id="generaltubewell">
-                                    <a asp-controller="BdDonations" asp-action="index" class="nav-link">
-                                        <i class="fas fa-donate nav-icon"></i>
-                                        <p>Bangladesh Donation</p>
-                                    </a>
-                                </li>
-                            }*@
+        {
+            <li class="nav-item" id="generaltubewell">
+                <a asp-controller="BdDonations" asp-action="index" class="nav-link">
+                    <i class="fas fa-donate nav-icon"></i>
+                    <p>Bangladesh Donation</p>
+                </a>
+            </li>
+        }*@
                         @if (User.IsInRole("Admin") || User.IsInRole("Computer Operator"))
                         {
-                        <li class="nav-header">Operator Menu</li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hand-holding-water"></i>
+                            <li class="nav-header">Operator Menu</li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-hand-holding-water"></i>
 
-                                <p>
-                                    Water Well
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                                    <p>
+                                        Water Well
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item" id="generaltubewell">
-                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="1" class="nav-link">
-                                        <i class="fas fa-tint nav-icon"></i>
-                                        <p>General</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="3" class="nav-link">
-                                        <i class="fas fa-tint nav-icon"></i>
-                                        <p>Tiles</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="2" class="nav-link">
-                                        <i class="fas fa-tint nav-icon"></i>
-                                        <p>Deep</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item" id="generaltubewell">
+                                        <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="1" class="nav-link">
+                                            <i class="fas fa-tint nav-icon"></i>
+                                            <p>General</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="3" class="nav-link">
+                                            <i class="fas fa-tint nav-icon"></i>
+                                            <p>Tiles</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="2" class="nav-link">
+                                            <i class="fas fa-tint nav-icon"></i>
+                                            <p>Deep</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="6" class="nav-link">
-                                <i class="nav-icon fas fa-faucet"></i>
-                                <p>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="6" class="nav-link">
+                                    <i class="nav-icon fas fa-faucet"></i>
+                                    <p>
 
-                                    Ablution
-                                    @*<span class="right badge badge-danger">New</span>*@
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="5" class="nav-link">
-                                <i class="nav-icon fas fa-mosque"></i>
-                                <p>
-                                    Mosque
+                                        Ablution
+                                        @*<span class="right badge badge-danger">New</span>*@
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="5" class="nav-link">
+                                    <i class="nav-icon fas fa-mosque"></i>
+                                    <p>
+                                        Mosque
 
-                                </p>
-                            </a>
+                                    </p>
+                                </a>
 
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tasks"></i>
-                                <p>
-                                    All Categories
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                @{
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tasks"></i>
+                                    <p>
+                                        All Categories
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @{
                                         var Categories = IHttpContext.HttpContext.Session.GetObject<List<Category>>("categories");
 
                                         if (Categories != null)
                                         {
                                             foreach (var item in Categories)
                                             {
-                                    <li class="nav-item">
+                                                <li class="nav-item">
 
-                                        <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="@item.CategoryId" class="nav-link">
-                                            <i class="fas fa-tint nav-icon"></i>
-                                            <p>@item.Name</p>
-                                        </a>
-                                    </li>
+                                                    <a asp-controller="Projects" asp-action="CompletedProject" asp-route-id="@item.CategoryId" class="nav-link">
+                                                        <i class="fas fa-tint nav-icon"></i>
+                                                        <p>@item.Name</p>
+                                                    </a>
+                                                </li>
                                             }
                                         }
-                                }
+                                    }
 
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Extra
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="ManageDrives" asp-action="Index">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Drive Account</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Extra
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="ManageDrives" asp-action="Index">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Manage Drive Account</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         }
 
 
                         @if (User.IsInRole("Admin"))
                         {
-                        <li class="nav-header">Admin Menu</li>
+                            <li class="nav-header">Admin Menu</li>
 
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Project
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
-                                        <i class="nav-icon far fa-image"></i>
-                                        <p>
-                                            Projects
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="CreateMultiple">
-                                        <i class="fas fa-plus-circle nav-icon"></i>
-                                        <p>Add Projects</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="DistributionProject">
-                                        <i class="fas fa-minus-circle nav-icon"></i>
-                                        <p>Distribution Project</p>
-                                    </a>
-                                </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        Project
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
+                                            <i class="nav-icon far fa-image"></i>
+                                            <p>
+                                                Projects
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="CreateMultiple">
+                                            <i class="fas fa-plus-circle nav-icon"></i>
+                                            <p>Add Projects</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="DistributionProject">
+                                            <i class="fas fa-minus-circle nav-icon"></i>
+                                            <p>Distribution Project</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="projectPricings" asp-action="index">
+                                            <i class="nav-icon fas fa-book-open"></i>
+                                            <p>
+                                                Project Pricing
+                                            </p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Common
-                                    <i class="fas fa-angle-left right"></i>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Common
+                                        <i class="fas fa-angle-left right"></i>
 
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">
-                                        <i class="fas fa-pencil-ruler nav-icon"></i>
-                                        <p>Country</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">
-                                        <i class="fas fa-pencil-ruler nav-icon"></i>
-                                        <p>City</p>
-                                    </a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">
-                                        <i class="fas fa-pencil-ruler nav-icon"></i>
-                                        <p>Category</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Designations" asp-action="Index">
-                                        <i class="fas fa-pencil-ruler nav-icon"></i>
-                                        <p>Designation</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="PaymentTypes" asp-action="Index">
-                                        <i class="fas fa-pencil-ruler nav-icon"></i>
-                                        <p>Payment Type</p>
-                                    </a>
-                                </li>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Countries" asp-action="Index">
+                                            <i class="fas fa-pencil-ruler nav-icon"></i>
+                                            <p>Country</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Cities" asp-action="Index">
+                                            <i class="fas fa-pencil-ruler nav-icon"></i>
+                                            <p>City</p>
+                                        </a>
+                                    </li>
 
 
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Employee
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Donors" asp-action="Index">
-                                        <i class="fas fa-handshake nav-icon"></i>
-                                        <p>Donor</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">
-                                        <i class="fas fa-user-friends nav-icon"></i>
-                                        <p>Employee</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Contractors" asp-action="Index">
-                                        <i class="fas fa-hands-helping nav-icon"></i>
-                                        <p>Contractor</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>
-                                    Admin
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="Administration" asp-action="Index" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Role</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Administration" asp-action="ListUser" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>User</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Account" asp-action="ForgotPassword" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Forgot Password</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">
+                                            <i class="fas fa-pencil-ruler nav-icon"></i>
+                                            <p>Category</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Designations" asp-action="Index">
+                                            <i class="fas fa-pencil-ruler nav-icon"></i>
+                                            <p>Designation</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="PaymentTypes" asp-action="Index">
+                                            <i class="fas fa-pencil-ruler nav-icon"></i>
+                                            <p>Payment Type</p>
+                                        </a>
+                                    </li>
 
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Employee
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Donors" asp-action="Index">
+                                            <i class="fas fa-handshake nav-icon"></i>
+                                            <p>Donor</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">
+                                            <i class="fas fa-user-friends nav-icon"></i>
+                                            <p>Employee</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Contractors" asp-action="Index">
+                                            <i class="fas fa-hands-helping nav-icon"></i>
+                                            <p>Contractor</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-plus-square"></i>
+                                    <p>
+                                        Admin
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-controller="Administration" asp-action="Index" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Role</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Administration" asp-action="ListUser" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>User</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Account" asp-action="ForgotPassword" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Forgot Password</p>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
 
                         }
 

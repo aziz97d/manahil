@@ -78,13 +78,39 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label asp-for="GetDate" class="control-label"></label>
                             <input asp-for="GetDate" id="getDateD" class="form-control" />
                             <span asp-validation-for="GetDate" class="text-danger"></span>
                         </div>
                     </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label asp-for="DistributionDate" class="control-label"></label>
+                            <input asp-for="DistributionDate" id="DistributionDateD" class="form-control" />
+                            <span asp-validation-for="DistributionDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label asp-for="ContractorId" class="control-label"></label>
+                        <select asp-for="ContractorId" id="contractorD" class="form-control" asp-items="ViewBag.ContractorId" required>
+                            <option value="">- Select Contractor -</option>
+                        </select>
+                        <span asp-validation-for="ContractorId" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" id="priceD" class="form-control" required />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
                 </div>
                 @*text Area*@
                 <!--<div class="row">
@@ -128,6 +154,10 @@
                             <th hidden>CategoryId</th>
                             <th>Tamid</th>
                             <th>Get Date</th>
+                            <th>Contractor</th>
+                            <th hidden>ContractorId</th>
+                            <th>Price</th>
+                            <th>D.Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -188,6 +218,10 @@
                     {
                         "targets": [6],
                         "visible": false
+                    },
+                    {
+                        "targets": [10],
+                        "visible": false
                     }
                 ]
             });
@@ -213,15 +247,25 @@
             var categoryId = $('#categoryD').find(":selected").val();
             var tamidNumbeer = $('#tamidNumberD').val();
             var getDate = $("#getDateD").val();
+
+            var contractor = $('#contractorD').find(":selected").text();
+            var contractorId = $('#contractorD').find(":selected").val();
+            if (!(contractorId > 0)) {
+                contractor = "-"
+            }
+            var price = parseInt($("#priceD").val());
+            var distributeDate = $("#DistributionDateD").val();
+
             if (nameProject == "" || orgSerial == "" || donorId == "" || categoryId == "") {
                 alert("Please fill required field");
                 return;
             }
 
-            table.row.add([manahilSerial, nameProject, orgSerial, donor, donorId, category, categoryId, tamidNumbeer, getDate]).draw();
+            table.row.add([manahilSerial, nameProject, orgSerial, donor, donorId, category, categoryId, tamidNumbeer, getDate, contractor, contractorId, price, distributeDate]).draw();
             $("#manahilSerialD").val("" + (parseInt(manahilSerial) + 1));
             $("#namePorjectD").val("");
             $('tamidNumberD').val(tamidNumbeer);
+            $("#DistributionDateD").val(null);
 
         }
         //Category Change event
@@ -239,8 +283,55 @@
                    $('#manahilSerialD').val(result.Success+1);
                 }
             })
+        })
 
+        //Donor and category Change event for set price
+        function getPriceByDonorAndCategory() {
+            let categoryIdForPrice = $('#categoryD').val();
+            let donorIdForPrice = $('#donorD').val();
+            let contractorIdForPrice = $('#contractorD').val();
+            if (categoryIdForPrice != "" && donorIdForPrice != "") {
+                $.ajax({
+                url: '@Url.Action("GetPriceByCategoryIdAndDonorId", "ProjectPricings")',
+                    data: { categoryId: categoryIdForPrice, donorId: donorIdForPrice, contractorId: contractorIdForPrice  },
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
 
+                    result.Success;
+                    $('#priceD').val(result.Success);
+                }
+            })
+            }
+        }
+
+         $('#categoryD').change(function () {
+            var ctgryId = $('#categoryD').val();
+
+            $.ajax({
+                url: '@Url.Action("GetManahilSerialByCategoryId", "Projects")',
+                data: { categoryId: ctgryId },
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+
+                   result.Success;
+                   $('#manahilSerialD').val(result.Success+1);
+                }
+            })
+
+             // call for price set
+             getPriceByDonorAndCategory();
+         })
+
+        // call for price set
+        $('#donorD').change(function () {
+            getPriceByDonorAndCategory();
+        })
+
+        // call for price set
+        $('#contractorD').change(function () {
+            getPriceByDonorAndCategory();
         })
 
         //Row Edit
@@ -259,18 +350,20 @@
                     ProjectId: 0,
                     ManahilSerial: data[i][0],
                     Name: data[i][1],
-                        DonorSerial: data[i][2],
-                        DonorId: data[i][4],
-                    GetDate: data[i][8],
+                    DonorSerial: data[i][2],
+                    DonorId: data[i][4],
                     CategoryId: data[i][6],
-                    ContractorId:null,
-                    DistributionDate:null,
+                    GetDate: data[i][8],
+                    ContractorId: data[i][10],
+                    DistributionDate: data[i][12],
                     CompletedDate:null,
                     EmployeeId:null,
                     TamidNumber: data[i][7],
-                    PaymentStatus: false
+                    PaymentStatus: false,
+                    Price: data[i][11]
 
-                    };
+                    
+                };
                     projects.push(project);
                // }
             }
@@ -287,7 +380,7 @@
             $.ajax({
                 url: '@Url.Action("CreateMultiple", "Projects")',
 
-                //data: JSON.stringify({ projects: projects }),
+                data: JSON.stringify({ projects: projects }),
                 data: { projects: projects },
                 type: 'POST',
                 //contentType: 'application/json;',
@@ -326,5 +419,5 @@
 
 
     </script>
-    
+
 }

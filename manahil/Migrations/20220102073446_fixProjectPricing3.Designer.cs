@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using manahil.Models;
 
 namespace manahil.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220102073446_fixProjectPricing3")]
+    partial class fixProjectPricing3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -731,9 +733,6 @@ namespace manahil.Migrations
 
                     b.Property<bool>("PaymentStatus")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("Price")
-                        .HasColumnType("int");
 
                     b.Property<string>("TamidNumber")
                         .HasColumnType("nvarchar(max)");
